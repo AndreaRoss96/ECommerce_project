@@ -1,11 +1,11 @@
 <?php
 echo "Ho iniziato";
-session_start();
+//session_start();
 
 // initializing variables
 $errors = array();
 
-$db = mysqli_connect('localhost', 'root', '', 'progettoTWeb');
+$db = mysqli_connect('localhost', 'root', '', 'progettotweb');
 
 // Register user
 if(isset($_POST['register_user'])) { //register_user è il nome del bottone
@@ -30,7 +30,7 @@ if ($password_1 != $password_2) {
 }
 
 //controllo il database per assicurarmi che tale utente non vi sai già registrato
-$user_check = "SELECT * FROM Clienti WHERE matricola='$badgenumber' LIMIT 1";
+$user_check = "SELECT * FROM clienti WHERE matricola='$badgenumber' LIMIT 1";
 $result = mysqli_query($db, $user_check);
 $badgenumber_user = mysqli_fetch_assoc($result);
 
@@ -43,9 +43,9 @@ if($badgenumber_user) {
 //se non si sono presentati errori durante lo svolgimento si procede con la query di inserimento
 if(count($errors) == 0) {
     $password = md5($password_1); //crittograzione della password ;-)
-
-    $query = "INSERT INTO Clienti (nome, cognome, e-mail, password, matricola, telefono) VALUES('$firstname', '$lastname', '$email', '$password', '$badgenumber', '$telephone')"
-    mysqli_ query($db, $query);
+    $query = "INSERT INTO clienti (nome, cognome, email, password, matricola, telefono) VALUES('$firstname', '$lastname', '$email', '$password', '$badgenumber', '$telephone')";
+	echo "sticazzi" . $query;
+    mysqli_query($db, $query);
     $_SESSION['matricola'] = $badgenumber;
     $_SESSION['success'] = "You are now logged in";
     //header(); 
