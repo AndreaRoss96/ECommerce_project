@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<style>
+
+@font-face {
+  font-family: "Atmospherica";
+  src: url("res/Atmospherica Personal Use.ttf");
+}
+
+h1, h2 {
+  text-align: center;
+  font-family: Atmospherica;
+}
+
+.titleParagraph, .subtitleParagraph{
+  padding: 13% 0px 5% 0px;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-align: center;
+  line-height: 50px
+}
+
+.scrollableDiv {
+  width: 100%;
+  padding: auto;
+}
+
+.fixed-bg {
+  background-image: url("../res/billiard-table-bowl-bread-163018.jpg");
+  min-height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* Button effect */
+.btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  font-size: 17px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.joinBtn:hover{
+  color: black;
+  background-color: #3e8e41;
+}
+
+.btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.btn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.btn:hover span {
+  padding-right: 25px;
+}
+/* Button effect end */
+.buttonContainer {
+  width: 100%;
+  padding: auto;
+}
+
+.joinDiv {
+  margin: 20% 0px 5% 0px;
+  padding: 3%;
+  border-top: 3px solid #999999;
+  border-radius: 5px;
+}
+
+p {
+  text-align: center;
+}
+
+i {
+  margin-right: 3px;
+}
+</style>
+</head>
+<body>
+
+<div class="fixed-bg">
+  <h1 class="titleParagraph">
+    Direttamente al tuo banco
+  </h1>
+  <h2 class="subtitleParagraph">
+    A pancia piena si ragiona meglio
+  </h2>
+</div>
+
+<div class="scrollableDiv">
+  <h1>Hai fame?</h1>
+  <div class="buttonContainer">
+    <button class="btn">
+      <i class="fas fa-utensils"></i> <span>Ordina ora</span>
+    </button>
+  </div>
+
+  <div style="width: 100%;">
+    <img src="../res/AlmaMaterStudiorum.png" alt="Logo AlmaMaterStudiorum" style="display: flex; margin: auto; width: 40%; padding: 30px;">
+  </div>
+
+  <div class="joinDiv">
+    <p>Gestisci un'attività e vuoi unirti alla delivery network?</p>
+    <div class="buttonContainer">
+      <button class="btn joinBtn"><i class="far fa-handshake"></i> Unisciti ora</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
