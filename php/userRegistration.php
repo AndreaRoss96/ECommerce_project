@@ -21,7 +21,7 @@ if(isset($_POST['register_user'])) { //register_user è il nome del bottone
     echo $email;
     $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
     echo $password_1;
-    $passwrod_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+    $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 }
 
 //mi assicuro che le due password inserite non siano differenti (il controllo sulla completezza degli altri campi è gestito da bootstrap)
@@ -48,9 +48,10 @@ if(count($errors) == 0) {
     mysqli_query($db, $query);
     $_SESSION['matricola'] = $badgenumber;
     $_SESSION['success'] = "You are now logged in";
-    //header(); 
 } else {
-  echo $error;
+  foreach ($errors as $error) {
+    echo $error;
+  }
 }
 echo "ho finito";
 ?>
