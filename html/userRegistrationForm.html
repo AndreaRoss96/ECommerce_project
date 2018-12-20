@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Registrazione utente</title>
@@ -9,38 +10,41 @@
   </head>
   <body>
     <div id="nav"></div>
-    <form class="border border-light p-5">
-
+    <form action="../php/userRegistration.php" method="post" class="border border-light p-5">
       <p class="text-center h1 mb-4">Registrazione utente</p>
       <p class="text-center h2 mb-4">Compila i seguenti campi</p>
         
       <label for="defaultRegisterFormFirstName">Nome</label>
-      <input type="text" id="defaultRegisterFormFirstName" class="form-control mb-4" placeholder="Mario" required>
+      <input type="text" id="defaultRegisterFormFirstName" class="form-control mb-4" placeholder="Mario" name="firstname" required>
      
       <label for="defaultRegisterFormLastName">Cognome</label>
-      <input type="text" id="defaultRegisterFormLastName" class="form-control mb-4" placeholder="Rossi" required> 
+      <input type="text" id="defaultRegisterFormLastName" class="form-control mb-4" placeholder="Rossi" name="lastname" required> 
+
+      <label for="defaultRegisterBadgeNumber">Numero di matricola</label>
+      <input type="text" id="defaultRegisterBadgeNumber" class="form-control mb-4" placeholder="Matricola" name="badgenumber" required>
 
       <label for="defaultRegisterPhonePassword">Contatto telefonico</label> 
-      <input type="number" id="defaultRegisterPhonePassword" class="form-control mb-4" required> 
+      <input type="number" id="defaultRegisterPhonePassword" class="form-control mb-4" name="telephone" required> 
 
       <label for="defaultRegisterFormEmail">E-mail</label>      
-      <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="mario.rossi@mail.com" required>
+      <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="mario.rossi@mail.com" name="email" required>
 
       <label for="defaultRegisterFormPassword">Password</label> 
-      <input type="password" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="*******" required>
+      <input type="password" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="*******" name="password_1" required>
       
       <label for="defaultRegisterFormPasswordConfirm">Conferma password</label> 
-      <input type="password" id="defaultRegisterFormPasswordConfirm" class="form-control mb-4" placeholder="*******" required>
+      <input type="password" id="defaultRegisterFormPasswordConfirm" class="form-control mb-4" placeholder="*******" name="password_2" required>
 
-      <button class="btn btn-info my-4 btn-block" type="submit">Conferma dati</button>
+      <button class="btn btn-info my-4 btn-block" type="submit" name="register_user">Conferma dati</button>
 
-        
+    </form>
+
       <p class="text-center">Cliccando
           <em>Conferma dati</em> accetti la nostra
           <a href="" target="_blank">Privacy policy</a>
       </p>
 
-    </form>
+    
     <div id="footer"></div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
     
