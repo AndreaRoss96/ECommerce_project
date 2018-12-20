@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/homepage.css">
+</head>
+<body>
+
+<div class="fixed-bg">
+  <h1 class="titleParagraph">
+    Direttamente al tuo banco
+  </h1>
+  <h2 class="subtitleParagraph">
+    A pancia piena si ragiona meglio
+  </h2>
+</div>
+
+<div class="scrollableDiv">
+  <h1>Hai fame?</h1>
+  <div class="buttonContainer">
+    <button class="btn">
+      <i class="fas fa-utensils"></i> <span>Ordina ora</span>
+    </button>
+  </div>
+
+  <div style="width: 100%;">
+    <img src="../res/AlmaMaterStudiorum.png" alt="Logo AlmaMaterStudiorum" style="display: flex; margin: auto; width: 40%; padding: 30px;">
+  </div>
+
+  <div class="joinDiv">
+    <p>Gestisci un'attività e vuoi unirti alla delivery network?</p>
+    <div class="buttonContainer">
+      <button class="btn joinBtn"><i class="far fa-handshake"></i> Unisciti ora</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
