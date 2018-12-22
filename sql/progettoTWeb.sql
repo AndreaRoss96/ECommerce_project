@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 20, 2018 alle 18:56
+-- Creato il: Dic 22, 2018 alle 10:26
 -- Versione del server: 10.3.8-MariaDB
 -- Versione PHP: 5.6.39
 
@@ -31,8 +31,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `clienti` (
   `nome` varchar(20) COLLATE utf8_bin NOT NULL,
   `cognome` varchar(20) COLLATE utf8_bin NOT NULL,
-  `email` varchar(20) COLLATE utf8_bin NOT NULL,
-  `password` varchar(15) COLLATE utf8_bin NOT NULL,
+  `email` varchar(40) COLLATE utf8_bin NOT NULL,
+  `password` varchar(35) COLLATE utf8_bin NOT NULL,
   `matricola` varchar(10) COLLATE utf8_bin NOT NULL,
   `telefono` varchar(13) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -44,7 +44,7 @@ CREATE TABLE `clienti` (
 --
 
 CREATE TABLE `dettaglioordine` (
-  `nomePortata` varchar(20) COLLATE utf8_bin NOT NULL,
+  `idPortata` int(11) NOT NULL,
   `ristP_IVA` varchar(11) COLLATE utf8_bin NOT NULL,
   `idOrdine` int(11) NOT NULL,
   `quantita` int(11) NOT NULL
@@ -64,8 +64,8 @@ CREATE TABLE `fornitori` (
   `descrizione` varchar(255) COLLATE utf8_bin NOT NULL,
   `telefono` varchar(20) COLLATE utf8_bin NOT NULL,
   `indirizzoMaps` varchar(100) COLLATE utf8_bin NOT NULL,
-  `email` varchar(25) COLLATE utf8_bin NOT NULL,
-  `password` varchar(15) COLLATE utf8_bin NOT NULL,
+  `email` varchar(40) COLLATE utf8_bin NOT NULL,
+  `password` varchar(35) COLLATE utf8_bin NOT NULL,
   `orarioApertura` varchar(5) COLLATE utf8_bin NOT NULL,
   `orarioChiusura` varchar(5) COLLATE utf8_bin NOT NULL,
   `approvazioneAmministratore` tinyint(1) NOT NULL DEFAULT 0
@@ -149,6 +149,12 @@ CREATE TABLE `tagportata` (
 --
 ALTER TABLE `clienti`
   ADD PRIMARY KEY (`matricola`);
+
+--
+-- Indici per le tabelle `dettaglioordine`
+--
+ALTER TABLE `dettaglioordine`
+  ADD PRIMARY KEY (`idPortata`,`ristP_IVA`,`idOrdine`);
 
 --
 -- Indici per le tabelle `fornitori`
