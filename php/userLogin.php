@@ -10,7 +10,7 @@ $password = $_POST['password'];
 $password = md5($password);
 $query = "SELECT * FROM clienti WHERE email='$usermail' AND password='$password'";
 $results = mysqli_query($db, $query);
-
+echo $usermail . "<br>" . $password . "<br>";
 if (mysqli_num_rows($results) == 1) {
   $_SESSION['email'] = $usermail;
   $_SESSION['success'] = "You are now logged in";
