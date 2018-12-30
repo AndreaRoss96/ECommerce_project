@@ -9,11 +9,28 @@ $(document).ready(function () {
 			$(this).siblings().removeClass("bg-info");
 			//aggiungo la classe highlight all'elemento selezionato.
 			$(this).addClass("bg-info");
-			values = $(this).children("td");
-			for(i=0; i < values.length; i++) {
-				$("form").find("input").eq(i).val(values.eq(i).text());
-			}
+			var tdEls = $(this).children("td");
+			
+			var tags = tdEls.eq(2).text().split(";");
+			var i = 0;
+			var j = 0;
+			var headerRow;
+			$(".list-group").children().removeClass("active");
+			$("#headerRow").children("th").each(function (i) {
+				j = 0;
+				if (i > 0) {
+					headerRow = "#default" + $(this).text().replace(" ","");
+					if (headerRow.includes("TagFood")) {
+						while(j < tags.length) {
+							$(".list-group").children("#defaultTagFood:contains(" + tags[j].trim() + ")").addClass("active");
+							j++;
+						}
+					} else {
+						$("body").find(headerRow).val(tdEls.eq(i - 1).val());
+					}
+				}
+			});
+			
 		}
-		//fillForm();
 	});
 });
