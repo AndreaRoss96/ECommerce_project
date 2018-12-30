@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../css/navbar.css">
 	<link rel="stylesheet" href="../css/listgroup.css">
-	<!-- <link rel="stylesheet" href="../css/table.css"> -->
+	<!--<link rel="stylesheet" href="../css/table.css">-->
   </head>
   <body>
     <div id="nav"></div>
@@ -17,22 +17,22 @@
 	<div class="row">
 		<div class="col">
 			<div class="container-fluid">
-				<form action="../php/supplierRegistration.php" method="post" class="border border-light p-5">
+				<form action="../php/foodManager.php" method="post" class="border border-light p-5">
 					<div class="row">
-						<div class="col">  
+						<div class="col col-xs-4">  
 							<label for="defaultFoodName">Nome pietanza</label>
 							<input type="text" name="nomePietanza" id="defaultFoodName" class="form-control mb-4" placeholder="Bucatini all'amatriciana" required>
 						</div>
 					</div>
-					<!--
-					<label for="defaultRegisterFormPIVA">Partita IVA</label>
-					<input type="number" name="P_IVA" id="defaultRegisterFormPIVA" class="form-control mb-4" required> 
-					-->
 					<div class="row">
-						<div class="col">
-							<label for="defaultIngredientFood">Aggiungi ingrediente</label>
+						<div class="col col-xs-4">
+							<div class="form-group">
+								<label for="defaultIngredientsFood">Ingredienti:</label>
+								<textarea name="ingredienti" class="form-control" rows="3" id="defaultIngredientsFood" required></textarea>
+							</div>
 						</div>
 					</div>
+					<!--
 					<div class="row">
 						<div class="col col-xs-4">
 							<input type="text" name="nomeIngrediente" id="defaultIngredientFood" class="form-control mb-4" placeholder="singolo ingrediente">
@@ -41,26 +41,45 @@
 								<button type="button" id="btnInsertIngredient" class="btn btn-success">+</button>
 						</div>
 					</div>
+					-->
 					<div class="row">
-						<div class="col">
-							<label for="defaultIngredientFood">Ingredienti: </label>
+						<div id="list-group-tags" class="col col-xs-4">
+							<label for="defaultTagFood">Tag: </label>
 							<div class="list-group mb-4">
-							  <!-- <a href="#" id="item-list-group" class="py-1 list-group-item list-group-item-action active"></a>-->
+							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Antipasto</a>
+							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Primo</a>
+							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Secondo</a>
+							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Contorno</a>
+							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Dessert</a>
+							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Carne</a>
+							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Vegano</a>
+							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Pesce</a>
 							</div>
-							<input type="text" hidden="true" name="ingredientiOpzionale" id="optionalIngredientsFood" class="form-control mb-4" placeholder="ingredienti..">
+							<input type="text" hidden="true" name="tags" id="tagsFood" class="form-control mb-4" placeholder="ingredienti..">
 						</div>
 					</div>
-					
 					<div class="row">
-						<div class="col">
+						<div class="col col-xs-4">
 							<label for="defaultPriceFood">Prezzo</label> 
 							<input type="number" name="prezzo" id="defaultPriceFood" class="form-control mb-4" required>
 					   </div>
 				   </div>
-				   
+				   <input type="number" name="P_IVA" id="defaultRegisterFormPIVA" class="form-control mb-4" value="1234567890" hidden>
 				   <div class="row">
-						<div class="col">
-							<button class="btn btn-info my-4 btn-block" type="submit">Conferma dati</button>
+						<div class="col col-xs-4">
+							<button class="btn btn-info my-4 btn-block bg-success" name="aggiungi" type="submit">
+								<i class="fa fa-plus-circle" > Aggiungi</i> 
+							</button>
+						</div>
+						<div class="col col-xs-4">
+							<button class="btn btn-info my-4 btn-block" name="modifica" type="submit">
+								<i class="fa fa-pencil-square" > Modifica</i> 
+							</button>
+						</div>
+						<div class="col col-xs-4">
+							<button class="btn btn-info my-4 btn-block bg-danger" name="elimina" type="submit">
+								<i class="fa fa-trash"> Elimina</i>
+							</button>
 						</div>
 				   </div>
 				</form>
@@ -72,24 +91,27 @@
 					<table class="table table-bordered" id="foodTable">
 						<caption>Lista delle pietanze del tuo ristorante.</caption>
 						<thead>
-							<tr>
+							<tr id="headerRow">
 							  <th scope="col">#</th>
-							  <th scope="col">Nome</th>
-							  <th scope="col">Descrizione</th>
-							  <th scope="col">Prezzo</th>
+							  <th scope="col">Food Name</th>
+							  <th scope="col">Ingredients Food</th>
+							  <th scope="col">Tag Food</th>
+							  <th scope="col">Price Food</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr class="clickable-row">
 							  <th scope="row">2</th>
 							  <td>Hamburger</td>
-							  <td>Carne di manzo; cipolla; insalata; pomodoro; pane con sesamo.</td>
+							  <td>Carne di manzo, cipolla, insalata, pomodoro, pane con sesamo.</td>
+							  <td>Secondo; Carne</td>
 							  <td>10</td>
 							</tr>
 							<tr class="clickable-row">
 							  <th scope="row">3</th>
 							  <td>Spaghetti aglio oglio e peperoncino</td>
-							  <td>Pasta; aglio; olio; peperoncino</td>
+							  <td>Pasta, aglio, olio, peperoncino.</td>
+							  <td>Primo; Vegano</td>
 							  <td>5</td>
 							</tr>
 						</tbody>
