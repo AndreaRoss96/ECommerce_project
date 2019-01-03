@@ -10,7 +10,7 @@
   </head>
   <body>
     <div id="nav"></div>
-    <form action="../php/supplierRegistration.php" method="post" class="border border-light p-5">
+    <form id="form" action="../php/supplierRegistration.php" onsubmit="return registrationFormHash()" method="POST" class="border border-light p-5">
 
         <p class="text-center h1 mb-4">Registrazione fornitore</p>
         <p class="text-center h2 mb-4">Compila i seguenti campi</p>
@@ -28,7 +28,7 @@
        <input type="text" name="cognomeReferente" id="defaultRegisterFormRepresentativeLastName" class="form-control mb-4" placeholder="Rossi" required> 
 
        <label for="defaultRegisterPhonePassword">Contatto telefonico</label> 
-       <input type="number" name="telefono" id="defaultRegisterPhonePassword" class="form-control mb-4" required> 
+       <input type="tel" name="telefono" id="defaultRegisterPhonePassword" class="form-control mb-4" required> 
 		
 	   <label for="defaultRegisterFormAddress">Indirizzo</label>
        <input type="text" name="indirizzo" id="defaultRegisterFormAddress" class="form-control mb-4" placeholder="Via Mario Rossi, 1" required> 
@@ -45,13 +45,13 @@
 	   <label for="defaultRegisterFormEmail">E-mail</label>      
        <input type="email" name="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="mario.rossi@mail.com" required>
 
-       <label for="defaultRegisterFormPassword">Password</label> 
+     <label for="defaultRegisterFormPassword">Password</label> 
        <input type="password" name="password" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="*******" required>
         
-       <label for="defaultRegisterFormPasswordConfirm">Conferma password</label> 
+     <label for="defaultRegisterFormPasswordConfirm">Conferma password</label> 
        <input type="password" name="confermaPassword" id="defaultRegisterFormPasswordConfirm" class="form-control mb-4" placeholder="*******" required>
 
-       <button class="btn btn-info my-4 btn-block" type="submit">Conferma dati</button>
+       <button class="btn btn-info my-4 btn-block" type="submit" name="register_supplier">Conferma dati</button>
 
           
        <p class="text-center">Cliccando
@@ -60,6 +60,7 @@
        </p>
     </form> 
     <div id="footer"></div>
+    <script src = "../script/forms.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

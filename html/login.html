@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="nav"></div>
-    <form action="../php/userLogin.php" method="post" class="border border-light mt-5 p-5">
+    <form id="form" action="../php/processLogin.php" onsubmit="return loginFormHash()" method="POST" class="border border-light mt-5 p-5">
 
         <p class="h4 mb-4 text-center">Login</p>
 
@@ -18,6 +18,13 @@
 
         <label for="defaultLoginFormPassword">Password</label>
         <input id="defaultLoginFormPassword" class="form-control mb-4" placeholder="*********" type="password" name="password" required>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="iAmSupplier" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            Sono un fornitore
+          </label>
+        </div>
 
         <button class="btn btn-info btn-block my-4" type="submit" name="login_user">Accedi</button>
 
@@ -29,6 +36,7 @@
 
     </div>
     <div id="footer"></div>
+    <script src="../script/forms.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
