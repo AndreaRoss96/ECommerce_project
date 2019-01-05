@@ -5,7 +5,6 @@ $stmt->bind_param("s", $_GET["p_iva"]);
 $stmt->execute();
 $stmt->bind_result($nomeRistorante, $descrizione, $telefono, $indirizzoMaps, $email, $orarioApertura, $orarioChiusura);
 $row = $stmt->fetch();
-echo $nomeRistorante . " <- nome del ristorante <br>";
 $stmt->close();
 ?>
 <!DOCTYPE html>
@@ -13,14 +12,14 @@ $stmt->close();
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
   <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
 
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <style>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<style>
 .mb-3 {
   padding: 0px 0px 15px;
   border-left: none;
@@ -60,11 +59,21 @@ h2, h3 {
   cursor: pointer;
 }
 
+.product-name-container {
+  font-family: bree serif;
+  font-size: 120%;
+}
+
+.product-description-container {
+  font-size: 80%;
+  font-family: roboto;
+}
+
 .product-price-container { /*lista dei cibi a seconda della categoria */
   width: 100%;
   text-align: right;
 }
-  </style>
+</style>
 </head>
 <body>
   <div class="card mb-3">
@@ -90,34 +99,110 @@ h2, h3 {
 
     <h3>Orario</h3>
     <select name="sources" id="sources" class="custom-select sources" placeholder="A che ora?">
-      <option value="time">12:00 - 12:10</option>
-      <option value="time">12:10 - 12:20</option>
-      <option value="time">12:20 - 12:30</option>
-      <option value="time">12:30 - 12:40</option>
-      <option value="time">12:40 - 12:50</option>
-      <option value="time">12:50 - 13:00</option>
-      <option value="time">13:00 - 13:10</option>
-      <option value="time">13:10 - 13:20</option>
-      <option value="time">13:20 - 13:30</option>
-      <option value="time">13:30 - 13:40</option>
-      <option value="time">13:50 - 14:00</option>
+      <?php
+        $orarioTmp = $orarioApertura;
+        while ($orarioTmp != $orarioChiusura) {
+          $toPrint = "<option value=\"time\">" . $orarioTmp . " - ";
+          $minutesTmp = (int) $orarioTmp[3] + 1; //aumento il valore dei minuti es. 12:10 -> 12:20
+          $hourTmp = (int) substr($orarioTmp, 0, 2);
+          if ($minutesTmp == 6) {
+            $minutesTmp = 0;
+            $hourTmp = $hourTmp + 1;
+          }
+          $orarioTmp[3] = $minutesTmp;
+          $orarioTmp[0] = substr($hourTmp, 0, 1);
+          $orarioTmp[1] = substr($hourTmp, 1, 1);
+          $toPrint .= $orarioTmp . "</option>";
+          echo $toPrint;
+        }
+      ?>
     </select>
   </div>
   <div class="menu">
     <div class="row">
     <div class="col-4">
       <div class="list-group" id="list-tab" role="tablist">
+        <!--
+        $conn = new mysqli('localhost', 'root', '', 'progettotweb');
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $tagArray = array();
+
+        $query = "SELECT * FROM tag";
+        $result = $conn->query($query);
+        $isActive = 1;
+        while ($row = $result->fetch_assoc()) {
+            $tagArray[] = $row;
+            $toPrint = "<a class="list-group-item list-group-item-action";
+            if(isActive) {
+              $toPrint .= "active";
+              $isActive = 0;
+            }
+            $toPrint .= "\" id=\"list-" . $row . "-list\" data-toggle=\"list\" href=\"#list-" . $row . "\" role=\"tab\" aria-controls=\"" . $row . "\">" . $row . "</a>;
+            echo $toPrint;
+        }
+        $conn->close();
+      -->
         <a class="list-group-item list-group-item-action active" id="list-starter-list" data-toggle="list" href="#list-starter" role="tab" aria-controls="starter">Antipasti</a>
         <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-first" role="tab" aria-controls="first">Primi</a>
         <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-meat" role="tab" aria-controls="meat">Carne</a>
         <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-fish" role="tab" aria-controls="fish">Pesce</a>
         <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-sweet" role="tab" aria-controls="sweet">Dolci</a>
+
+        <!-- fino a qui fatto in php-->
       </div>
     </div>
     <div class="col-8">
       <div class="tab-content" id="nav-tabContent">
+        <!--
+        $isActive = 1;
+        for ($j = 0; $j < count($tagArray); $j++) {
+          $toPrint = "<div class=\"tab-pane fade show";
+          if(isActive) {
+            $toPrint .= "active";
+            $isActive = 0;
+          }
+          $toPrint .= "id=\"list-" . $tagArray[$j] . "\" role=\"tabpanel\" aria-labelledby=\"list-" . $tagArray[$j] . "-list\">";
+          echo $toPrint;
+          ?>
+          codice html che hai fatto sotto
+          < php
+          echo "</div>";
+          }
+          ?>
+      -->
         <div class="tab-pane fade show active" id="list-starter" role="tabpanel" aria-labelledby="list-starter-list">
           <ul class="list-group list-group-flush">
+            <?php
+              $conn = new mysqli('localhost', 'root', '', 'progettotweb');
+              if ($conn->connect_error) {
+                  die("Connection failed: " . $conn->connect_error);
+              }
+
+              $query = "SELECT nome, portata.descrizione, prezzo FROM portata JOIN fornitori ON fornitori.P_IVA = portata.ristP_IVA";
+              $result = $conn->query($query);
+
+              while ($row = $result->fetch_assoc()) {
+                echo "<li class=\"list-group-item\">
+                          <div class=\"product-container\">
+                            <div class=\"product-info-container\">
+                            <div class = \"product-name-container\">".
+                              $row["nome"] .
+                            "</div>
+                            <div class = \"product-description-container\"> " .
+                              $row["descrizione"] .
+                            "</div>
+                            </div>
+                            <div class=\"product-price-container\">".
+                              $row["prezzo"] .
+                            "</div>
+                          </div>
+                        </li>";
+              }
+              $conn->close();
+            ?>
             <li class="list-group-item">
               <div class="product-container">
                 <div class="product-info-container">
