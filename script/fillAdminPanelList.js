@@ -8,7 +8,7 @@ $(document).ready(function getSuppliers(){
         },
         dataType: "json",
         success: function (response)  // this is the response from  url: "query.php",
-        {   
+        { 
             $("tbody > tr").remove();
             var newEl="";
             var statoApprovazione = 0;
@@ -51,8 +51,9 @@ $(document).ready(function getSuppliers(){
         },
         error:function (xhr, ajaxOptions, thrownError)
        {
-        $("tbody > tr").remove();
-
+        $("div.table-responsive").remove();
+        $("p").remove();
+        $("div#nav").after().append("<p>Autorizzazioni non sufficienti</p>");
        }
     });
     $(document).off().on("click",".btn-dark",function(){

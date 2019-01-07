@@ -7,20 +7,30 @@
     }
     secure_session_start();
     if(login_check($conn)){
-        if(isset($_SESSION["approvazioneAmministratore"])){
+        if($_SESSION['type'] == SUPPLIER){
             echo json_encode(array(
+                "Tipo" => $_SESSION['type'],
                 "Email" => $_SESSION['email'],
-                "Nome ristorante" => $_SESSION['restaurantName'],
-                "Nome referente" => $_SESSION['referenceName'],
-                "Cognome referente" => $_SESSION['referenceSurname']
+                "Nome" => $_SESSION['referenceName'],
+                "Cognome" => $_SESSION['referenceSurname'],
+                "Ristorante" => $_SESSION['restaurantName']
+            ));
+        }
+        elseif($_SESSION['type'] == CLIENT){
+            echo json_encode(array(
+                "Tipo" => $_SESSION['type'],
+                "Email" => $_SESSION['email'],
+                "Nome" => $_SESSION['name'],
+                "Cognome" => $_SESSION['surname']
             ));
         }
         else{
             echo json_encode(array(
-                "Email" => $_SESSION['email'],
-                "Nome utente" => $_SESSION['name'],
-                "Cognome utente" => $_SESSION['surname']
-            ));
+                "Tipo" => $_SESSION['type'],
+                "Username" => $_SESSION['email'],
+                "Nome" => $_SESSION['name'],
+                "Cognome" => $_SESSION['surname']
+            )); 
         }
         
     }

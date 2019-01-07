@@ -1,10 +1,13 @@
 $(document).ready(function(){
-      $("#nav").load("jquery/nav.html");
+      $("#nav").load("jquery/nav.html",function(){
+        $("#userButton").empty().append("<i class='fa fa-user fa-2x' title='Login'></i> Login");
+        $(".alert").hide();
+      });
       jQuery.ajax({
         type: "POST",
         url: "../php/loginInformations.php", 
         dataType: "json",
-        success: function (response)  // this is the response from  url: "query.php",
+        success: function (response)
         { var userInfoCollapse = "<div class='collapse' id='userInfoCollapse'>"
                                   +"<div id='userInfo' class='card card-body'>";
                             
@@ -13,8 +16,9 @@ $(document).ready(function(){
           });
                           
             userInfoCollapse = userInfoCollapse +"</div>" + "</div>";
-            var button = $("#userButton");
             $("nav").after(userInfoCollapse);
+            var button = $("#userButton");
+            $("#userButton").empty().append("<i class='fa fa-user fa-2x' title='Login'></i> "+response.Nome+" "+response.Cognome);
             button.removeAttr("href");
             button.attr("data-toggle","collapse")
             button.attr("href","#userInfoCollapse");
@@ -25,16 +29,19 @@ $(document).ready(function(){
                               +"<button type='submit' class='btn btn-info'>Logout</button>"
                               +" </form>";
             $("#userInfo > p").last().after(logoutButton);
-
+          //alert(userInfoCollapse);
            
         },
        
         error:function (xhr, ajaxOptions, thrownError)
        {
-         //alert(thrownError);
          var button = $("#userButton");
          button.removeAttr("href");
-         button.attr("href","login.html");
+         button.attr("href","../html/userSupplierLogin.html");
+         button.removeAttr("data-toggle","collapse")
+         button.removeAttr("role","button");
+         button.removeAttr("aria-expanded","false");
+         button.removeAttr("aria-controls","userInfoCollapse"); 
        }
     });
 });

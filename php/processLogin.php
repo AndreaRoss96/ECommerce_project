@@ -10,18 +10,26 @@ if(isset($_POST['usermail'],$_POST['password'])){
   secure_session_start();
   $email = $_POST['usermail'];
   $password = $_POST['p1'];
-  if(!isset($_SESSION["login_string"])){
+  if(!login_check($conn)){
       if(isset($_POST["iAmSupplier"])){
         supplierLogin($email,$password,$conn);
+      }
+      elseif(isset($_POST['iAmAdmin'])){
+        adminLogin($email,$password,$conn);
       }
       else{
         clientLogin($email,$password,$conn);
       }
   }
   else{
-    if(login_check($conn)){
-      echo "Login già effettuato dall' utente ".$_SESSION["email"];
+    $_SESSION['alreadyLogged'] = true;
+    if(isset($_POST["iAmAdmin"])){
+      header('Location: ../html/adminLogin.html');
     }
+    else{
+      header('Location: ../html/userSupplierLogin.html');
+    }
+    exit;
   }
 }
 ?>

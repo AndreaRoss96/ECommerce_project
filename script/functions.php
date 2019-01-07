@@ -1,4 +1,6 @@
 <?php
+include('types.php');
+
 function secure_session_start() {
         $session_name = 'sec_session_id'; // Imposta un nome di sessione
         $secure = false; // Imposta il parametro a true se vuoi usare il protocollo 'https'.
@@ -23,19 +25,31 @@ function supplierLogin($email,$password,$conn){//da sistemare
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
 
         $_SESSION['email'] = $email;
+
         $_SESSION['restaurantName'] = $nomeRistorante;
+
         $_SESSION['referenceName'] = $nomeReferente;
+
         $_SESSION['referenceSurname'] = $cognomeReferente;
-        $_SESSION['approvazioneAmministratore'] = $approvazioneAmministratore;
+
+        $_SESSION['adminApprovation'] = $approvazioneAmministratore;
+
+        $_SESSION['type'] = SUPPLIER;
+
         $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
-        echo "supplier login ok";
-      //  echo $_SESSION['email'].$_SESSION['restaurantName'].$_SESSION['referenceName'].$_SESSION['referenceSurname'];
+
       }
       else{
-        echo "still not approved";
+        $_SESSION['approvationError'] = true;
+       // echo "still not approved";
+        header('Location: ../html/userSupplierLogin.html');
+        exit;
       }
     }else {
-      echo "wrong username/password combination2";
+      $_SESSION['loginError'] = true;
+      header('Location: ../html/userSupplierLogin.html');
+      exit;
+      //echo "wrong username/password combination2";
     } 
 }
 function clientLogin($email,$password,$conn){
@@ -49,31 +63,70 @@ function clientLogin($email,$password,$conn){
     if ($stmt->num_rows == 1 && $password == $db_password) {
       $user_browser = $_SERVER['HTTP_USER_AGENT'];
 
+      $_SESSION['email'] = $email;
+
       $_SESSION['name'] = $nome;
 
       $_SESSION['surname'] = $cognome;
 
-      $_SESSION['email'] = $email;
+      $_SESSION['type'] = CLIENT;
 
       $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
-      echo "client login ok";
-     // echo $_SESSION['email'].$_SESSION['name'].$_SESSION['surname'];
+
+      header('Location: ../html/userSupplierLogin.html');
+      exit;
     }else {
-      echo "wrong username/password combination";
+      //echo "wrong username/password combination";
+      $_SESSION['loginError'] = true;
+      header('Location: ../html/userSupplierLogin.html');
+      exit;
     } 
+}
+function adminLogin($username,$password,$conn){
+  $stmt = $conn->prepare("SELECT nome, cognome, password, salt FROM amministratori WHERE username = ? LIMIT 1");
+  $stmt->bind_param('s', $username); // esegue il bind del parametro '$email'.
+  $stmt->execute(); // esegue la query appena creata.
+  $stmt->store_result();
+  $stmt->bind_result($nome, $cognome, $db_password, $salt); // recupera il risultato della query e lo memorizza nelle relative variabili.
+  $stmt->fetch();
+  $password = hash('sha512', $password.$salt);
+  if ($stmt->num_rows == 1 && $password == $db_password) {
+    $user_browser = $_SERVER['HTTP_USER_AGENT'];
+
+    $_SESSION['email'] = $username;
+
+    $_SESSION['name'] = $nome;
+
+    $_SESSION['surname'] = $cognome;
+
+    $_SESSION['type'] = ADMIN;
+
+    $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
+
+    header('Location: ../html/adminPanel.html');
+    exit;
+  }else {
+    $_SESSION['loginError'] = true;
+    header('Location: ../html/adminLogin.html');
+    exit;
+    //echo "wrong username/password combination";
+  } 
 }
 
 function login_check($conn) {
   // Verifica che tutte le variabili di sessione siano impostate correttamente
-  if(isset($_SESSION['email'],  $_SESSION['login_string'])) {
+  if(isset($_SESSION['email'],$_SESSION['type'],  $_SESSION['login_string'])) {
     $email = $_SESSION['email'];
     $login_string = $_SESSION['login_string'];    
     $user_browser = $_SERVER['HTTP_USER_AGENT']; // reperisce la stringa 'user-agent' dell'utente.
-    if(isset($_SESSION["approvazioneAmministratore"])){
+    if($_SESSION['type'] == SUPPLIER){
       $query="SELECT password FROM fornitori WHERE email = ? LIMIT 1";
     }
-    else{
+    elseif($_SESSION['type'] == CLIENT){
       $query="SELECT password FROM clienti WHERE email = ? LIMIT 1";
+    }
+    else{
+      $query="SELECT password FROM amministratori WHERE username = ? LIMIT 1";
     }
     if ($stmt = $conn->prepare($query)) { 
        $stmt->bind_param('s', $email); // esegue il bind del parametro '$user_id'.
