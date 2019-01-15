@@ -33,9 +33,6 @@ function registrationFormHash() {
     p2.value = hex_sha512(confermaPassword.value);
     // Assicurati che la password non venga inviata in chiaro.
     confermaPassword.value = "";
-    // Come ultimo passaggio, esegui il 'submit' del form.
-    form.submit();
-    return false;
  }
 
  function loginFormHash(){
@@ -53,9 +50,6 @@ function registrationFormHash() {
      alert(password.value);
      alert(p1.value);
      password.value = "";
-    
-     form.submit();
-     return false;
  }
 
  include('../script/sha512.js');

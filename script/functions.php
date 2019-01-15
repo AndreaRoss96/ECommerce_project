@@ -42,15 +42,13 @@ function supplierLogin($email,$password,$conn){//da sistemare
       else{
         $_SESSION['approvationError'] = true;
        // echo "still not approved";
-        header('Location: ../html/userSupplierLogin.html');
-        exit;
       }
     }else {
       $_SESSION['loginError'] = true;
-      header('Location: ../html/userSupplierLogin.html');
-      exit;
       //echo "wrong username/password combination2";
     } 
+    header('Location: ../html/userSupplierLogin.html');
+    exit;
 }
 function clientLogin($email,$password,$conn){
     $stmt = $conn->prepare("SELECT nome,cognome, password, salt FROM clienti WHERE email = ? LIMIT 1");
@@ -73,14 +71,12 @@ function clientLogin($email,$password,$conn){
 
       $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
 
-      header('Location: ../html/userSupplierLogin.html');
-      exit;
     }else {
       //echo "wrong username/password combination";
       $_SESSION['loginError'] = true;
-      header('Location: ../html/userSupplierLogin.html');
-      exit;
-    } 
+    }
+    header('Location: ../html/userSupplierLogin.html');
+    exit; 
 }
 function adminLogin($username,$password,$conn){
   $stmt = $conn->prepare("SELECT nome, cognome, password, salt FROM amministratori WHERE username = ? LIMIT 1");

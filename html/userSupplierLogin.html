@@ -10,6 +10,7 @@
   <body>
     <div id="nav"></div>
     <div class="alert alert-danger" role="alert"></div>
+    <div class="alert alert-success" role="alert"></div>
     <form id="form" action="../php/processLogin.php" onsubmit="return loginFormHash()" method="POST" class="border border-light mt-5 p-5">
 
         <p class="h4 mb-4 text-center">Login</p>
@@ -45,7 +46,9 @@
     </div>
     <div class="text-center">
       <p>Sei un amministratore? </br>
-          <button class="btn btn-info  my-4" type="submit">Login amministratore</button>
+        <form action="adminLogin.html">
+            <button class="btn btn-info  my-4" type="submit">Login amministratore</button>
+          </form>
       </p>
 
   </div>
@@ -59,6 +62,6 @@
     <script src="../script/forms.js"></script>
     <script src="jquery/getNav.js"></script>
     <script src="jquery/getFooter.js"></script>
-    <script src="../script/showLoginProblems.js"></script>
+    <script src="../script/showLoginStatus.js"></script>
   </body>
 </html>

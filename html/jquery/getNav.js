@@ -1,7 +1,6 @@
 $(document).ready(function(){
       $("#nav").load("jquery/nav.html",function(){
         $("#userButton").empty().append("<i class='fa fa-user fa-2x' title='Login'></i> Login");
-        $(".alert").hide();
       });
       jQuery.ajax({
         type: "POST",
@@ -25,9 +24,13 @@ $(document).ready(function(){
             button.attr("role","button");
             button.attr("aria-expanded","false");
             button.attr("aria-controls","userInfoCollapse"); 
-            var logoutButton="<form action='../php/logout.php'>"
+            var logoutButton = "<form action='../php/logout.php'>"
                               +"<button type='submit' class='btn btn-info'>Logout</button>"
                               +" </form>";
+            var changePasswordButton ="<form action='passwordChange.html'>"
+                                      +"<button type='submit' class='btn btn-info'>Cambia password</button>"
+                                      +" </form>";
+            $("#userInfo > p").last().after(changePasswordButton);
             $("#userInfo > p").last().after(logoutButton);
           //alert(userInfoCollapse);
            
