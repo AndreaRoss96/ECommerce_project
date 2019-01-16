@@ -20,11 +20,11 @@ Galde:
 Sistema di notifiche.
 listRestaurant
 foodInsertForm
-carrello (?)
 
 Rosso:
 Sistema di notifiche.
 restaurant
+carrello
 
 Coro:
 Login cliente e fornitore.
