@@ -1,7 +1,8 @@
 <?php
 $con = mysqli_connect('localhost', 'root', '', 'progettotweb');
+$p_iva = $_GET["p_iva"];
 $stmt = $con->prepare('SELECT nomeRistorante, descrizione, telefono, indirizzoMaps, email, orarioApertura, orarioChiusura FROM fornitori WHERE P_IVA=?');
-$stmt->bind_param("s", $_GET["p_iva"]);
+$stmt->bind_param("s", $p_iva);
 $stmt->execute();
 $stmt->bind_result($nomeRistorante, $descrizione, $telefono, $indirizzoMaps, $email, $orarioApertura, $orarioChiusura);
 $row = $stmt->fetch();
@@ -168,7 +169,7 @@ h2, h3 {
           echo $toPrint;
           ?>
           codice html che hai fatto sotto
-          < php
+          < ?php
           echo "</div>";
           }
           ?>
@@ -176,34 +177,37 @@ h2, h3 {
         <div class="tab-pane fade show active" id="list-starter" role="tabpanel" aria-labelledby="list-starter-list">
           <ul class="list-group list-group-flush">
             <?php
+            //probabilmente questa connessione non serve **********************************************************************************************************
               $conn = new mysqli('localhost', 'root', '', 'progettotweb');
               if ($conn->connect_error) {
                   die("Connection failed: " . $conn->connect_error);
               }
 
-              $query = "SELECT nome, portata.descrizione, prezzo FROM portata JOIN fornitori ON fornitori.P_IVA = portata.ristP_IVA";
+              $query = "SELECT id, nome, portata.descrizione, prezzo FROM portata JOIN fornitori ON fornitori.P_IVA = portata.ristP_IVA";
               $result = $conn->query($query);
 
-              while ($row = $result->fetch_assoc()) {
-                echo "<li class=\"list-group-item\">
-                          <div class=\"product-container\">
-                            <div class=\"product-info-container\">
-                            <div class = \"product-name-container\">".
-                              $row["nome"] .
-                            "</div>
-                            <div class = \"product-description-container\"> " .
-                              $row["descrizione"] .
-                            "</div>
+              while ($row = $result->fetch_assoc()) { //con questo ciclo while mostro tutti i prodotti offerti da un fornitore in base ai tag a loro assegnati
+              ?>
+              <li class="list-group-item">
+                          <div class="product-container" href="cartAction.php?action=addToCart&id=<?php echo $row["id"]; echo $p_iva; ?>">
+                            <div class="product-info-container">
+                            <div class = "product-name-container">
+                              <?php echo $row["nome"];  ?>
                             </div>
-                            <div class=\"product-price-container\">".
-                              $row["prezzo"] .
-                            "</div>
+                            <div class = "product-description-container">
+                              <?php echo $row["descrizione"]  ?>
+                            </div>
+                            </div>
+                            <div class="product-price-container">
+                              <?php echo $row["prezzo"]   ?>
+                            </div>
                           </div>
                         </li>";
-              }
+            <?php
+            }
               $conn->close();
             ?>
-            <li class="list-group-item">
+            <!-- <li class="list-group-item">
               <div class="product-container">
                 <div class="product-info-container">
                   Antipasto1
@@ -253,7 +257,7 @@ h2, h3 {
                 </div>
               </div>
             </li>
-          </ul>
+          </ul> -->
         </div>
         <div class="tab-pane fade" id="list-first" role="tabpanel" aria-labelledby="list-first-list">...</div>
         <div class="tab-pane fade" id="list-meat" role="tabpanel" aria-labelledby="list-meat-list">...</div>
