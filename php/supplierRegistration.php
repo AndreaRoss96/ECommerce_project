@@ -1,30 +1,24 @@
 <?php
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "progettotweb";
-
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
-
+	include('../script/dbConnect.php');
+	include('../script/functions.php');
 	// Check connection
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-	
-	if (isset($_POST["nomeAttivita"]) and 
-		isset($_POST["P_IVA"]) and 
-		isset($_POST["nomeReferente"]) and
-		isset($_POST["cognomeReferente"]) and
-		isset($_POST["telefono"]) and
-		isset($_POST["indirizzo"]) and
-		isset($_POST["orarioApertura"]) and
-		isset($_POST["orarioChiusura"]) and
-		isset($_POST["descrizioneAttivita"]) and
-		isset($_POST["email"]) and
-		isset($_POST["password"]) and
-		isset($_POST["confermaPassword"]))
+	if (isset($_POST["nomeAttivita"], 
+			  $_POST["P_IVA"],
+			  $_POST["nomeReferente"],
+		      $_POST["cognomeReferente"],
+			  $_POST["telefono"],
+			  $_POST["indirizzo"],
+			  $_POST["orarioApertura"],
+			  $_POST["orarioChiusura"],
+			  $_POST["descrizioneAttivita"],
+			  $_POST["email"],
+			  $_POST["p1"],
+			  $_POST["p2"]))
 	{
+		secure_session_start();
 		$nomeAttivita = $_POST["nomeAttivita"];
 		$P_IVA = $_POST["P_IVA"];
 		$nomeReferente = $_POST["nomeReferente"];
@@ -35,35 +29,53 @@
 		$orarioChiusura = $_POST["orarioChiusura"];
 		$descrizione = $_POST["descrizioneAttivita"];
 		$email = $_POST["email"];
-		$pwd = $_POST["password"];
-		$confermaPwd = $_POST["confermaPassword"];
+		$pwd = $_POST["p1"];
+		$confermaPwd = $_POST["p2"];
 		
-		if($pwd == $confermaPwd) {
-			
-			$stmt = $conn->prepare('SELECT email FROM fornitori where email=? OR nomeRistorante=?');
-			$stmt->bind_param("ss", $email, $nameBusiness);
+		if($pwd === $confermaPwd) {
+			$random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+			$pwd = hash('sha512', $pwd.$random_salt);
+
+			$stmt = $conn->prepare('SELECT email FROM fornitori where email=?');
+			$stmt->bind_param("s", $email);
 			$stmt->execute();
-			$result = $stmt->get_result();
-			if (mysqli_num_rows($result) <= 0) {
-				$stmt = $conn->prepare('INSERT INTO fornitori(nomeRistorante, P_IVA, nomeReferente, cognomeReferente, telefono, indirizzoMaps, orarioApertura, orarioChiusura, descrizione, email, password) VALUES(?,?,?,?,?,?,?,?,?,?,?)');
-				$stmt->bind_param("sssssssssss", $nomeAttivita, $P_IVA,$nomeReferente,$cognomeReferente,$telefono,$indirizzo,$orarioApertura,$orarioChiusura,$descrizione,$email,$password);
+			$result1 = $stmt->get_result();
+
+			$stmt = $conn->prepare('SELECT email FROM clienti where email=?');
+			$stmt->bind_param("s", $email);
+			$stmt->execute();
+			$result2 = $stmt->get_result();
+
+			if ($result1->num_rows == 0 && $result2->num_rows == 0) {
+
+				$stmt = $conn->prepare('SELECT P_IVA FROM fornitori where P_IVA=?');
+				$stmt->bind_param("s", $P_IVA);
 				$stmt->execute();
+				$result3 = $stmt->get_result();
+				if($result3->num_rows == 0){
+					$stmt = $conn->prepare('INSERT INTO fornitori(nomeRistorante, P_IVA, nomeReferente, cognomeReferente, telefono, indirizzoMaps, orarioApertura, orarioChiusura, descrizione, email, password,salt) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)');
+					$stmt->bind_param("ssssssssssss", $nomeAttivita, $P_IVA,$nomeReferente,$cognomeReferente,$telefono,$indirizzo,$orarioApertura,$orarioChiusura,$descrizione,$email,$pwd,$random_salt);
+					$stmt->execute();
+					header('Location: ../html/successfulSupplierRegistration.html');
+					exit;
+				}
+				else{
+					$_SESSION['P_IVAAlreadyUsed'] = true;
+				}
 				$stmt->close();
-				echo "Record inserito correttamente";
+
+				//echo"Questo account è stato creato correttamente";
 			} else {
-				echo "Fornitore già esistente";
+				$_SESSION['emailAlreadyUsed'] = true;
+				//echo "Attenzione: è già presente un account che usa questa e-mail";
 			}
 		} else {
-			echo "password errata";
+			$_SESSION['passwordsDontMatch'] = true;
+			//echo "Le due password non coincidono";
 		}
 	} else {
-		echo "campi non tutti compilati" . "<br/>";
-		echo $_POST["nomeAttivita"] . "<br/>";
-		echo $_POST["P_IVA"] . "<br/>";
-		echo $_POST["nomeReferente"] . "<br/>";
-		echo $_POST["cognomeReferente"] . "<br/>";
-		echo $_POST["email"] . "<br/>";
-		echo $_POST["password"] . "<br/>";
-		echo $_POST["confermaPassword"] . "<br/>";
+		$_SESSION['fieldsNotFilled'] = true;
+		//echo "Non tutti i campi sono stati compilati"."<br/>";
 	}
+	header('Location: ../html/supplierRegistrationForm.html');
 ?>

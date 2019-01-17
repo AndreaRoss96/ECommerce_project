@@ -10,7 +10,8 @@
   </head>
   <body>
     <div id="nav"></div>
-    <form action="../php/userRegistration.php" method="post" class="border border-light p-5">
+    <div class="alert alert-danger" role="alert"></div>
+    <form id="form" action="../php/userRegistration.php"  method="POST" class="border border-light p-5">
       <p class="text-center h1 mb-4">Registrazione utente</p>
       <p class="text-center h2 mb-4">Compila i seguenti campi</p>
 
@@ -21,10 +22,10 @@
       <input type="text" id="defaultRegisterFormLastName" class="form-control mb-4" placeholder="Rossi" name="lastname" required>
 
       <label for="defaultRegisterBadgeNumber">Numero di matricola</label>
-      <input type="text" id="defaultRegisterBadgeNumber" class="form-control mb-4" placeholder="Matricola" name="badgenumber" required>
+      <input type="tel" id="defaultRegisterBadgeNumber" class="form-control mb-4" placeholder="Matricola" name="badgenumber" required>
 
       <label for="defaultRegisterPhonePassword">Contatto telefonico</label>
-      <input type="number" id="defaultRegisterPhonePassword" class="form-control mb-4" name="telephone" required>
+      <input type="tel" id="defaultRegisterPhonePassword" class="form-control mb-4" name="telephone" required>
 
       <label for="defaultRegisterFormEmail">E-mail</label>
       <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="mario.rossi@mail.com" name="email" required>
@@ -35,7 +36,7 @@
       <label for="defaultRegisterFormPasswordConfirm">Conferma password</label>
       <input type="password" id="defaultRegisterFormPasswordConfirm" class="form-control mb-4" placeholder="*******" name="password_2" required>
 
-      <button class="btn btn-info my-4 btn-block" type="submit" name="register_user">Conferma dati</button>
+      <button class="btn btn-info my-4 btn-block" type="submit" id="registerUser" name="register_user">Conferma dati</button>
 
     </form>
 
@@ -46,12 +47,14 @@
 
 
     <div id="footer"></div>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
+    <script src="../script/showRegistrationErrors.js"></script>
+    <script src = "../script/checkUserRegistrationData.js"></script>
     <script src="jquery/getNav.js"></script>
     <script src="jquery/getFooter.js"></script>
   </body>

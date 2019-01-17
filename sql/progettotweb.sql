@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Creato il: Dic 22, 2018 alle 10:26
--- Versione del server: 10.3.8-MariaDB
--- Versione PHP: 5.6.39
+-- Host: localhost
+-- Generation Time: Jan 03, 2019 at 06:41 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,22 +25,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `clienti`
+-- Table structure for table `clienti`
 --
 
 CREATE TABLE `clienti` (
   `nome` varchar(20) COLLATE utf8_bin NOT NULL,
   `cognome` varchar(20) COLLATE utf8_bin NOT NULL,
-  `email` varchar(40) COLLATE utf8_bin NOT NULL,
-  `password` varchar(35) COLLATE utf8_bin NOT NULL,
+  `email` varchar(50) COLLATE utf8_bin NOT NULL,
+  `password` varchar(128) COLLATE utf8_bin NOT NULL,
+  `salt` varchar(128) COLLATE utf8_bin NOT NULL,
   `matricola` varchar(10) COLLATE utf8_bin NOT NULL,
   `telefono` varchar(13) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `clienti`
+--
+
+INSERT INTO `clienti` (`nome`, `cognome`, `email`, `password`, `salt`, `matricola`, `telefono`) VALUES
+('Mario', 'Rox', 'mario@rossi.it', '4bb112c763c8bf42fbdff59a393d8d812447a032870da432da0331d74533b83630ac31cc899d07caad3ca06059fdf2115095ae61c2fa63d7e0cfb5360d98411c', 'd0efcd58acf2c7c528ed1f1388af94b4866c9af7547ec6346f8c91c5356a4afb3a32dbdd2fdf589e223addcad82d3d9e90861599b6ce9ae5cbf52c4010e8827f', '9987', '99999');
+
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `dettaglioordine`
+-- Table structure for table `dettaglioordine`
 --
 
 CREATE TABLE `dettaglioordine` (
@@ -53,7 +61,7 @@ CREATE TABLE `dettaglioordine` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `fornitori`
+-- Table structure for table `fornitori`
 --
 
 CREATE TABLE `fornitori` (
@@ -64,24 +72,25 @@ CREATE TABLE `fornitori` (
   `descrizione` varchar(255) COLLATE utf8_bin NOT NULL,
   `telefono` varchar(20) COLLATE utf8_bin NOT NULL,
   `indirizzoMaps` varchar(100) COLLATE utf8_bin NOT NULL,
-  `email` varchar(40) COLLATE utf8_bin NOT NULL,
-  `password` varchar(35) COLLATE utf8_bin NOT NULL,
+  `email` varchar(50) COLLATE utf8_bin NOT NULL,
+  `password` varchar(128) COLLATE utf8_bin NOT NULL,
+  `salt` varchar(128) COLLATE utf8_bin NOT NULL,
   `orarioApertura` varchar(5) COLLATE utf8_bin NOT NULL,
   `orarioChiusura` varchar(5) COLLATE utf8_bin NOT NULL,
-  `approvazioneAmministratore` tinyint(1) NOT NULL DEFAULT 0
+  `approvazioneAmministratore` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dump dei dati per la tabella `fornitori`
+-- Dumping data for table `fornitori`
 --
 
-INSERT INTO `fornitori` (`P_IVA`, `nomeRistorante`, `nomeReferente`, `cognomeReferente`, `descrizione`, `telefono`, `indirizzoMaps`, `email`, `password`, `orarioApertura`, `orarioChiusura`, `approvazioneAmministratore`) VALUES
-('1234567890', 'Da Chiccho', '', '', 'sopra la panca la capra canta', '', 'Via Cecchi Paone 54, Cesena, Italia', 'federico.rossi@chicco.it', 'ciao', '08:00', '24:00', 0);
+INSERT INTO `fornitori` (`P_IVA`, `nomeRistorante`, `nomeReferente`, `cognomeReferente`, `descrizione`, `telefono`, `indirizzoMaps`, `email`, `password`, `salt`, `orarioApertura`, `orarioChiusura`, `approvazioneAmministratore`) VALUES
+('987', 'da roso', 'andrea', 'rossolini', 'njjj', '99999999', 'Via Cazzi 69', 'roso@roso.it', '885986675b46b16eda5156045018c4e8f6c7554d161cd5755048cd4372b58b1cfcfb95a238c3ea0aef1bfe7a25d12a8be2442c1715a8c4e35b87a3b260aeaa44', '7f810908038336b15129c51a840ee166878c47560ec8c1e31b22e9c8eec1d3a51268a4f378a9df49c282e23f7131838ad432fb93021b6bca18a03538ca7969fa', '12:00', '13:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `luogoconsegna`
+-- Table structure for table `luogoconsegna`
 --
 
 CREATE TABLE `luogoconsegna` (
@@ -92,7 +101,7 @@ CREATE TABLE `luogoconsegna` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ordine`
+-- Table structure for table `ordine`
 --
 
 CREATE TABLE `ordine` (
@@ -106,7 +115,7 @@ CREATE TABLE `ordine` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `portata`
+-- Table structure for table `portata`
 --
 
 CREATE TABLE `portata` (
@@ -120,7 +129,7 @@ CREATE TABLE `portata` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `tag`
+-- Table structure for table `tag`
 --
 
 CREATE TABLE `tag` (
@@ -131,7 +140,7 @@ CREATE TABLE `tag` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `tagportata`
+-- Table structure for table `tagportata`
 --
 
 CREATE TABLE `tagportata` (
@@ -141,81 +150,81 @@ CREATE TABLE `tagportata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Indici per le tabelle scaricate
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `clienti`
+-- Indexes for table `clienti`
 --
 ALTER TABLE `clienti`
   ADD PRIMARY KEY (`matricola`);
 
 --
--- Indici per le tabelle `dettaglioordine`
+-- Indexes for table `dettaglioordine`
 --
 ALTER TABLE `dettaglioordine`
   ADD PRIMARY KEY (`idPortata`,`ristP_IVA`,`idOrdine`);
 
 --
--- Indici per le tabelle `fornitori`
+-- Indexes for table `fornitori`
 --
 ALTER TABLE `fornitori`
   ADD PRIMARY KEY (`P_IVA`);
 
 --
--- Indici per le tabelle `luogoconsegna`
+-- Indexes for table `luogoconsegna`
 --
 ALTER TABLE `luogoconsegna`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indici per le tabelle `ordine`
+-- Indexes for table `ordine`
 --
 ALTER TABLE `ordine`
   ADD PRIMARY KEY (`id`,`matricola`);
 
 --
--- Indici per le tabelle `portata`
+-- Indexes for table `portata`
 --
 ALTER TABLE `portata`
   ADD PRIMARY KEY (`id`,`ristP_IVA`);
 
 --
--- Indici per le tabelle `tag`
+-- Indexes for table `tag`
 --
 ALTER TABLE `tag`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indici per le tabelle `tagportata`
+-- Indexes for table `tagportata`
 --
 ALTER TABLE `tagportata`
   ADD PRIMARY KEY (`idPortata`,`ristP_IVA`,`idTag`);
 
 --
--- AUTO_INCREMENT per le tabelle scaricate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT per la tabella `luogoconsegna`
+-- AUTO_INCREMENT for table `luogoconsegna`
 --
 ALTER TABLE `luogoconsegna`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT per la tabella `ordine`
+-- AUTO_INCREMENT for table `ordine`
 --
 ALTER TABLE `ordine`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT per la tabella `portata`
+-- AUTO_INCREMENT for table `portata`
 --
 ALTER TABLE `portata`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT per la tabella `tag`
+-- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
