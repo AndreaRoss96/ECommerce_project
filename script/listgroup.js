@@ -15,7 +15,7 @@ $(document).ready(function() {
 		e lo mette all'interno della input text con id = #defaultIngredientFood.
 	*/
 	$("body").on('click', '.list-group-item', function () {
-		var textTag = $(this).text() + ";";
+		var textTag = $(this).attr('value') + ";";
 		if ($(this).hasClass("active")) {
 			$(this).removeClass("active");
 			$("#list-group-tags").children("input").val(function (i,val) {

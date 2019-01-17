@@ -1,3 +1,6 @@
+<?php
+	include('../php/functionsGalde.php');
+?>
 <html>
   <head>
     <title>Registrazione fornitore</title>
@@ -22,6 +25,7 @@
 						<div class="col col-xs-4">  
 							<label for="defaultFoodName">Nome pietanza</label>
 							<input type="text" name="nomePietanza" id="defaultFoodName" class="form-control mb-4" placeholder="Bucatini all'amatriciana" required>
+							<input type="text" name="nomePietanzaVecchio" id="defaultFoodOldName" class="form-control mb-4" hidden>
 						</div>
 					</div>
 					<div class="row">
@@ -46,14 +50,9 @@
 						<div id="list-group-tags" class="col col-xs-4">
 							<label for="defaultTagFood">Tag: </label>
 							<div class="list-group mb-4">
-							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action" value="3">Antipasto</a>
-							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Primo</a>
-							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Secondo</a>
-							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Contorno</a>
-							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Dessert</a>
-							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Carne</a>
-							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Vegano</a>
-							  <a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action">Pesce</a>
+							  <?php
+								showTagListGroup();
+							  ?>
 							</div>
 							<input type="text" hidden="true" name="tags" id="tagsFood" class="form-control mb-4" placeholder="ingredienti..">
 						</div>
@@ -100,20 +99,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="clickable-row">
-							  <th scope="row">2</th>
-							  <td>Hamburger</td>
-							  <td>Carne di manzo, cipolla, insalata, pomodoro, pane con sesamo.</td>
-							  <td>Secondo; Carne</td>
-							  <td>10</td>
-							</tr>
-							<tr class="clickable-row">
-							  <th scope="row">3</th>
-							  <td>Spaghetti aglio oglio e peperoncino</td>
-							  <td>Pasta, aglio, olio, peperoncino.</td>
-							  <td>Primo; Vegano</td>
-							  <td>5</td>
-							</tr>
+							<?php
+								for ($i=0; $i < 100; $i++) {
+									showFoodRowTable("1234567890");
+								}
+							?>
 						</tbody>
 					</table>
 				</div>
