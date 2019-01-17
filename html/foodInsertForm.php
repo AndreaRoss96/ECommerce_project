@@ -54,7 +54,7 @@
 								showTagListGroup();
 							  ?>
 							</div>
-							<input type="text" hidden="true" name="tags" id="tagsFood" class="form-control mb-4" placeholder="ingredienti..">
+							<input type="text" name="tags" id="tagsFood" class="form-control mb-4">
 						</div>
 					</div>
 					<div class="row">
@@ -100,9 +100,7 @@
 						</thead>
 						<tbody>
 							<?php
-								for ($i=0; $i < 100; $i++) {
 									showFoodRowTable("1234567890");
-								}
 							?>
 						</tbody>
 					</table>
@@ -116,10 +114,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
+    <script src="../script/listgroup.js"></script>
     <script src="jquery/getNav.js"></script>
     <script src="jquery/getFooter.js"></script>
 	<script src="../script/table.js"></script>
-	<script src="../script/listgroup.js"></script>
+	
   </body>
 </html>

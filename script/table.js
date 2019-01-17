@@ -1,64 +1,45 @@
 $(document).ready(function () {
-	$(".clickable-row").click(function () {
-		var start = new Date().getTime();
+	var table = document.getElementById('foodTable');
+	var i = 0;
+	var j = 0;
+	var elems = 0;
+	$("#foodTable").on("click", "tr", function(e) {
 		if ($(this).hasClass("bg-info")) {
 			//rimuovo la classe highlight dall'elemento selezionato.
 			$(this).removeClass("bg-info");
-		}
-		else {
+			}
+			else {
 			//rimuovo la classe highlight da tutti gli elementi
 			$(this).siblings().removeClass("bg-info");
 			//aggiungo la classe highlight all'elemento selezionato.
 			$(this).addClass("bg-info");
-			var tdEls = $(this).children("td");
-			var tags = tdEls.eq(2).text().split(";");
+			$(".list-group").children("#defaultTagFood").each(function() {
+				$(this).removeClass('active');
+				var textTag = $(this).attr('value') + ";";
+				$("#list-group-tags").children("input").val(function (index, val) {
+					return val.replace(textTag, "");
+				});
+			});
 			
-			var i = 0;
-			var j = 0;
-			var headerRow;
-			tags.pop();
-			$("#list-group-tags").children("input").val("");
-			$(".list-group").children().removeClass("active");
-			$("#headerRow").children("th").each(function (i) {
-				j = 0;
-				if (i > 0) {
-					headerRow = "#default" + $(this).text().replace(" ","");
-					if (headerRow.localeCompare("#defaultTagFood") == 0) {
-						while(j < tags.length) {
-							console.log(tags[j]);
-							$(".list-group").children("#defaultTagFood:contains(" + tags[j].trim() + ")").addClass("active");
-							$("#list-group-tags").children("input").val(function(i, val) {
-								return val + $(".list-group").children("#defaultTagFood:contains(" + tags[j].trim() + ")").attr('value') + ";";
-							});
-							j++;
-						}
-					} else if (headerRow.localeCompare("#defaultFoodName") == 0) {
-						$("body").find(headerRow).val(tdEls.eq(i - 1).text());
-						$("body").find("#defaultFoodOldName").val(tdEls.eq(i - 1).text());
-					} else {
-						$("body").find(headerRow).val(tdEls.eq(i - 1).text());
+			var tagText = $(this).find('td').eq(2).text().split(';');
+			tagText.pop();
+			document.getElementById('defaultFoodName').value = $(this).find('td').eq(0).text();
+			document.getElementById('defaultFoodOldName').value = $(this).find('td').eq(0).text();
+			document.getElementById('defaultIngredientsFood').value = $(this).find('td').eq(1).text();
+			$(".list-group").children("#defaultTagFood").each(function () {
+				for (i=0; i <= tagText.length; i++) {
+					if ($(this).text() == tagText[i]) {
+						console.log("entrato" + i);
+						$(this).addClass('active');
+						var textTag = $(this).attr('value') + ";";
+						$("#list-group-tags").children("input").val(function (index, val) {
+							return val + textTag;
+						});
 					}
 				}
 			});
-			
+			document.getElementById('defaultPriceFood').value = $(this).find('td').eq(3).text();
 		}
-		var end = new Date().getTime();
-	var time = end - start;
-	alert('Execution time: ' + time);
 	});
-	
 });
 
-function inputFill() {
-	var table = $("#foodTable");
-	for(var i=0; i < table.rows.length; i++) {
-		table.rows[i].onclik = function() {
-			var tagsText = this.cell[3].innerHTML;
-			document.getElementById('defaultFoodName').value = this.cell[1].innerHTML;
-			document.getElementById('defaultFoodOldName').value = this.cell[1].innerHTML;
-			document.getElementById('defaultIngredientsFood').value = this.cell[2].innerHTML;
-			document.getElementById('
-		}
-		
-	}
-}
