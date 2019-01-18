@@ -56,6 +56,8 @@
 					$stmt = $conn->prepare('INSERT INTO fornitori(nomeRistorante, P_IVA, nomeReferente, cognomeReferente, telefono, indirizzoMaps, orarioApertura, orarioChiusura, descrizione, email, password,salt) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)');
 					$stmt->bind_param("ssssssssssss", $nomeAttivita, $P_IVA,$nomeReferente,$cognomeReferente,$telefono,$indirizzo,$orarioApertura,$orarioChiusura,$descrizione,$email,$pwd,$random_salt);
 					$stmt->execute();
+					$stmt->close();
+					sendMail($email,"Creazione account fornitore","Grazie per esserti unito alla nostra community!\r\nPrima di poter usare i nostri servizi il tuo account dovra' essere approvato dall' amministratore di sistema");
 					header('Location: ../html/successfulSupplierRegistration.html');
 					exit;
 				}

@@ -8,13 +8,13 @@ $(document).ready(function(){
             {
               var txt = "";
               var errorBanner = $(".alert-danger");
-              errorBanner.text("");
+              //errorBanner.text("");
               $.each(response,function(index,error){
                 txt = txt + error;
               });
               //alert(txt);
               if(txt.length > 0){
-                  errorBanner.text(txt);
+                  errorBanner.html(txt);
                   errorBanner.show();
                   errorBanner.fadeOut(7000); 
               }      
