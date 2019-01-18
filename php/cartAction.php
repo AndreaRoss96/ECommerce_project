@@ -9,20 +9,21 @@ include 'Cart.php';
 $cart = new Cart;
 
 if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
-    if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id'])){
+    if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id'] && !empty($_REQUEST['p_iva'])){
         $productID = $_REQUEST['id'];
+        $resturantPIVA = $_REQUEST['p_iva'];
         // get product details
-        $query = $db->query("SELECT * FROM products WHERE id = ".$productID); /** aggiungere anche l'id del ristorante */
+        $query = $db->query("SELECT * FROM portata WHERE id = " . $productID . " AND ristP_IVA = " .$resturantPIVA); /** aggiungere anche l'id del ristorante */
         $row = $query->fetch_assoc();
         $itemData = array(
-            'id' => $row['id'],   //idPortata
-            'name' => $row['name'], //nome
-            'price' => $row['price'], //prezzo
+            'id' => $row['idPortata'],
+            'name' => $row['nome'],
+            'price' => $row['prezzo'],
             'qty' => 1
         );
 
         $insertItem = $cart->insert($itemData);
-        $redirectLoc = $insertItem?'viewCart.php':'index.php';
+        $redirectLoc = $insertItem?'viewCart.php':'index.php'; //questo ti reinderizza al carrello, anche se index.php non esiste
         header("Location: ".$redirectLoc);
     }elseif($_REQUEST['action'] == 'updateCartItem' && !empty($_REQUEST['id'])){
         $itemData = array(
