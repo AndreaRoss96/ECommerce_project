@@ -19,18 +19,21 @@ if(isset($_POST['email'],$_POST['p1'],$_POST['p2'])){
             $stmt = $conn->prepare("UPDATE fornitori SET password=?,salt=? WHERE email=?");
         }
         else if($_SESSION['type'] == CLIENT){
-            $stmt = $conn->prepare("UPDATE fornitori SET password=?,salt=? WHERE email=?");
+            $stmt = $conn->prepare("UPDATE clienti SET password=?,salt=? WHERE email=?");
+        }
+        else if($_SESSION['type'] == ADMIN){
+          $stmt = $conn->prepare("UPDATE amministratori SET password=?,salt=? WHERE email=?");
         }
         $stmt->bind_param("sss",$nuovaPassword,$random_salt,$email);
         $stmt->execute(); // esegue la query appena creata.
         $_SESSION['passwordChanged'] = true;
+        sendMail($email,"Notifica cambio password","La password associata all' account ".$email." e' stata modificata con successo");
      }
-     header('Location: ../html/homepage.html');
+     header('Location: ../html/userSupplierLogin.html');
   }
   else{
       header('Location: ../html/homepage2.html');
     exit;
   }
 }
-else{ echo "NO";}
 ?>

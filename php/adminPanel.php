@@ -26,7 +26,18 @@
         }
         else if(isset($_POST["supplierToRemove"])){
             $piva = $_POST["supplierToRemove"];
-            echo $piva;
+            if($stmt=$conn->prepare('SELECT email FROM fornitori where P_IVA=?')){
+                $stmt->bind_param("s",$piva);
+                if($stmt->execute()){
+                    $result = $stmt->get_result();
+                    $row = mysqli_fetch_assoc($result);
+                    $destinatario = $row["email"];
+                }
+                $header = "Notifica eliminazione account";
+                $txt = "L'account associato alla e-mail:".$destinatario." e' stato eliminato dall' amministratore";
+                sendMail($destinatario,$header,$txt);
+            }
+
             if($stmt=$conn->prepare('DELETE from fornitori where P_IVA=?')){
                 $stmt->bind_param("s",$piva);
                 $stmt->execute();  
@@ -41,26 +52,23 @@
             if($stmt->execute()){
                 $result = $stmt->get_result();
                 $row = mysqli_fetch_assoc($result);
+                $destinatario = $row["email"];
                 if($row["approvazioneAmministratore"] == 0){
+                    $header = "Approvazione account fornitore";
                     $approvazione = 1;
-                    $to = $row["email"];
-                    $subject = "admin@sito.it";
-                    $txt = "L' account registrato con la seguente e-mail:".$to."e' stato approvato."
+                    $txt = "L' account registrato con la seguente e-mail:".$destinatario." e' stato approvato.\r\n"
                             ."Ora puoi effettuare il login";
-                    $headers = "Approvazione account fornitore";
                 }
                 else{
                     $approvazione = 0;
-                    $to = $row["email"];
-                    $subject = "admin@sito.it";
-                    $txt = "L' account registrato con la seguente e-mail:".$to."e' stato temporaneamente disabilitato"
+                    $header = "Sospensione account fornitore";
+                    $txt = "L' account registrato con la seguente e-mail:".$destinatario." e' stato temporaneamente disabilitato\r\n"
                             ."Riceverà ulteriori informazioni al più presto.";
-                    $headers = "Sospensione account fornitore";
                 }
                 $stmt=$conn->prepare('UPDATE fornitori SET approvazioneAmministratore=? where P_IVA=?');
                 $stmt->bind_param("is",$approvazione,$piva);
                 $stmt->execute();
-                mail($to,$subject,$txt,$headers);
+                sendMail($destinatario,$header,$txt);
             }
         }
        

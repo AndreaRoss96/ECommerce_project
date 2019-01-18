@@ -1,5 +1,4 @@
-$(document).ready(function getSuppliers(){
-
+function getSuppliers(){
     jQuery.ajax({
         type: "POST",
         url: "../php/adminPanel.php", 
@@ -44,20 +43,28 @@ $(document).ready(function getSuppliers(){
             $("tbody").append(newEl);
             $("th").addClass("text-center");
             $("td").addClass("text-center");
-         
+        
         },
         complete: function() {
-            setTimeout(getSuppliers, 5000);
+            setTimeout(getSuppliers, 3000);
         },
         error:function (xhr, ajaxOptions, thrownError)
-       {
+    {
         $("div.table-responsive").remove();
-        $("p").remove();
-        $("div#nav").after().append("<p>Autorizzazioni non sufficienti</p>");
-       }
-    });
-    $(document).off().on("click",".btn-dark",function(){
+        $("#nothingtoshow").remove();
+       // $("p").remove();
+        $("div#nav").after().append("<p id='nothingtoshow'>Nessun fornitore da mostrare</p>");
+    }
+ });
+}
+$(document).ready(function(){
+  
+    getSuppliers();
+    $(".btn-dark").off();
+    /*$(document).off()*/$(document).on("click",".btn-dark",function(){
         var piva = $(this).parent().siblings(".piva").text();
+        var button = $(this);
+        var buttonContent = button.html();
         if(confirm("Sei sicuro di voler eliminare questo fornitore?")){
             jQuery.ajax({
                 type: "POST",
@@ -66,8 +73,15 @@ $(document).ready(function getSuppliers(){
                     "supplierToRemove" : piva
                 },
                 dataType: "text",
+                beforeSend: function(){
+                    button.parent().append("<div id='preloader'>"+
+                                "<img src='../res/adminPanelPreloader.gif'><\img>"+
+                                " <\div>");
+                    button.remove();
+                },
                 success: function (response)
-                {   
+                {   $("#preloader").before().html(buttonContent);
+                    $("#preloader").remove();
                     alert(piva+" è stato eliminato con successo");
                 },
             
@@ -81,6 +95,8 @@ $(document).ready(function getSuppliers(){
     });
 
     $(document).on("click",".btn-danger,.btn-success",function(){
+        var button = $(this);
+        var buttonContent = button.html();
         var piva = $(this).parent().siblings(".piva").text();
         //alert(piva);
         jQuery.ajax({
@@ -90,8 +106,16 @@ $(document).ready(function getSuppliers(){
                 "supplierToChange" : piva
             },
             dataType: "text",
+            beforeSend: function(){
+                button.parent().append("<div id='preloader'>"+
+                            "<img src='../res/adminPanelPreloader.gif'><\img>"+
+                            " <\div>");
+                button.remove();
+            },
             success: function (response)
-            {   
+            {   $("#preloader").before().html(buttonContent);
+                $("#preloader").remove();
+
                 alert("Modifica eseguita corretamente");
             },
            
@@ -101,8 +125,7 @@ $(document).ready(function getSuppliers(){
     
            }
         });
-    });
-    
+    });   
 });
 
 

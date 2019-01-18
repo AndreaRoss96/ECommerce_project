@@ -9,13 +9,13 @@ $(document).ready(function(){
           {
             var txt = "";
             var errorBanner = $(".alert-danger");
-            errorBanner.text("");
+            //errorBanner.text("");
             $.each(response,function(index,error){
               //alert(error);
               txt = txt + error;
             });
             if(txt.length > 0){
-                errorBanner.text(txt);
+                errorBanner.html(txt);
                 errorBanner.show();
                 errorBanner.fadeOut(7000); 
             }      
@@ -35,13 +35,13 @@ $(document).ready(function(){
         {
           var txt = "";
           var successBanner = $(".alert-success");
-          successBanner.text("");
+          //successBanner.text("");
           $.each(response,function(index,error){
             //alert(error);
             txt = txt + error;
           });
           if(txt.length > 0){
-            successBanner.text(txt);
+            successBanner.html(txt);
             successBanner.show();
             successBanner.fadeOut(4000); 
           }      
