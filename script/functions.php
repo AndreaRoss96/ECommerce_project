@@ -1,6 +1,8 @@
 <?php
 include('types.php');
-
+function sendMail($to,$header,$message){
+  mail($to,"",$message,$header);
+}
 function secure_session_start() {
         $session_name = 'sec_session_id'; // Imposta un nome di sessione
         $secure = false; // Imposta il parametro a true se vuoi usare il protocollo 'https'.
@@ -36,6 +38,8 @@ function supplierLogin($email,$password,$conn){//da sistemare
 
         $_SESSION['type'] = SUPPLIER;
 
+        $_SESSION['P_IVA'] = $P_IVA;
+
         $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
 
       }
@@ -51,11 +55,11 @@ function supplierLogin($email,$password,$conn){//da sistemare
     exit;
 }
 function clientLogin($email,$password,$conn){
-    $stmt = $conn->prepare("SELECT nome,cognome, password, salt FROM clienti WHERE email = ? LIMIT 1");
+    $stmt = $conn->prepare("SELECT matricola,nome,cognome, password, salt FROM clienti WHERE email = ? LIMIT 1");
     $stmt->bind_param('s', $email); // esegue il bind del parametro '$email'.
     $stmt->execute(); // esegue la query appena creata.
     $stmt->store_result();
-    $stmt->bind_result($nome, $cognome, $db_password, $salt); // recupera il risultato della query e lo memorizza nelle relative variabili.
+    $stmt->bind_result($matricola,$nome, $cognome, $db_password, $salt); // recupera il risultato della query e lo memorizza nelle relative variabili.
     $stmt->fetch();
     $password = hash('sha512', $password.$salt);
     if ($stmt->num_rows == 1 && $password == $db_password) {
@@ -69,6 +73,8 @@ function clientLogin($email,$password,$conn){
 
       $_SESSION['type'] = CLIENT;
 
+      $_SESSION['badgeNumber'] = $matricola;
+
       $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
 
     }else {
@@ -78,9 +84,9 @@ function clientLogin($email,$password,$conn){
     header('Location: ../html/userSupplierLogin.html');
     exit; 
 }
-function adminLogin($username,$password,$conn){
-  $stmt = $conn->prepare("SELECT nome, cognome, password, salt FROM amministratori WHERE username = ? LIMIT 1");
-  $stmt->bind_param('s', $username); // esegue il bind del parametro '$email'.
+function adminLogin($email,$password,$conn){
+  $stmt = $conn->prepare("SELECT nome, cognome, password, salt FROM amministratori WHERE email = ? LIMIT 1");
+  $stmt->bind_param('s', $email); // esegue il bind del parametro '$email'.
   $stmt->execute(); // esegue la query appena creata.
   $stmt->store_result();
   $stmt->bind_result($nome, $cognome, $db_password, $salt); // recupera il risultato della query e lo memorizza nelle relative variabili.
@@ -89,7 +95,7 @@ function adminLogin($username,$password,$conn){
   if ($stmt->num_rows == 1 && $password == $db_password) {
     $user_browser = $_SERVER['HTTP_USER_AGENT'];
 
-    $_SESSION['email'] = $username;
+    $_SESSION['email'] = $email;
 
     $_SESSION['name'] = $nome;
 
@@ -122,7 +128,7 @@ function login_check($conn) {
       $query="SELECT password FROM clienti WHERE email = ? LIMIT 1";
     }
     else{
-      $query="SELECT password FROM amministratori WHERE username = ? LIMIT 1";
+      $query="SELECT password FROM amministratori WHERE email = ? LIMIT 1";
     }
     if ($stmt = $conn->prepare($query)) { 
        $stmt->bind_param('s', $email); // esegue il bind del parametro '$user_id'.

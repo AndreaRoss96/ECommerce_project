@@ -63,6 +63,7 @@ if(isset($_POST['firstname'],
         $insert_stmt->bind_param("sssssss", $firstname,$lastname,$email,$password,$random_salt,$badgenumber,$telephone);
         $insert_stmt->execute();
         $insert_stmt->close();
+        sendMail($email,"Creazione account cliente","Grazie per esserti unito alla nostra community!");
         header('Location: ../html/successfulUserRegistration.html');
         exit;
     }   

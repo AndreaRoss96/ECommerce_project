@@ -8,10 +8,11 @@ include('functions.php');
  }else{
     secure_session_start();
     if(login_check($conn)){
-       $array[]="L'utente ".$_SESSION['email']." e' loggato";
+       $array[]="L'utente ".$_SESSION['email']." e' loggato<br/>";
     }
-    else{
-       $array[]="Accesso non eseguito";
+    elseif(isset($_SESSION['passwordChanged'])){
+       unset($_SESSION['passwordChanged']);
+       $array[] = "La password e' stata modificata con successo<br/>";
     }
  }
 

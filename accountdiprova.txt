@@ -1,0 +1,11 @@
+cliente:
+
+mario@rossi.it pass:mariorossi
+
+fornitore:
+
+jacopocorina@live.it pass:jacopocorina
+
+amministratore:
+
+amministratoreprogettotweb@gmail.com pass: admin1234!

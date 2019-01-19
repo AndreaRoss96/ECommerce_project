@@ -13,7 +13,8 @@
                 "Email" => $_SESSION['email'],
                 "Nome" => $_SESSION['referenceName'],
                 "Cognome" => $_SESSION['referenceSurname'],
-                "Ristorante" => $_SESSION['restaurantName']
+                "Ristorante" => $_SESSION['restaurantName'],
+                "Partita IVA" => $_SESSION['P_IVA']
             ));
         }
         elseif($_SESSION['type'] == CLIENT){
@@ -21,13 +22,14 @@
                 "Tipo" => $_SESSION['type'],
                 "Email" => $_SESSION['email'],
                 "Nome" => $_SESSION['name'],
-                "Cognome" => $_SESSION['surname']
+                "Cognome" => $_SESSION['surname'],
+                "Matricola" => $_SESSION['badgeNumber']
             ));
         }
         else{
             echo json_encode(array(
                 "Tipo" => $_SESSION['type'],
-                "Username" => $_SESSION['email'],
+                "Email" => $_SESSION['email'],
                 "Nome" => $_SESSION['name'],
                 "Cognome" => $_SESSION['surname']
             )); 
