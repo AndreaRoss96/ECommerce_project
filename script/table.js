@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	$('#foodTable').DataTable();
 	var table = document.getElementById('foodTable');
 	var i = 0;
 	var j = 0;
