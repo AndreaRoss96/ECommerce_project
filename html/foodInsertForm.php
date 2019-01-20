@@ -1,7 +1,10 @@
+<?php
+	include('../php/functionsGalde.php');
+?>
 <html>
   <head>
     <title>Registrazione fornitore</title>
-    <meta charset="ASCII">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -22,6 +25,7 @@
 						<div class="col col-xs-4">  
 							<label for="defaultFoodName">Nome pietanza</label>
 							<input type="text" name="nomePietanza" id="defaultFoodName" class="form-control mb-4" placeholder="Bucatini all'amatriciana" required>
+							<input type="text" name="nomePietanzaVecchio" id="defaultFoodOldName" class="form-control mb-4" hidden>
 						</div>
 					</div>
 					<div class="row">
@@ -46,8 +50,11 @@
 						<div id="list-group-tags" class="col col-xs-4">
 							<label for="defaultTagFood">Tag: </label>
 							<div class="list-group mb-4">
+							  <?php
+								showTagListGroup();
+							  ?>
 							</div>
-							<input type="text" hidden="true" name="tags" id="tagsFood" class="form-control mb-4" placeholder="ingredienti..">
+							<input type="text" name="tags" id="tagsFood" class="form-control mb-4">
 						</div>
 					</div>
 					<div class="row">
@@ -92,20 +99,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="clickable-row">
-							  <th scope="row">2</th>
-							  <td>Hamburgerà</td>
-							  <td>Carne di manzo, cipolla, insalata, pomodoro, pane con sesamo.</td>
-							  <td>Secondo; Carne</td>
-							  <td>10</td>
-							</tr>
-							<tr class="clickable-row">
-							  <th scope="row">3</th>
-							  <td>Spaghetti aglio oglio e peperoncino</td>
-							  <td>Pasta, aglio, olio, peperoncino.</td>
-							  <td>Primo; Vegano</td>
-							  <td>5</td>
-							</tr>
+							<?php
+									showFoodRowTable("1234567890");
+							?>
 						</tbody>
 					</table>
 				</div>
@@ -118,10 +114,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+
+	<script src="../script/listgroup.js"></script>
     <script src="jquery/getNav.js"></script>
     <script src="jquery/getFooter.js"></script>
 	<script src="../script/table.js"></script>
-	<script src="../script/listgroup.js"></script>
+	
   </body>
 </html>

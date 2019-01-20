@@ -1,36 +1,46 @@
 $(document).ready(function () {
-	$(".clickable-row").click(function () {
+	$('#foodTable').DataTable();
+	var table = document.getElementById('foodTable');
+	var i = 0;
+	var j = 0;
+	var elems = 0;
+	$("#foodTable").on("click", "tr", function(e) {
 		if ($(this).hasClass("bg-info")) {
 			//rimuovo la classe highlight dall'elemento selezionato.
 			$(this).removeClass("bg-info");
-		}
-		else {
+			}
+			else {
 			//rimuovo la classe highlight da tutti gli elementi
 			$(this).siblings().removeClass("bg-info");
 			//aggiungo la classe highlight all'elemento selezionato.
 			$(this).addClass("bg-info");
-			var tdEls = $(this).children("td");
+			$(".list-group").children("#defaultTagFood").each(function() {
+				$(this).removeClass('active');
+				var textTag = $(this).attr('value') + ";";
+				$("#list-group-tags").children("input").val(function (index, val) {
+					return val.replace(textTag, "");
+				});
+			});
 			
-			var tags = tdEls.eq(2).text().split(";");
-			var i = 0;
-			var j = 0;
-			var headerRow;
-			$(".list-group").children().removeClass("active");
-			$("#headerRow").children("th").each(function (i) {
-				j = 0;
-				if (i > 0) {
-					headerRow = "#default" + $(this).text().replace(" ","");
-					if (headerRow.includes("TagFood")) {
-						while(j < tags.length) {
-							$(".list-group").children("#defaultTagFood:contains(" + tags[j].trim() + ")").addClass("active");
-							j++;
-						}
-					} else {
-						$("body").find(headerRow).val(tdEls.eq(i - 1).val());
+			var tagText = $(this).find('td').eq(2).text().split(';');
+			tagText.pop();
+			document.getElementById('defaultFoodName').value = $(this).find('td').eq(0).text();
+			document.getElementById('defaultFoodOldName').value = $(this).find('td').eq(0).text();
+			document.getElementById('defaultIngredientsFood').value = $(this).find('td').eq(1).text();
+			$(".list-group").children("#defaultTagFood").each(function () {
+				for (i=0; i <= tagText.length; i++) {
+					if ($(this).text() == tagText[i]) {
+						console.log("entrato" + i);
+						$(this).addClass('active');
+						var textTag = $(this).attr('value') + ";";
+						$("#list-group-tags").children("input").val(function (index, val) {
+							return val + textTag;
+						});
 					}
 				}
 			});
-			
+			document.getElementById('defaultPriceFood').value = $(this).find('td').eq(3).text();
 		}
 	});
 });
+
