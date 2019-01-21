@@ -108,8 +108,13 @@ $(document).ready(function(){
                    $("#fileChooser").trigger("click");
                 });
                 $("#userInfo > form").last().after(changePasswordButton);
-                $("#userInfo > form").last().after(logoutButton);
+                $("#userInfo > form").last().after(logoutButton); 
               }
+              else{
+                $("#userInfo > p").last().after(changePasswordButton);
+                $("#userInfo > p").last().after(logoutButton);
+              }
+             
           
             //alert(userInfoCollapse);
 
