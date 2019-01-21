@@ -51,10 +51,10 @@
 							<label for="defaultTagFood">Tag: </label>
 							<div class="list-group mb-4">
 							  <?php
-								showTagListGroup();
+								showTagListGroup(false);
 							  ?>
 							</div>
-							<input type="text" name="tags" id="tagsFood" class="form-control mb-4">
+							<input type="text" name="tags" id="tagsFood" class="form-control mb-4" hidden>
 						</div>
 					</div>
 					<div class="row">

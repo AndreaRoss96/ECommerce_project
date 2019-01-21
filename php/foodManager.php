@@ -81,27 +81,26 @@
 					$stmt->close();
 				}
 			} elseif (isset($_POST["elimina"])) {
-				echo "delete";			
-			}
-		/*if($pwd == $confermaPwd) {
-			
-			$stmt = $conn->prepare('SELECT email FROM fornitori where email=? OR nomeRistorante=?');
-			$stmt->bind_param("ss", $email, $nameBusiness);
-			$stmt->execute();
-			$result = $stmt->get_result();
-			if (mysqli_num_rows($result) <= 0) {
-				$stmt = $conn->prepare('INSERT INTO fornitori(nomeRistorante, P_IVA, nomeReferente, cognomeReferente, telefono, indirizzoMaps, orarioApertura, orarioChiusura, descrizione, email, password) VALUES(?,?,?,?,?,?,?,?,?,?,?)');
-				$stmt->bind_param("sssssssssss", $nomeAttivita, $P_IVA,$nomeReferente,$cognomeReferente,$telefono,$indirizzo,$orarioApertura,$orarioChiusura,$descrizione,$email,$password);
+				echo "delete";
+				$nomePietanza = $_POST["nomePietanza"];
+				$stmt = $conn->prepare('SELECT id FROM portata WHERE ristP_IVA = ? AND nome = ?');
+				$stmt->bind_param("ss", $P_IVA, $nomePietanza);
+				$stmt->execute();
+				$idPortata = $stmt->get_result()->fetch_assoc()["id"];
+				$stmt->close();
+				$stmt = $conn->prepare('DELETE FROM portata WHERE id=? AND ristP_IVA = ?');
+				$stmt->bind_param("is", $idPortata, $P_IVA);
 				$stmt->execute();
 				$stmt->close();
-				echo "Record inserito correttamente";
-			} else {
-				echo "Fornitore già esistente";
+				$stmt = $conn->prepare('DELETE FROM portata WHERE id=? AND ristP_IVA = ?');
+				$stmt->bind_param("is", $idPortata, $P_IVA);
+				$stmt->execute();
+				$stmt->close();
+				$stmt = $conn->prepare('DELETE FROM tagportata WHERE idPortata=? AND ristP_IVA = ?');
+				$stmt->bind_param("is", $idPortata, $P_IVA);
+				$stmt->execute();
+				$stmt->close();
 			}
-		} else {
-			echo "password errata";
-		}
-		*/
 	} else {
 		echo "campi non tutti compilati" . "<br/>";
 		echo $_POST["nomePietanza"] . "<br/>";

@@ -1,7 +1,8 @@
 function getSuppliers(){
     jQuery.ajax({
         type: "POST",
-        url: "../php/adminPanel.php", 
+        url: "../php/adminPanel.php",
+        cache : false,
         data: {
             "getSuppliers" : true
         },
@@ -69,6 +70,7 @@ $(document).ready(function(){
             jQuery.ajax({
                 type: "POST",
                 url: "../php/adminPanel.php?removeSupplier", 
+                cache : false,
                 data: {
                     "supplierToRemove" : piva
                 },
@@ -102,6 +104,7 @@ $(document).ready(function(){
         jQuery.ajax({
             type: "POST",
             url: "../php/adminPanel.php?supplierToChange", 
+            cache : false,
             data: {
                 "supplierToChange" : piva
             },

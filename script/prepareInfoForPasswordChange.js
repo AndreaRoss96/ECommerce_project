@@ -31,6 +31,7 @@ $(document).ready(function(){
         {   $.ajax({
             url: "../php/loginInformations.php",
             dataType: 'json',
+            cache : false,
             async: false,
             success: function(response) {
               email = response.Email;
