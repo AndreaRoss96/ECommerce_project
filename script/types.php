@@ -1,6 +1,6 @@
 <?php
-define("CLIENT","cliente");
-define("SUPPLIER","fornitore");
-define("ADMIN","amministratore");
+define("CLIENT","Cliente");
+define("SUPPLIER","Fornitore");
+define("ADMIN","Amministratore");
 
 ?>
