@@ -189,7 +189,7 @@ h2, h3 {
               while ($row = $result->fetch_assoc()) { //con questo ciclo while mostro tutti i prodotti offerti da un fornitore in base ai tag a loro assegnati
               ?>
               <li class="list-group-item">
-                          <div class="product-container" href="cartAction.php?action=addToCart&id=<?php echo $row["id"]; echo $p_iva; ?>">
+                          <div class="product-container" href="cartAction.php?action=addToCart&id=<?php echo $row["id"];?>&p_iva=<?php echo $p_iva; ?>">
                             <div class="product-info-container">
                             <div class = "product-name-container">
                               <?php echo $row["nome"];  ?>
