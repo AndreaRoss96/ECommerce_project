@@ -1,5 +1,5 @@
 <?php
-include '../script/dbConnect.php';
+include 'dbConfig.php';
 include 'Cart.php';
 
 if ($conn->connect_error) {

@@ -12,7 +12,7 @@ $stmt->close();
 <html lang="it-IT">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
   <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
@@ -20,6 +20,8 @@ $stmt->close();
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="../html/jquery/getNav.js"></script>
+  <script src="../html/jquery/getFooter.js"></script>
 <style>
 .mb-3 {
   padding: 0px 0px 15px;
@@ -77,13 +79,17 @@ h2, h3 {
 </style>
 </head>
 <body>
+  <div id="nav"> </div>
   <div class="card mb-3">
     <img class="card-img-top" src="../res/bacon-cheese-burger.jpg" alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title"><?php echo $nomeRistorante; ?></h5>
       <p class="card-text"><?php echo $descrizione; ?></p>
       <div class="links">
-        <a href="https://www.google.com/maps/" target="_blank"><address>
+        <?php
+        $tmpAddress = str_replace(' ', '+', $indirizzoMaps);
+        ?>
+        <a href="https://www.google.com/maps/place/<?php echo $tmpAddress?>" target="_blank"><address>
            <i class="fas fa-map-marker-alt"></i><?php echo " " . $indirizzoMaps; ?>
         </address></a>
            <i class="fas fa-phone"></i><?php echo " " . $telefono; ?>
@@ -123,149 +129,85 @@ h2, h3 {
     <div class="row">
     <div class="col-4">
       <div class="list-group" id="list-tab" role="tablist">
-        <!--
-        $conn = new mysqli('localhost', 'root', '', 'progettotweb');
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        <?php
+          $conn = new mysqli('localhost', 'root', '', 'progettotweb');
+          if ($conn->connect_error) {
+              die("Connection failed: " . $conn->connect_error);
+          }
 
-        $tagArray = array();
+          $tagArray = array();
 
-        $query = "SELECT * FROM tag";
-        $result = $conn->query($query);
-        $isActive = 1;
-        while ($row = $result->fetch_assoc()) {
-            $tagArray[] = $row;
-            $toPrint = "<a class="list-group-item list-group-item-action";
-            if(isActive) {
-              $toPrint .= "active";
-              $isActive = 0;
-            }
-            $toPrint .= "\" id=\"list-" . $row . "-list\" data-toggle=\"list\" href=\"#list-" . $row . "\" role=\"tab\" aria-controls=\"" . $row . "\">" . $row . "</a>;
-            echo $toPrint;
-        }
-        $conn->close();
-      -->
-        <a class="list-group-item list-group-item-action active" id="list-starter-list" data-toggle="list" href="#list-starter" role="tab" aria-controls="starter">Antipasti</a>
-        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-first" role="tab" aria-controls="first">Primi</a>
-        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-meat" role="tab" aria-controls="meat">Carne</a>
-        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-fish" role="tab" aria-controls="fish">Pesce</a>
-        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-sweet" role="tab" aria-controls="sweet">Dolci</a>
-
-        <!-- fino a qui fatto in php-->
+          $query = "SELECT * FROM tag";
+          $result = $conn->query($query);
+          $isActive = 1;
+          while ($row = $result->fetch_assoc()) {
+              $tagArray[] = $row;
+              $toPrint = "<a class=\"list-group-item list-group-item-action";
+              if($isActive) {
+                $toPrint .= " active";
+                $isActive = 0;
+              }
+              $toPrint .= "\" id=\"list-" . $row["nomeTag"] . "-list\" data-toggle=\"list\" href=\"#list-" . $row["nomeTag"] . "\" role=\"tab\" aria-controls=\"" . $row["nomeTag"] . "\">" . $row["nomeTag"] . "</a>";
+              echo $toPrint;
+          }
+          $conn->close();
+        ?>
       </div>
     </div>
     <div class="col-8">
       <div class="tab-content" id="nav-tabContent">
-        <!--
-        $isActive = 1;
-        for ($j = 0; $j < count($tagArray); $j++) {
-          $toPrint = "<div class=\"tab-pane fade show";
-          if(isActive) {
-            $toPrint .= "active";
-            $isActive = 0;
-          }
-          $toPrint .= "id=\"list-" . $tagArray[$j] . "\" role=\"tabpanel\" aria-labelledby=\"list-" . $tagArray[$j] . "-list\">";
-          echo $toPrint;
-          ?>
-          codice html che hai fatto sotto
-          < ?php
-          echo "</div>";
-          }
-          ?>
-      -->
-        <div class="tab-pane fade show active" id="list-starter" role="tabpanel" aria-labelledby="list-starter-list">
-          <ul class="list-group list-group-flush">
-            <?php
-            //probabilmente questa connessione non serve **********************************************************************************************************
-              $conn = new mysqli('localhost', 'root', '', 'progettotweb');
-              if ($conn->connect_error) {
-                  die("Connection failed: " . $conn->connect_error);
-              }
 
-              $query = "SELECT id, nome, portata.descrizione, prezzo FROM portata JOIN fornitori ON fornitori.P_IVA = portata.ristP_IVA";
-              $result = $conn->query($query);
-
-              while ($row = $result->fetch_assoc()) { //con questo ciclo while mostro tutti i prodotti offerti da un fornitore in base ai tag a loro assegnati
-              ?>
-              <li class="list-group-item">
-                          <div class="product-container" href="cartAction.php?action=addToCart&id=<?php echo $row["id"];?>&p_iva=<?php echo $p_iva; ?>">
-                            <div class="product-info-container">
-                            <div class = "product-name-container">
-                              <?php echo $row["nome"];  ?>
-                            </div>
-                            <div class = "product-description-container">
-                              <?php echo $row["descrizione"]  ?>
-                            </div>
-                            </div>
-                            <div class="product-price-container">
-                              <?php echo $row["prezzo"]   ?>
-                            </div>
-                          </div>
-                        </li>";
-            <?php
+        <?php
+          $isActive = 1;
+          for ($j = 0; $j < count($tagArray); $j++) {
+            $toPrint = "<div class=\"tab-pane fade";
+            if($isActive) {
+              $toPrint .= " show active";
+              $isActive = 0;
             }
-              $conn->close();
+            $toPrint .= "\" id=\"list-" . $tagArray[$j]["nomeTag"] . "\" role=\"tabpanel\" aria-labelledby=\"list-" . $tagArray[$j]["nomeTag"] . "-list\">";
+            echo $toPrint;
             ?>
-            <!-- <li class="list-group-item">
-              <div class="product-container">
-                <div class="product-info-container">
-                  Antipasto1
-                </div>
-                <div class="product-price-container">
-                  777€
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="product-container">
-                <div class="product-info-container">
-                  Antipasto2
-                </div>
-                <div class="product-price-container">
-                  777€
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="product-container">
-                <div class="product-info-container">
-                  Antipasto3
-                </div>
-                <div class="product-price-container">
-                  777€
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="product-container">
-                <div class="product-info-container">
-                  Antipasto4
-                </div>
-                <div class="product-price-container">
-                  777€
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="product-container">
-                <div class="product-info-container">
-                  Antipasto5
-                </div>
-                <div class="product-price-container">
-                  777€
-                </div>
-              </div>
-            </li>
-          </ul> -->
-        </div>
-        <div class="tab-pane fade" id="list-first" role="tabpanel" aria-labelledby="list-first-list">...</div>
-        <div class="tab-pane fade" id="list-meat" role="tabpanel" aria-labelledby="list-meat-list">...</div>
-        <div class="tab-pane fade" id="list-fish" role="tabpanel" aria-labelledby="list-fish-list">...</div>
-        <div class="tab-pane fade" id="list-fish" role="tabpanel" aria-labelledby="list-sweet-list">...</div>
+              <ul class="list-group list-group-flush">
+                <?php
+                  $conn = new mysqli('localhost', 'root', '', 'progettotweb');
+                  if ($conn->connect_error) {
+                      die("Connection failed: " . $conn->connect_error);
+                  }
+                  $query = "SELECT id, nome, portata.descrizione, prezzo FROM portata, tagportata WHERE portata.ristP_IVA =  $p_iva AND portata.id = tagportata.idPortata AND tagportata.idtag = " .  $tagArray[$j]["id"];
+                  $result = $conn->query($query);
+                  while ($row = $result->fetch_assoc()) { //con questo ciclo while mostro tutti i prodotti offerti da un fornitore in base ai tag a loro assegnati
+                ?>
+                  <li class="list-group-item">
+                              <div class="product-container">
+                                <a href="cartAction.php?action=addToCart&id=<?php echo $row["id"];?>&p_iva=<?php echo $p_iva; ?>">
+                                  <div class="product-info-container">
+                                  <div class = "product-name-container">
+                                    <?php echo $row["nome"];  ?>
+                                  </div>
+                                  <div class = "product-description-container">
+                                    <?php echo $row["descrizione"];  ?>
+                                  </div>
+                                  </div>
+                                </a>
+                                <div class="product-price-container">
+                                  <?php echo $row["prezzo"] . "€";   ?>
+                                </div>
+                              </div>
+                  </li>
+                <?php
+                }
+                  $conn->close();
+                ?>
+            <?php
+                echo "</div>";
+              }
+        ?>
+      </div> <!-- div che chiude la tavola contenente unicamente gli alimenti -->
       </div>
     </div>
   </div>
   </div>
+  <div id="footer"></div>
 </body>
 </html>

@@ -9,7 +9,7 @@ include 'Cart.php';
 $cart = new Cart;
 
 if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
-    if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id'] && !empty($_REQUEST['p_iva'])){
+    if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQUEST['p_iva'])){
         $productID = $_REQUEST['id'];
         $resturantPIVA = $_REQUEST['p_iva'];
         // get product details
