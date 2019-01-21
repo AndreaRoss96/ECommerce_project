@@ -3,7 +3,8 @@ $(document).ready(function(){
      
         jQuery.ajax({
           type: "POST",
-          url: "../script/getLoginProblems.php", 
+          url: "../script/getLoginProblems.php",
+          cache : false, 
           dataType: "json",
           success: function (response)
           {
@@ -30,6 +31,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type: "POST",
         url: "../script/getLoginCheck.php", 
+        cache : false,
         dataType: "json",
         success: function (response)
         {

@@ -3,6 +3,7 @@ $(document).ready(function(){
           jQuery.ajax({
             type: "POST",
             url: "../script/getRegistrationProblems.php", 
+            cache : false,
             dataType: "json",
             success: function (response)
             {
