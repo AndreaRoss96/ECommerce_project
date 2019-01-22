@@ -82,7 +82,7 @@ if(login_check($conn)){
           <td colspan="2"></td>
           <?php if($cart->total_items() > 0){ ?>
             <td class="text-center"><strong>Totale <br> <?php echo $cart->total().' €'; ?></strong></td>
-            <td><a href="checkout.php" class="btn btn-success btn-block">Ordina!<i class="glyphicon glyphicon-menu-right"></i></a></td>
+            <td><a href="cartCheckout.php" class="btn btn-success btn-block">Ordina!<i class="glyphicon glyphicon-menu-right"></i></a></td>
           <?php } ?>
         </tr>
     </tfoot>
