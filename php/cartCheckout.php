@@ -1,23 +1,33 @@
 <?php
 include('../script/dbConnect.php');
 include('../script/functions.php');
-include ('Cart.php');
 
-// Check connection
+// initializ shopping cart class
+include 'Cart.php';
+
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+secure_session_start();
 
 $cart = new Cart;
 
-if(login_check($conn)){
-  header("Location: ../html/userSupplierLogin.html"); //Se il cliente non è connesso redirige alla pagina di login
+// redirect to home if cart is empty
+if($cart->total_items() <= 0){
+    header("Location: ../html/homepage.html");
 }
+
+// set customer ID in session
+$_SESSION['sessCustomerID'] = 1;
+
+// get customer details by session customer ID
+// $query = $db->query("SELECT * FROM clienti WHERE id = ".$_SESSION['sessCustomerID']);
+// $custRow = $query->fetch_assoc();
 ?>
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-    <title>Carrello</title>
+    <title>Checkout - PHP Shopping Cart Tutorial</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -32,55 +42,54 @@ if(login_check($conn)){
 </head>
 <body>
 <div class="container">
-    <h1>Ecco cos'hai ordinato</h1>
+    <h1>Order Preview</h1>
     <table class="table">
     <thead>
         <tr>
-            <th>Prodotto</th>
-            <th>Prezzo</th>
-            <th>Quantità</th>
-            <th>Totale del prodotto</th>
-            <th>&nbsp;</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
         </tr>
     </thead>
     <tbody>
         <?php
         if($cart->total_items() > 0){
-            //prende gli elementi del carrello della sessione
+            //get cart items from session
             $cartItems = $cart->contents();
             foreach($cartItems as $item){
         ?>
         <tr>
             <td><?php echo $item["name"]; ?></td>
-            <td><?php echo $item["price"].' €'; ?></td>
-            <td><input type="number" class="form-control text-center" value="<?php echo $item["qty"]; ?>" onchange="updateCartItem(this, '<?php echo $item["rowid"]; ?>')"></td>
-            <td><?php echo $item["subtotal"].' €'; ?></td>
-            <td>
-                <a href="cartAction.php?action=removeCartItem&id=<?php echo $item["rowid"]; ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="glyphicon glyphicon-trash"></i></a>
-            </td>
+            <td><?php echo '$'.$item["price"].' USD'; ?></td>
+            <td><?php echo $item["qty"]; ?></td>
+            <td><?php echo '$'.$item["subtotal"].' USD'; ?></td>
         </tr>
         <?php } }else{ ?>
-        <tr><td colspan="5"><p>Non hai ancora selezionato niente!</p></td></tr>
+        <tr><td colspan="4"><p>Il carrello è vuoto :()</p></td>
         <?php } ?>
     </tbody>
     <tfoot>
         <tr>
-          <td><a href="resturant.php?p_iva=<?php echo $_GET["p_iva"]?>" class="btn btn-warning"><i class="glyphicon glyphicon-menu-left"></i> Prendi qualcos'altro</a></td>
-          <td colspan="2"></td>
-          <?php if($cart->total_items() > 0){ ?>
+            <td colspan="3"></td>
+            <?php if($cart->total_items() > 0){ ?>
             <td class="text-center"><strong>Total <?php echo $cart->total().' €'; ?></strong></td>
-            <td><a href="checkout.php" class="btn btn-success btn-block">Ordina!<i class="glyphicon glyphicon-menu-right"></i></a></td>
-          <?php } ?>
+            <?php } ?>
         </tr>
     </tfoot>
     </table>
-    <!-- <div class="shipAddr">
-        <h4>Dettagli di spedizione</h4>
-        <p>< ? php echo ($_SESSION['name'] . $_SESSION['surname']); ?></p>
-        <p>< ?php echo ($_SESSION['email']); ?></p>
-        <p>< ?php echo $_SESSION['badgeNumber']; ?></p>
-        <p>< ?php echo "culo";//$custRow['address']; ?></p>
-    </div> -->
+    <div class="shipAddr">
+        <h4>Shipping Details</h4>
+        <p><?php echo $_SESSION['name'] . " " . $_SESSION['surname']; ?></p>
+        <p><?php echo $_SESSION['email']; ?></p>
+        <p><?php echo $_SESSION['badgeNumber']; ?></p>
+    </div>
+    <div class="footBtn">
+      <form>
+        <button type="button" class="btn btn-danger" onclick="history.back()">Annulla</button>
+      </form>
+        <a href="cartAction.php?action=placeOrder" class="btn btn-success orderBtn">Place Order <i class="glyphicon glyphicon-menu-right"></i></a>
+    </div>
 </div>
 </body>
 </html>

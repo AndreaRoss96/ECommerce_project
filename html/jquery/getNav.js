@@ -12,7 +12,7 @@ function uploadSupplierImage(file){
     form_data.append('file',file);
     jQuery.ajax({
       type: "POST",
-      url: "../php/uploadProfileImage.php", 
+      url: "../php/uploadProfileImage.php",
       dataType: "text",
       cache : false,
       contentType : false,
@@ -22,7 +22,7 @@ function uploadSupplierImage(file){
       {
         $("#fileChooser").val('');
         alert(response);
-        
+
       },
       error:function (xhr, ajaxOptions, thrownError)
       {
@@ -35,7 +35,7 @@ function uploadSupplierImage(file){
 function getSupplierImage(img){
     jQuery.ajax({
       type: "POST",
-      url: "../php/getProfileImage.php", 
+      url: "../php/getProfileImage.php",
       dataType: "text",
       cache : false,
       contentType : false,
@@ -46,7 +46,7 @@ function getSupplierImage(img){
         $(img).attr("src",'data:image/jpg;base64,' + response);
        // $(img).src = 'data:image/jpg;base64,' + response;
        // console.log($(img));
-        
+
       },
       error:function (xhr, ajaxOptions, thrownError)
       {
@@ -70,7 +70,6 @@ $(document).ready(function(){
             var userInfoCollapse = "<div class='collapse' id='userInfoCollapse'>"
                                     +"<div id='userInfo' class='card card-body'>";
 
-                                    console.log("la madonna è piena di letame user");
             $.each(response,function(key,val){
                 userInfoCollapse = userInfoCollapse + "<p>" + key + " : " + val + "</p>";
             });
@@ -85,7 +84,7 @@ $(document).ready(function(){
               button.attr("role","button");
               button.attr("aria-expanded","false");
 
-              button.attr("aria-controls","userInfoCollapse"); 
+              button.attr("aria-controls","userInfoCollapse");
               var imageDiv = "<div class='col-xs-9 col-md-6 col-xl-2'><img id='image' class='img-responsive  img-thumbnail'></div>";
               button.attr("aria-controls","userInfoCollapse");
 
@@ -98,7 +97,7 @@ $(document).ready(function(){
               if(response.Tipo === "Fornitore"){
                  $("#userInfo > p").last().after("<p>Immagine:</p>"+imageDiv);
                  getSupplierImage("#image");
-                 var changeImage = "<form action='#'><button type='submit' id='changeImage' class='btn btn-info mt-2'>Cambia immagine profilo</button></form>";          
+                 var changeImage = "<form action='#'><button type='submit' id='changeImage' class='btn btn-info mt-2'>Cambia immagine profilo</button></form>";
                  $("#userInfo > div").last().after(changeImage);
                  var email = response.Email;
                  var fileChooser = "<input type='file' id='fileChooser' accept='image/jpeg' style='display: none' />"
@@ -110,14 +109,14 @@ $(document).ready(function(){
                    $("#fileChooser").trigger("click");
                 });
                 $("#userInfo > form").last().after(changePasswordButton);
-                $("#userInfo > form").last().after(logoutButton); 
+                $("#userInfo > form").last().after(logoutButton);
               }
               else{
                 $("#userInfo > p").last().after(changePasswordButton);
                 $("#userInfo > p").last().after(logoutButton);
               }
-             
-          
+
+
             //alert(userInfoCollapse);
 
           },

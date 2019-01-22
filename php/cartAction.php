@@ -9,21 +9,25 @@ include 'Cart.php';
 $cart = new Cart;
 
 if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
-    if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQUEST['p_iva'])){
+if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQUEST['p_iva']) /*&& !empty($_REQUEST['location']) && !empty($_REQUEST['time'])*/ ){
         $productID = $_REQUEST['id'];
         $resturantPIVA = $_REQUEST['p_iva'];
+        // $time = $_REQUEST['time'];
+        // $location = $_REQUEST['location'];
         // get product details
         $query = $db->query("SELECT * FROM portata WHERE id = " . $productID . " AND ristP_IVA = " .$resturantPIVA); /** aggiungere anche l'id del ristorante */
         $row = $query->fetch_assoc();
         $itemData = array(
-            'id' => $row['idPortata'],
+            'id' => $row['id'],
             'name' => $row['nome'],
             'price' => $row['prezzo'],
-            'qty' => 1
+            'qty' => 1/*,
+            'time' => $time,
+            'location' => $location*/
         );
 
         $insertItem = $cart->insert($itemData);
-        $redirectLoc = $insertItem?'viewCart.php':'index.php'; //questo ti reinderizza al carrello, anche se index.php non esiste
+        $redirectLoc = $insertItem?'viewCart.php?p_iva=' . $resturantPIVA :'#'; //Quando un elemento viene correttamente inserito nel carrello si viene reinderizzati alla pagina del carrello
         header("Location: ".$redirectLoc);
     }elseif($_REQUEST['action'] == 'updateCartItem' && !empty($_REQUEST['id'])){
         $itemData = array(
@@ -46,7 +50,7 @@ if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
             $cartItems = $cart->contents();
             foreach($cartItems as $item){
                 $sql .= "INSERT INTO dettaglioordine (idOrdine, idPortata, quantita) VALUES ('".$orderID."', '".$item['id']."', '".$item['qty']."');";
-            }           //INSERT INTO dettaglioordine (idOrdine, idPortata, quantita) VALUES ('".$orderID."', '".$item['id']."', '".$item['qty']."');";
+            }
             // insert order items into database
             $insertOrderItems = $db->multi_query($sql);
 
@@ -60,8 +64,8 @@ if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
             header("Location: checkout.php");
         }
     }else{
-        header("Location: index.php");
+        header("Location: resturant.php?errore=67");
     }
 }else{
-    header("Location: index.php");
+    header("Location: resturant.php?errore=70");
 }

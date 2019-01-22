@@ -16,7 +16,7 @@ $stmt->close();
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
   <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -73,8 +73,18 @@ h2, h3 {
 }
 
 .product-price-container { /*lista dei cibi a seconda della categoria */
-  width: 100%;
   text-align: right;
+  position: absolute;
+  right: 10px;
+}
+
+.product-link {
+  color: black;
+}
+
+.product-link:hover {
+  text-decoration: none;
+  color: #808080;
 }
 </style>
 </head>
@@ -96,16 +106,20 @@ h2, h3 {
       </div>
     </div>
   </div>
+  <form class="" action="" method="post">
   <div class="comboboxes">
-    <h2>Informazioni sulla consegna</h2>
-    <h3>Luogo</h3>
-    <select name="sources" id="sources" class="custom-select sources" placeholder="Dove consegnamo?">
-      <option value="primo-piano">Primo piano</option>
-      <option value="piano-terra">Piano terra</option>
-    </select>
+    <h2>Cosa offriamo</h2>
+
+    <!-- <h3>Luogo</h3>
+    <form class="" action="" method="post">
+      <select name="location" id="location" class="custom-select sources" placeholder="Dove consegnamo?">
+        <option value="primo-piano">Primo piano</option>
+        <option value="piano-terra">Piano terra</option>
+      </select>
+    </form> -->
 
     <h3>Orario</h3>
-    <select name="sources" id="sources" class="custom-select sources" placeholder="A che ora?">
+    <select name="time" id="time" class="custom-select sources" placeholder="A che ora?">
       <?php
         $orarioTmp = $orarioApertura;
         while ($orarioTmp != $orarioChiusura) {
@@ -123,7 +137,7 @@ h2, h3 {
           echo $toPrint;
         }
       ?>
-    </select>
+  </select>
   </div>
   <div class="menu">
     <div class="row">
@@ -137,7 +151,7 @@ h2, h3 {
 
           $tagArray = array();
 
-          $query = "SELECT * FROM tag";
+          $query = "SELECT * FROM tag, tagportata WHERE tagportata.ristP_IVA = $p_iva AND tag.id = tagportata.idtag";
           $result = $conn->query($query);
           $isActive = 1;
           while ($row = $result->fetch_assoc()) {
@@ -179,21 +193,23 @@ h2, h3 {
                   while ($row = $result->fetch_assoc()) { //con questo ciclo while mostro tutti i prodotti offerti da un fornitore in base ai tag a loro assegnati
                 ?>
                   <li class="list-group-item">
-                              <div class="product-container">
-                                <a href="cartAction.php?action=addToCart&id=<?php echo $row["id"];?>&p_iva=<?php echo $p_iva; ?>">
-                                  <div class="product-info-container">
-                                  <div class = "product-name-container">
-                                    <?php echo $row["nome"];  ?>
-                                  </div>
-                                  <div class = "product-description-container">
-                                    <?php echo $row["descrizione"];  ?>
-                                  </div>
-                                  </div>
-                                </a>
-                                <div class="product-price-container">
-                                  <?php echo $row["prezzo"] . "€";   ?>
-                                </div>
-                              </div>
+                      <a class="product-link" href="cartAction.php?action=addToCart&id=<?php echo $row["id"];?>&p_iva=<?php echo $p_iva; ?>">
+                        <div class="product-container">
+
+                            <div class="product-info-container">
+                            <div class = "product-name-container">
+                              <?php echo $row["nome"];  ?>
+                            </div>
+                            <div class = "product-description-container">
+                              <?php echo $row["descrizione"];  ?>
+                            </div>
+                            </div>
+
+                          <div class="product-price-container">
+                            <?php echo $row["prezzo"] . "€";   ?>
+                          </div>
+                        </div>
+                      </a>
                   </li>
                 <?php
                 }
@@ -207,7 +223,14 @@ h2, h3 {
       </div>
     </div>
   </div>
-  </div>
+  </form>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('li.list-group-item').on('click', function(e){
+          $('form').submit();
+      });
+    });
+  </script>
   <div id="footer"></div>
 </body>
 </html>
