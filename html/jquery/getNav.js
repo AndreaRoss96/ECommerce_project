@@ -60,6 +60,7 @@ $(document).ready(function(){
       $("#nav").load("../html/jquery/nav.html",function(){
         $("#userButton").empty().append("<i class='fa fa-user fa-2x' title='Login'></i> Login");
         $("#cartButton").append("Carrello <i class='fa fa-shopping-cart fa-2x' title='Carrello'></i>");
+        $("#cart").hide();
       });
         jQuery.ajax({
           type: "POST",
@@ -94,6 +95,9 @@ $(document).ready(function(){
               var changePasswordButton ="<form action='passwordChange.html'>"
                                         +"<button type='submit' class='btn btn-info mt-2'>Cambia password</button>"
                                         +" </form>";
+              if(response.Tipo === "Cliente"){
+                $("#cart").show();
+              }                        
               if(response.Tipo === "Fornitore"){
                  $("#userInfo > p").last().after("<p>Immagine:</p>"+imageDiv);
                  getSupplierImage("#image");

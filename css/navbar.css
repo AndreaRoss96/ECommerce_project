@@ -1,5 +1,6 @@
 #nav {
 	position : sticky;
 	top : 0;
+	width : auto;
 	z-index: 1020 !important;
 }

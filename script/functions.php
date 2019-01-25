@@ -3,6 +3,11 @@ include('types.php');
 function sendMail($to,$header,$message){
   mail($to,"",$message,$header);
 }
+
+function unsetSessionVariable ($sessionVariableName) {
+   unset($GLOBALS['_SESSION'][$sessionVariableName]);
+}
+
 function secure_session_start() {
         $session_name = 'sec_session_id'; // Imposta un nome di sessione
         $secure = false; // Imposta il parametro a true se vuoi usare il protocollo 'https'.
