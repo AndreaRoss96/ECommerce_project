@@ -76,7 +76,7 @@ class Cart {
         if(!is_array($item) OR count($item) === 0){
             return FALSE;
         }else{
-        if(!isset($item['id'], $item['name'], $item['price'], $item['qty']/*, $item['time'], $item['location']*/)){
+        if(!isset($item['id'], $item['name'], $item['price'], $item['qty'], $item['p_iva'])){
                 return FALSE;
             }else{
                 /*
@@ -100,6 +100,7 @@ class Cart {
                 // $item['time'] = $time;
                 // $item['location'] = $location;
                 $this->cart_contents[$rowid] = $item;
+
 
                 // save Cart Item
                 if($this->save_cart()){

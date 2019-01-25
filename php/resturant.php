@@ -103,11 +103,11 @@ h2, h3 {
            <i class="fas fa-map-marker-alt"></i><?php echo " " . $indirizzoMaps; ?>
         </address></a>
            <i class="fas fa-phone"></i><?php echo " " . $telefono; ?>
+           <br><br>
+           <i class="far fa-clock"></i><?php echo " " . $orarioApertura . " - " . $orarioChiusura; ?>
       </div>
     </div>
   </div>
-  <form class="" action="" method="post">
-  <div class="comboboxes">
     <h2>Cosa offriamo</h2>
 
     <!-- <h3>Luogo</h3>
@@ -118,9 +118,9 @@ h2, h3 {
       </select>
     </form> -->
 
-    <h3>Orario</h3>
+    <!-- <h3>Orario</h3>
     <select name="time" id="time" class="custom-select sources" placeholder="A che ora?">
-      <?php
+      < ?php
         $orarioTmp = $orarioApertura;
         while ($orarioTmp != $orarioChiusura) {
           $toPrint = "<option value=\"time\">" . $orarioTmp . " - ";
@@ -137,8 +137,7 @@ h2, h3 {
           echo $toPrint;
         }
       ?>
-  </select>
-  </div>
+  </select> -->
   <div class="menu">
     <div class="row">
     <div class="col-4">
@@ -223,14 +222,17 @@ h2, h3 {
       </div>
     </div>
   </div>
-  </form>
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     $(document).ready(function(){
       $('li.list-group-item').on('click', function(e){
-          $('form').submit();
+        var getOptions = document.getElementById("time");
+        var getHour = getOptions.options[getOptions.selectedIndex].text;
+        console.log("cartAction.php?action=addToCart&id=" + getHour);
+        // window.location.replace("cartAction.php?action=addToCart&id=" + getHour);
+          // $('form').submit();
       });
     });
-  </script>
+  </script> -->
   <div id="footer"></div>
 </body>
 </html>
