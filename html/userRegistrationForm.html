@@ -7,6 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/navbar.css">
   </head>
   <body>
     <div id="nav"></div>
@@ -36,14 +37,16 @@
       <label for="defaultRegisterFormPasswordConfirm">Conferma password</label>
       <input type="password" id="defaultRegisterFormPasswordConfirm" class="form-control mb-4" placeholder="*******" name="password_2" required>
 
-      <button class="btn btn-info my-4 btn-block" type="submit" id="registerUser" name="register_user">Conferma dati</button>
-
+      <div class="row justify-content-end mb-5">
+        <p class="mr-4 mb-4">Cliccando
+          <em>Conferma dati</em> accetti la nostra
+          <a href="../html/privacy-policy.html">Privacy policy</a> e acconsenti al T.D.P.
+       </p>
+        <button class="btn btn-info  mb-4" type="submit" id="registerSupplier" name="register_supplier">Conferma dati</button>
+      </div>
     </form>
 
-      <p class="text-center">Cliccando
-          <em>Conferma dati</em> accetti la nostra
-          <a href="" target="_blank">Privacy policy</a>
-      </p>
+   
 
 
     <div id="footer"></div>

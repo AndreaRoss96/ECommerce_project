@@ -23,8 +23,8 @@ function registrationFormHash() {
     p1.type = "hidden";
     p1.value = hex_sha512(password.value);
     // Assicurati che la password non venga inviata in chiaro.
-    alert(password.value);
-    alert(p1.value);
+   // alert(password.value);
+//alert(p1.value);
     password.value = "";
     // Aggiungi un nuovo elemento al tuo form.
     form.appendChild(p2);
@@ -47,8 +47,8 @@ function registrationFormHash() {
      p1.type = "hidden"
      p1.value = hex_sha512(password.value);
      // Assicurati che la password non venga inviata in chiaro.
-     alert(password.value);
-     alert(p1.value);
+    // alert(password.value);
+    // alert(p1.value);
      password.value = "";
  }
 
