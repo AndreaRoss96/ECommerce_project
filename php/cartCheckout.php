@@ -27,29 +27,81 @@ $_SESSION['sessCustomerID'] = 1;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Checkout - PHP Shopping Cart Tutorial</title>
+    <title>Conferma carrello</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
     <style>
     .container{width: 100%;padding: 50px;}
     .table{width: 65%;float: left;}
     .shipAddr{width: 30%;float: left;margin-left: 30px;}
-    .footBtn{width: 95%;float: left;}
+    .footBtn{width: 95%; padding: auto;}
     .orderBtn {float: right;}
+    .table thead {
+      font-size: 17px;
+      font-family: bree serif;
+    }
+    .table tbody {
+      font-size: 15px;
+      font-family: roboto;
+    }
+    .table tfoot{
+      font-size: 17px;
+      font-family: bree serif;
+    }
+    p {
+      font-family: Arial;
+      font-size: 13px;
+    }
+    .example_c {
+color: #494949 !important;
+text-transform: uppercase;
+background: #ffffff;
+padding: 20px;
+border: 4px solid #494949 !important;
+border-radius: 6px;
+display: inline-block;
+}
+
+.example_c:hover {
+color: #ffffff !important;
+background: #f6b93b;
+border-color: #f6b93b !important;
+transition: all 0.4s ease 0s;
+}
+
+.btn-danger {
+color: #fff !important;
+text-transform: uppercase;
+background: #ed3330;
+padding: 20px;
+border-radius: 5px;
+display: inline-block;
+border: none;
+}
+
+.btn-danger:hover {
+background: #434343;
+letter-spacing: 1px;
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.4s ease 0s;
+}
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Order Preview</h1>
+    <h1>Ecco cosa stai ordinando</h1>
     <table class="table">
     <thead>
         <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
+            <th>Prodotto</th>
+            <th>Prezzo</th>
+            <th>Quantità</th>
+            <th>Totale prodotto</th>
         </tr>
     </thead>
     <tbody>
@@ -61,9 +113,9 @@ $_SESSION['sessCustomerID'] = 1;
         ?>
         <tr>
             <td><?php echo $item["name"]; ?></td>
-            <td><?php echo '$'.$item["price"].' USD'; ?></td>
+            <td><?php echo $item["price"].' €'; ?></td>
             <td><?php echo $item["qty"]; ?></td>
-            <td><?php echo '$'.$item["subtotal"].' USD'; ?></td>
+            <td><?php echo $item["subtotal"].' €'; ?></td>
         </tr>
         <?php } }else{ ?>
         <tr><td colspan="4"><p>Il carrello è vuoto :()</p></td>
@@ -71,24 +123,24 @@ $_SESSION['sessCustomerID'] = 1;
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3"></td>
+            <td> Presso:<br><?php echo $_POST['location']?></td>
+            <td> Alle:<br><?php echo $_POST['time']?></td>
             <?php if($cart->total_items() > 0){ ?>
-            <td class="text-center"><strong>Total <?php echo $cart->total().' €'; ?></strong></td>
+            <td class="text-center"><strong>Totale <?php echo $cart->total().' €'; ?></strong> <br> <p class:"spedizione">+ costo spedizione (0,50€)</p></td>
             <?php } ?>
         </tr>
     </tfoot>
     </table>
     <div class="shipAddr">
-        <h4>Shipping Details</h4>
+        <h4>Dettagli cliente</h4>
         <p><?php echo $_SESSION['name'] . " " . $_SESSION['surname']; ?></p>
         <p><?php echo $_SESSION['email']; ?></p>
         <p><?php echo $_SESSION['badgeNumber']; ?></p>
     </div>
     <div class="footBtn">
-      <form>
         <button type="button" class="btn btn-danger" onclick="history.back()">Annulla</button>
-      </form>
-        <a href="cartAction.php?action=placeOrder" class="btn btn-success orderBtn">Place Order <i class="glyphicon glyphicon-menu-right"></i></a>
+        <!-- <a href="cartAction.php?action=placeOrder" class="btn btn-success orderBtn">Prosegui <i class="glyphicon glyphicon-menu-right"></i></a> -->
+        <div class="button_cont" align="center"><a class="example_c" href="cartAction.php?action=placeOrder" rel="nofollow noopener">Prosegui</a></div>
     </div>
 </div>
 </body>
