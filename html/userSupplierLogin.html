@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Login utente</title>
+    <title>Login utenti e fornitori</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,8 +12,14 @@
     <div id="nav"></div>
     <div class="alert alert-danger" role="alert"></div>
     <div class="alert alert-success" role="alert"></div>
+    <div class="text-right mt-2">
+        <form action="adminLogin.html">
+            <button class="btn btn-info align-right" type="submit">Login amministratore</button>
+        </form>
+    </div>
+     
       <form id="form" action="../php/processLogin.php" onsubmit="return loginFormHash()" method="POST" class="border border-light mt-2 mb-4 pb-4 pl-5 pr-5">
-       <p class=" h4 mb-4 text-center">Login</p>
+       <p class=" h4 mb-4 text-center">Login utenti e fornitori</p>
           <label for="defaultLoginFormEmail">E-mail</label>
           <input id="defaultLoginFormEmail" class="form-control mb-4" placeholder="mario.rossi@email.com" type="email" name="usermail" required>
 
@@ -39,11 +45,6 @@
                     <button class="btn btn-info" type="submit">Registrazione fornitore</button>
                   </form>
             </div>
-            </p>
-            <p>Sei un amministratore? </br>
-              <form action="adminLogin.html">
-                  <button class="btn btn-info mt-n3" type="submit">Login amministratore</button>
-                </form>
             </p>
         </div>
         </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 18, 2019 alle 18:20
+-- Creato il: Gen 25, 2019 alle 19:46
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.3.0
 
@@ -76,8 +76,19 @@ CREATE TABLE `dettaglioordine` (
   `idPortata` int(11) NOT NULL,
   `ristP_IVA` varchar(11) COLLATE utf8_bin NOT NULL,
   `idOrdine` int(11) NOT NULL,
-  `quantita` int(11) NOT NULL
+  `quantita` int(11) NOT NULL,
+  `inConsegna` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dump dei dati per la tabella `dettaglioordine`
+--
+
+INSERT INTO `dettaglioordine` (`idPortata`, `ristP_IVA`, `idOrdine`, `quantita`, `inConsegna`) VALUES
+(1, '12321232123', 1, 3, 1),
+(1, '12321232123', 2, 4, 1),
+(2, '12321232123', 1, 2, 1),
+(2, '12321232123', 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -106,7 +117,8 @@ CREATE TABLE `fornitori` (
 --
 
 INSERT INTO `fornitori` (`P_IVA`, `nomeRistorante`, `nomeReferente`, `cognomeReferente`, `descrizione`, `telefono`, `indirizzoMaps`, `email`, `password`, `salt`, `orarioApertura`, `orarioChiusura`, `approvazioneAmministratore`) VALUES
-('12321232123', 'Da Jacopo', 'Jacopo', 'Corina', 'ciao', '34343', 'Via Via 1', 'jacopocorina@live.it', '22a82edd6a62910c48dec286e853d30ac2d37eb49dbd98ba2d35a64797190a80e9c18c98d6f5d921a7aa44a2d48e1a47b78aacf46fd33ad8e0ac446fb3a922d8', '185be0fdd84925a962d25b274fd85ed45911979b9631e014fe35fbf2f871c632ae03f28a77f13271b415709c141c7d876e3b840baaa25d7872443ea27059c083', '10:00', '12:00', 0);
+('12321232123', 'Da Jacopo', 'Jacopo', 'Corina', 'ciao', '34343', 'Via Via 1', 'jacopocorina@live.it', '22a82edd6a62910c48dec286e853d30ac2d37eb49dbd98ba2d35a64797190a80e9c18c98d6f5d921a7aa44a2d48e1a47b78aacf46fd33ad8e0ac446fb3a922d8', '185be0fdd84925a962d25b274fd85ed45911979b9631e014fe35fbf2f871c632ae03f28a77f13271b415709c141c7d876e3b840baaa25d7872443ea27059c083', '10:00', '12:00', 1),
+('12341234123', 'prova', 'j', 'j', 'jj', '9', 'j', 'j@live.it', 'b9ab43eda2b7b0253f248adee4e693eaf7b9da7ba82bdc3bf8277cea89d1fb122a2ba555e209257a42a9b75a26b3453ce88c410fb7d647a16bd6d575f180e616', '3e7c0561cc15bff3c9cf9c7cafea0f8b47d8623bcbf9e1c7bd00bcc1d2b5d7ed6598be25b03cdc88183b64f156f1803735e04b45fd5f4e5e2c2e07546fb0b6cc', '09:09', '09:09', 1);
 
 -- --------------------------------------------------------
 
@@ -119,6 +131,14 @@ CREATE TABLE `luogoconsegna` (
   `luogo` varchar(20) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dump dei dati per la tabella `luogoconsegna`
+--
+
+INSERT INTO `luogoconsegna` (`id`, `luogo`) VALUES
+(1, 'Ingresso piano terra'),
+(2, 'Ingresso primo piano');
+
 -- --------------------------------------------------------
 
 --
@@ -130,8 +150,20 @@ CREATE TABLE `ordine` (
   `importoTotale` int(11) NOT NULL,
   `costoConsegna` int(11) NOT NULL,
   `matricola` varchar(10) COLLATE utf8_bin NOT NULL,
-  `orarioConsegna` varchar(5) COLLATE utf8_bin NOT NULL
+  `orarioConsegna` varchar(5) COLLATE utf8_bin NOT NULL,
+  `idLuogoConsegna` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dump dei dati per la tabella `ordine`
+--
+
+INSERT INTO `ordine` (`id`, `importoTotale`, `costoConsegna`, `matricola`, `orarioConsegna`, `idLuogoConsegna`) VALUES
+(1, 30, 2, '12', '14:20', 1),
+(2, 12, 2, '12', '12:30', 2),
+(3, 25, 2, '12', '12:00', 1),
+(4, 10, 2, '14', '13:00', 1),
+(5, 7, 2, '14', '18:00', 2);
 
 -- --------------------------------------------------------
 
@@ -146,6 +178,14 @@ CREATE TABLE `portata` (
   `descrizione` varchar(255) COLLATE utf8_bin NOT NULL,
   `prezzo` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dump dei dati per la tabella `portata`
+--
+
+INSERT INTO `portata` (`id`, `ristP_IVA`, `nome`, `descrizione`, `prezzo`) VALUES
+(1, '12321232123', 'pasta al sugo', 'pasta, sugo di carne bovina', 10),
+(2, '12321232123', 'sella \'al rosto\'', 'na sella de cavallo \'al rosto\'', 20);
 
 -- --------------------------------------------------------
 
@@ -230,19 +270,19 @@ ALTER TABLE `tagportata`
 -- AUTO_INCREMENT per la tabella `luogoconsegna`
 --
 ALTER TABLE `luogoconsegna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `ordine`
 --
 ALTER TABLE `ordine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `portata`
 --
 ALTER TABLE `portata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `tag`

@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Pannello amministratore</title>
+    <title>Gestione ordini</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,23 +12,15 @@
     
     <div id="nav"></div>
     <div class="table-responsive">
-      <table class="table table-bordered table-sm table-hover">
-        <caption>Lista dei fornitori registrati</caption>
+      <table id="ordersTable" class="table table-bordered table-sm table-hover">
+        <caption>Lista degli ordini</caption>
         <thead>
           <tr>
-            <th scope="col" >P.IVA</th>
-            <th scope="col">Nome Att.</th>
-            <th scope="col">Descrizione</th>
-            <th scope="col">Indirizzo</th>
-            <th scope="col">Ora apertura</th>
-            <th scope="col">Ora chiusura</th>
-            <th scope="col">E-mail</th>
-            <th scope="col">Nome referente</th>
-            <th scope="col">Cognome referente</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Approvazione</th>
-            <th scope="col">Gestisci approvazione</th>
-            <th scope="col">Elimina fornitore</th>
+            <th scope="col" >#</th>
+            <th scope="col">Portate</th>
+            <th scope="col">Luogo consegna</th>
+            <th scope="col">Orario consegna</th>
+            <th scope="col">Stato ordine</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -40,9 +32,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
     <script src="jquery/getNav.js"></script>
     <script src="jquery/getFooter.js"></script>
-    <script src="../script/fillAdminPanelList.js"></script>
+    <script src="../script/fillOrdersTable.js"></script>
+
   </body>
 </html>
