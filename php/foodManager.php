@@ -1,9 +1,10 @@
 <?php
+	include('../script/functions.php');
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
 	$dbname = "progettotweb";
-
+	secure_session_start();
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -49,6 +50,7 @@
 					$stmt->bind_param("isi", $idPortata, $P_IVA, $val);
 					$stmt->execute();
 				}
+				$_SESSION['testoAlert'] = "Inserimento effettuato correttamente";
 				$stmt->close();
 			} elseif (isset($_POST["modifica"])) {
 				if (!isset($_POST["nomePietanzaVecchio"])) {
@@ -78,6 +80,7 @@
 						$stmt->bind_param("isi", $idPortata, $P_IVA, $val);
 						$stmt->execute();
 					}
+					$_SESSION['testoAlert'] = "Aggiornamento effettuato correttamente";
 					$stmt->close();
 				}
 			} elseif (isset($_POST["elimina"])) {
@@ -99,8 +102,11 @@
 				$stmt = $conn->prepare('DELETE FROM tagportata WHERE idPortata=? AND ristP_IVA = ?');
 				$stmt->bind_param("is", $idPortata, $P_IVA);
 				$stmt->execute();
+				$_SESSION['testoAlert'] = "Eliminazione effettuata correttamente";
 				$stmt->close();
 			}
+			header('Location: ../php/foodInsertForm.php');
+			exit;
 	} else {
 		echo "campi non tutti compilati" . "<br/>";
 		echo $_POST["nomePietanza"] . "<br/>";

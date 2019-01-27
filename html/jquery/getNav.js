@@ -86,11 +86,11 @@ $(document).ready(function(){
               button.attr("aria-expanded","false");
 
               button.attr("aria-controls","userInfoCollapse");
-              var imageDiv = "<div class='col-xs-9 col-md-6 col-xl-2'><img id='image' class='img-responsive  img-thumbnail'></div>";
+              var imageDiv = "<div class='row'><div class='col-xs-9 col-md-6 col-xl-2'><img id='image' class='img-responsive img-thumbnail'></div></div>";
               button.attr("aria-controls","userInfoCollapse");
 
               var logoutButton = "<form action='../php/logout.php'>"
-                                +"<button type='submit' class='btn btn-info'>Logout</button>"
+                                +"<button type='submit' class='btn btn-info mt-2'>Logout</button>"
                                 +" </form>";
               var changePasswordButton ="<form action='passwordChange.html'>"
                                         +"<button type='submit' class='btn btn-info mt-2'>Cambia password</button>"
