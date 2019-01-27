@@ -20,9 +20,9 @@
 				$str = '<a href="#" id="defaultTagFood" class="py-1 list-group-item list-group-item-action" ' . 'value="' . $row["id"] . '">' . $row["nomeTag"] . '';
 				if ($withSpan) {
 					$str = str_replace("#", "restaurantList.php?tag=" . $row["id"], $str);
-					$result2 = $conn->query('SELECT DISTINCT COUNT(*) AS num FROM tagportata WHERE idTag = ' . $row["id"]);
+					$result2 = $conn->query('SELECT COUNT(DISTINCT ristP_IVA) AS num FROM tagportata WHERE idTag = ' . $row["id"]);
 					$count = $result2->fetch_assoc()['num'];
-					$str .= '<span class="badge badge-primary badge-pill">  ' . $count . '  </span>';
+					$str .= '  <span class="badge badge-primary badge-pill">' . $count . '</span>';
 				}
 				echo $str . '</a>';
 			}
@@ -67,7 +67,7 @@
 			else{
 				$image = '../res/noProfileImage.jpg';
 			}
-			$str = '<div id="restaurantCard" class="col-sm"> <div class="card" style="width: 18rem;"> <img class="card-img-top" src='.$image.' alt="Immagine ristorante"> <div class="card-body"> <h5 class="card-title">' . $row["nomeRistorante"] . '</h5> <p class="card-text">' . $row["descrizione"] . '</p> <a href="#" class="btn btn-primary">Visita</a> </div> </div> </div>';
+			$str = '<div id="restaurantCard" class="col-sm mb-2"> <div class="card" style="width: 18rem;"> <img class="card-img-top" src='.$image.' alt="Immagine ristorante"> <div class="card-body"> <h5 class="card-title">' . $row["nomeRistorante"] . '</h5> <p class="card-text">' . $row["descrizione"] . '</p> <a href="#" class="btn btn-primary">Visita</a> </div> </div> </div>';
 			if ($i % 2 == 0 && $i != 0) {
 				$str = '</div> <div class="row"> <div class="col-sm"></div>' . $str;
 			}
@@ -145,8 +145,6 @@
 					array_push($aResult, $row['ristP_IVA']);
 				}
 			return $aResult;
-		} else {
-			echo 'error table database or query.';
 		}
 	}
 ?>
