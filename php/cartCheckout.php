@@ -23,7 +23,7 @@ $_SESSION['sessCustomerID'] = 1;
 // $custRow = $query->fetch_assoc();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <title>Conferma carrello</title>
     <meta charset="utf-8">
@@ -140,7 +140,7 @@ transition: all 0.4s ease 0s;
     <div class="footBtn">
         <button type="button" class="btn btn-danger" onclick="history.back()">Annulla</button>
         <!-- <a href="cartAction.php?action=placeOrder" class="btn btn-success orderBtn">Prosegui <i class="glyphicon glyphicon-menu-right"></i></a> -->
-        <div class="button_cont" align="center"><a class="example_c" href="cartAction.php?action=placeOrder" rel="nofollow noopener">Prosegui</a></div>
+        <div class="button_cont" align="center"><a class="example_c" href="cartAction.php?action=placeOrder&" rel="nofollow noopener">Prosegui</a></div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
