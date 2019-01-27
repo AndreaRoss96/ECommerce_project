@@ -1,14 +1,12 @@
 <?php
 include('../script/dbConnect.php');
-include('../script/functions.php');
-
 // initializ shopping cart class
 include 'Cart.php';
 
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-secure_session_start();
+//secure_session_start();
 
 $cart = new Cart;
 
@@ -91,8 +89,10 @@ box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
 transition: all 0.4s ease 0s;
 }
     </style>
+    <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
+<div id="nav"></div>
 <div class="container">
     <h1>Ecco cosa stai ordinando</h1>
     <table class="table">
@@ -143,5 +143,9 @@ transition: all 0.4s ease 0s;
         <div class="button_cont" align="center"><a class="example_c" href="cartAction.php?action=placeOrder" rel="nofollow noopener">Prosegui</a></div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="../html/jquery/getNav.js"></script>
 </body>
 </html>

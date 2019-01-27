@@ -57,7 +57,8 @@ function getSupplierImage(img){
 }
 
 $(document).ready(function(){
-      $("#nav").load("../html/jquery/nav.html",function(){
+     alert("halo");
+        $("#nav").load("../html/jquery/nav.html",function(){
         $("#userButton").empty().append("<i class='fa fa-user fa-2x' title='Login'></i> Login");
         $("#cartButton").append("Carrello <i class='fa fa-shopping-cart fa-2x' title='Carrello'></i>");
         $("#cart").hide();
