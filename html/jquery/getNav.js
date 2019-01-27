@@ -58,8 +58,8 @@ function getSupplierImage(img){
 
 $(document).ready(function(){
         $("#nav").load("../html/jquery/nav.html",function(){
-        $("#userButton").empty().append("<i class='fa fa-user fa-2x' title='Login'></i> Login");
-        $("#cartButton").append("Carrello <i class='fa fa-shopping-cart fa-2x' title='Carrello'></i>");
+        $("#userButton").empty().append("<i class='fa fa-user' title='Login'></i> <div class='icontitle'>Login</div>");
+        $("#cart").append("<div class='icontitle'>Vai al carrello</div><i class='fa fa-shopping-cart' title='Carrello'></i>");
         $("#cart").hide();
       });
         jQuery.ajax({
@@ -78,7 +78,7 @@ $(document).ready(function(){
               userInfoCollapse = userInfoCollapse +"</div>" + "</div>";
               $("nav").after(userInfoCollapse);
               var button = $("#userButton");
-              $("#userButton").empty().append("<i class='fa fa-user fa-2x' title='Login'></i> "+response.Nome+" "+response.Cognome);
+              $("#userButton").empty().append("<i class='fa fa-user' title='Login'></i> "+"<div class='icontitle'>"+response.Nome+" "+response.Cognome)+"</div>";
               button.removeAttr("href");
               button.attr("data-toggle","collapse")
               button.attr("href","#userInfoCollapse");
@@ -97,7 +97,7 @@ $(document).ready(function(){
                                         +" </form>";
               if(response.Tipo === "Cliente"){
                 $("#cart").show();
-              }                        
+              }
               if(response.Tipo === "Fornitore"){
                  $("#userInfo > p").last().after("<p>Immagine:</p>"+imageDiv);
                  getSupplierImage("#image");
@@ -120,10 +120,14 @@ $(document).ready(function(){
                 $("#userInfo > p").last().after(logoutButton);
               }
 
-
-            //alert(userInfoCollapse);
-
-          },
+              var valore = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+              if(valore){
+                alert("è device");
+                $(".icontitle").hide();
+              }else{
+                alert("non è device");
+              }
+        },
 
           error:function (xhr, ajaxOptions, thrownError)
         {
@@ -136,62 +140,5 @@ $(document).ready(function(){
           button.removeAttr("aria-controls","userInfoCollapse");
         }
       });
-      //
-      // jQuery.ajax({
-      //   url: "../php/cartInformation.php",
-      //   dataType: "json",
-      //   success: function(response) {
-      //
-      //     console.log("A gesù puzzano i piedi cart");
-      //
-      //     var cartInfoCollapse = "<div class='collapse' id='cartInfoCollapse'>"+
-      //                               "<table class='table'>"+
-      //                                 "<thead> <tr>"+
-      //                                     "<th> Prodotto </th>"+
-      //                                     "<th> Prezzo </th>"+
-      //                                     "<th> Quantità </th>"+
-      //                                     "<th> Totale Prodotto </th>"+
-      //                                     "<th> &nbsp; </th>"+
-      //                                   "</tr> </thead>" +
-      //                                   "<tbody>";
-      //
-      //
-      //
-      //     cartInfoCollapse = cartInfoCollapse + "</tbody>" + "</table>" +"</div>" + "</div>";
-      //     $("nav").after(cartInfoCollapse);
-      //     var button = $("#cartButton");
-      //     button.attr("data-toggle","collapse")
-      //     button.attr("href","#cartInfoCollapse");
-      //     button.attr("role","button");
-      //     button.attr("aria-expanded","false");
-      //     button.attr("aria-controls","cartInfoCollapse");
-      //   },
-      //
-      //   error:function (xhr, ajaxOptions, thrownError)  {
-      //     console.log("Dio carrozzina per handicappati cart errore");
-      //
-      //     var cartInfoCollapse = "<div class='collapse' id='cartInfoCollapse'>"+
-      //                               "<table class='table'>"+
-      //                                 "<thead> <tr>"+
-      //                                     "<th> Prodotto </th>"+
-      //                                     "<th> Prezzo </th>"+
-      //                                     "<th> Quantità </th>"+
-      //                                     "<th> Totale Prodotto </th>"+
-      //                                     "<th> &nbsp; </th>"+
-      //                                   "</tr> </thead>" +
-      //                                   "<tbody>";
-      //
-      //
-      //
-      //     cartInfoCollapse = cartInfoCollapse + "</tbody>" + "</table>" +"</div>" + "</div>";
-      //     $("nav").after(cartInfoCollapse);
-      //
-      //   var button = $("#cartButton");
-      //   button.attr("data-toggle","collapse")
-      //   button.attr("href","#cartInfoCollapse");
-      //   button.attr("role","button");
-      //   button.attr("aria-expanded","false");
-      //   button.attr("aria-controls","cartInfoCollapse");
-      // }
-      // });
+
 });

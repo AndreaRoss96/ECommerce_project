@@ -1,7 +1,6 @@
-<?php 
+<?php
 include('../script/functions.php');
 secure_session_start();
-//session_start();
 
 /*
 Questa è la classe che gestisce tutte le operazioni legate al carrello,
