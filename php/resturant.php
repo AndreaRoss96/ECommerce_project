@@ -6,6 +6,9 @@ $stmt->bind_param("s", $p_iva);
 $stmt->execute();
 $stmt->bind_result($nomeRistorante, $descrizione, $telefono, $indirizzoMaps, $email, $orarioApertura, $orarioChiusura);
 $row = $stmt->fetch();
+if(empty($row)) {
+  header("Location: ../html/homepage.html");
+}
 $stmt->close();
 ?>
 <!DOCTYPE html>
@@ -22,76 +25,12 @@ $stmt->close();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="../html/jquery/getNav.js"></script>
   <script src="../html/jquery/getFooter.js"></script>
-<style>
-.mb-3 {
-  padding: 0px 0px 15px;
-  border-left: none;
-  border-right: none;
-}
-
-.card-title { /*Nome ristorante*/
-  font-family: bree serif;
-  font-size: 250%;
-}
-
-.card-text { /*descrizione ristorante*/
-  font-family: roboto;
-  font-size: 120%;
-}
-
-.links {
-  display: block;
-  float: right;
-}
-
-.comboboxes {
-  padding: 15px;
-}
-
-h2, h3 {
-  font-family: roboto;
-  font-size: 150%;
-}
-
-.menu {
-  padding: 15px 15px 10%;
-}
-
-.product-container { /*container menu*/
-  display: flex;
-  cursor: pointer;
-}
-
-.product-name-container {
-  font-family: bree serif;
-  font-size: 120%;
-}
-
-.product-description-container {
-  font-size: 80%;
-  font-family: roboto;
-}
-
-.product-price-container { /*lista dei cibi a seconda della categoria */
-  text-align: right;
-  position: absolute;
-  right: 10px;
-}
-
-.product-link {
-  color: black;
-}
-
-.product-link:hover {
-  text-decoration: none;
-  color: #808080;
-}
-</style>
+  <link rel="stylesheet" href="../css/resturant.css">
 </head>
 <body>
   <div id="nav"> </div>
   <div class="card mb-3">
-    <img class="card-img-top" src="../res/bacon-cheese-burger.jpg" alt="Card image cap">
+    <img class="card-img-top" src="../profileImages/<?php echo $email; ?>.jpg" alt="Progifle image">
     <div class="card-body">
       <h5 class="card-title"><?php echo $nomeRistorante; ?></h5>
       <p class="card-text"><?php echo $descrizione; ?></p>
@@ -99,7 +38,7 @@ h2, h3 {
         <?php
         $tmpAddress = str_replace(' ', '+', $indirizzoMaps);
         ?>
-        <a href="https://www.google.com/maps/place/<?php echo $tmpAddress?>" target="_blank"><address>
+        <a href="https://www.google.com/maps/place/<?php echo $tmpAddress?>/Cesena" target="_blank"><address>
            <i class="fas fa-map-marker-alt"></i><?php echo " " . $indirizzoMaps; ?>
         </address></a>
            <i class="fas fa-phone"></i><?php echo " " . $telefono; ?>
@@ -109,35 +48,6 @@ h2, h3 {
     </div>
   </div>
     <h2>Cosa offriamo</h2>
-
-    <!-- <h3>Luogo</h3>
-    <form class="" action="" method="post">
-      <select name="location" id="location" class="custom-select sources" placeholder="Dove consegnamo?">
-        <option value="primo-piano">Primo piano</option>
-        <option value="piano-terra">Piano terra</option>
-      </select>
-    </form> -->
-
-    <!-- <h3>Orario</h3>
-    <select name="time" id="time" class="custom-select sources" placeholder="A che ora?">
-      < ?php
-        $orarioTmp = $orarioApertura;
-        while ($orarioTmp != $orarioChiusura) {
-          $toPrint = "<option value=\"time\">" . $orarioTmp . " - ";
-          $minutesTmp = (int) $orarioTmp[3] + 1; //aumento il valore dei minuti es. 12:10 -> 12:20
-          $hourTmp = (int) substr($orarioTmp, 0, 2);
-          if ($minutesTmp == 6) {
-            $minutesTmp = 0;
-            $hourTmp = $hourTmp + 1;
-          }
-          $orarioTmp[3] = $minutesTmp;
-          $orarioTmp[0] = substr($hourTmp, 0, 1);
-          $orarioTmp[1] = substr($hourTmp, 1, 1);
-          $toPrint .= $orarioTmp . "</option>";
-          echo $toPrint;
-        }
-      ?>
-  </select> -->
   <div class="menu">
     <div class="row">
     <div class="col-4">
@@ -222,17 +132,6 @@ h2, h3 {
       </div>
     </div>
   </div>
-  <!-- <script type="text/javascript">
-    $(document).ready(function(){
-      $('li.list-group-item').on('click', function(e){
-        var getOptions = document.getElementById("time");
-        var getHour = getOptions.options[getOptions.selectedIndex].text;
-        console.log("cartAction.php?action=addToCart&id=" + getHour);
-        // window.location.replace("cartAction.php?action=addToCart&id=" + getHour);
-          // $('form').submit();
-      });
-    });
-  </script> -->
   <div id="footer"></div>
 </body>
 </html>

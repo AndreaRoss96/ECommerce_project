@@ -1,0 +1,63 @@
+.mb-3 {
+  padding: 0px 0px 15px;
+  border-left: none;
+  border-right: none;
+}
+
+.card-title { /*Nome ristorante*/
+  font-family: bree serif;
+  font-size: 250%;
+}
+
+.card-text { /*descrizione ristorante*/
+  font-family: roboto;
+  font-size: 120%;
+}
+
+.links {
+  display: block;
+  float: right;
+}
+
+.comboboxes {
+  padding: 15px;
+}
+
+h2, h3 {
+  font-family: roboto;
+  font-size: 150%;
+}
+
+.menu {
+  padding: 15px 15px 10%;
+}
+
+.product-container { /*container menu*/
+  display: flex;
+  cursor: pointer;
+}
+
+.product-name-container {
+  font-family: bree serif;
+  font-size: 120%;
+}
+
+.product-description-container {
+  font-size: 80%;
+  font-family: roboto;
+}
+
+.product-price-container { /*lista dei cibi a seconda della categoria */
+  text-align: right;
+  position: absolute;
+  right: 10px;
+}
+
+.product-link {
+  color: black;
+}
+
+.product-link:hover {
+  text-decoration: none;
+  color: #808080;
+}

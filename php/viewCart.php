@@ -18,8 +18,7 @@ if(!login_check($conn)){
 <head>
     <title>Carrello</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
 
@@ -140,12 +139,12 @@ if(!login_check($conn)){
             foreach($cartItems as $item){
         ?>
         <tr>
-            <td class="product-name"><?php echo $item["name"]; ?> <!--<br> < ?php echo $item["p_iva"]; ?> --></td>
+            <td class="product-name"><?php echo $item["name"]; ?></td>
             <td><?php echo $item["price"].' €'; ?></td>
             <td><input type="number" class="form-control text-center" value="<?php echo $item["qty"]; ?>" onchange="updateCartItem(this, '<?php echo $item["rowid"]; ?>')"></td>
             <td><?php echo $item["subtotal"].' €'; ?></td>
             <td>
-                <a href="cartAction.php?action=removeCartItem&id=<?php echo $item["rowid"]; ?>" class="btn btn-danger" onclick="return confirm('Sei sicuro di volerlo cancellare?')"><i class="glyphicon glyphicon-trash"></i></a>
+                <a href="cartAction.php?action=removeCartItem&id=<?php echo $item["rowid"]; ?>" class="btn btn-danger" onclick="return confirm('Sei sicuro di volerlo cancellare?')"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
         <?php
@@ -157,7 +156,7 @@ if(!login_check($conn)){
     </tbody>
     <tfoot>
       <tr>
-        <td><a onclick="history.back()" class="btn btn-warning"><i class="glyphicon glyphicon-menu-left"></i> Prendi qualcos'altro</a></td>
+        <td><a onclick="history.back()" class="btn btn-warning"><i class="fas fa-chevron-left"></i> Prendi qualcos'altro</a></td>
         <td colspan="2"></td>
         <td class="text-center"><strong>Totale <br> <?php echo $cart->total().' €'; ?></strong> <br> <p> + costo spedizione (0,50€)</p></td>
       </tr>
@@ -168,8 +167,15 @@ if(!login_check($conn)){
         <form action="cartCheckout.php" method="post">
               <h3>Dove te lo portiamo?</h3>
               <select name="location" id="location" class="custom-select sources">
-                <option value="primo-piano">Primo piano</option>
-                <option value="piano-terra">Piano terra</option>
+                <?php
+                $query = 'SELECT * FROM luogoconsegna';
+                $result = $conn->query($query);
+                while($row = $result->fetch_assoc()) {
+                ?>
+                  <option value="<?php echo $row["id"];?>"><?php echo $row["luogo"];?></option>
+                <?php
+                }
+                ?>
               </select>
               <select name="time" id="time" class="custom-select sources">
               <?php
@@ -180,10 +186,11 @@ if(!login_check($conn)){
                 $maxApertura = "00:00";
                 $minChiusura = "23:59";
                 foreach ($selectedResturant as $rest_p_iva) {
-                  $stmt = $conn->prepare('SELECT orarioApertura, orarioChiusura FROM fornitori WHERE P_IVA=' . $rest_p_iva);
-                  $stmt->execute();
-                  $stmt->bind_result($tmpApertura, $tmpChiusura);
-                  $row = $stmt->fetch();
+                  $query = 'SELECT orarioApertura, orarioChiusura FROM fornitori WHERE P_IVA=' . $rest_p_iva;
+                  $result = $conn->query($query);
+                  $row = $result->fetch_assoc();
+                  $tmpApertura = $row["orarioApertura"];
+                  $tmpChiusura = $row["orarioChiusura"];
                   if($tmpApertura > $maxApertura) {
                     $maxApertura = $tmpApertura;
                   }
@@ -216,20 +223,11 @@ if(!login_check($conn)){
             </form>
             </div>
 
-            <!-- <td><a href="cartCheckout.php" class="btn btn-success btn-block">Ordina!<i class="glyphicon glyphicon-menu-right"></i></a></td> -->
           <?php } ?>
-
-    <!-- <div class="shipAddr">
-        <h4>Dettagli di spedizione</h4>
-        <p>< ? php echo ($_SESSION['name'] . $_SESSION['surname']); ?></p>
-        <p>< ?php echo ($_SESSION['email']); ?></p>
-        <p>< ?php echo $_SESSION['badgeNumber']; ?></p>
-        <p>< ?php echo "culo";//$custRow['address']; ?></p>
-    </div> -->
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
 <script src="../html/jquery/getNav.js"></script>
 </body>
 </html>
