@@ -58,6 +58,10 @@
 					$stmt->execute();
 					$stmt->close();
 					sendMail($email,"Creazione account fornitore","Grazie per esserti unito alla nostra community!\r\nPrima di poter usare i nostri servizi il tuo account dovra' essere approvato dall' amministratore di sistema");
+					$adminMail = "amministratoreprogettotweb@gmail.com";
+					$txt = "Un nuovo fornitore (".$email.") si e' registrato e dovra' essere approvato";
+					sendMail($adminMail,"Nuovo fornitore",$txt);
+					sendNotice($conn,$adminMail,$txt);
 					header('Location: ../html/successfulSupplierRegistration.html');
 					exit;
 				}
