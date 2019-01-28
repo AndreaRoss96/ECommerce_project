@@ -200,8 +200,8 @@ if(!login_check($conn)){
                 }
                 $orarioTmp = $maxApertura;
                 while ($orarioTmp != $minChiusura) {
-                  $toPrint = "<option value=\"" . $orarioTmp;
-                  $text = "\">" . $orarioTmp . " - ";
+                  $toPrint = "<option value='" . $orarioTmp;
+                  $text = "'>" . $orarioTmp . " - ";
                   $minutesTmp = (int) $orarioTmp[3] + 1; //aumento il valore dei minuti es. 12:10 -> 12:20
                   $hourTmp = (int) substr($orarioTmp, 0, 2);
                   if ($minutesTmp == 6) {
@@ -209,8 +209,13 @@ if(!login_check($conn)){
                     $hourTmp = $hourTmp + 1;
                   }
                   $orarioTmp[3] = $minutesTmp;
-                  $orarioTmp[0] = substr($hourTmp, 0, 1);
-                  $orarioTmp[1] = substr($hourTmp, 1, 1);
+                  if($hourTmp < 10) {
+                    $orarioTmp[1] = $hourTmp;
+                    $orarioTmp[0] = "0";
+                  } else {
+                    $orarioTmp[0] = substr($hourTmp, 0, 1);
+                    $orarioTmp[1] = substr($hourTmp, 1, 1);
+                  }
                   $toPrint .= " - " . $orarioTmp;
                   $text .= $orarioTmp . "</option>";
                   $toPrint .= $text;
@@ -226,8 +231,6 @@ if(!login_check($conn)){
           <?php } ?>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
 <script src="../html/jquery/getNav.js"></script>
 </body>
 </html>

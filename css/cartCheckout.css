@@ -19,35 +19,17 @@ p {
   font-family: Arial;
   font-size: 13px;
 }
-.example_c {
-color: #494949 !important;
-text-transform: uppercase;
-background: #ffffff;
-padding: 20px;
-border: 4px solid #494949 !important;
-border-radius: 6px;
-display: inline-block;
-}
 
-.example_c:hover {
-color: #ffffff !important;
-background: #f6b93b;
-border-color: #f6b93b !important;
-transition: all 0.4s ease 0s;
+.link_action {
+  text-decoration: none;
 }
 
 .btn-danger {
 color: #fff !important;
-text-transform: uppercase;
-background: #ed3330;
-padding: 20px;
-border-radius: 5px;
 display: inline-block;
-border: none;
 }
 
-.btn-danger:hover {
-background: #434343;
+.btn:hover {
 letter-spacing: 1px;
 -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
 -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);

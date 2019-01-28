@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Lato', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: #eee;
+}
+button {
+    outline: none;
+}
+
+.success-modal {
+    position: absolute;
+    display: none;
+    width: 500px;
+    height: 360px;
+    background-color: #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.success-modal.visible {
+    display: block;
+}
+.success-modal .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.success-modal svg {
+    transform: scale(0.4);
+}
+.success-modal > div {
+    height: 180px;
+    text-align: center
+}
+.success-modal .anim {
+    background-color: #28a745;/*#3fc59d;*/
+    position: relative;
+}
+.success-modal .info {
+    padding: 30px;
+    color: #3b475e;
+}
+.success-modal .info .title {
+    font-weight: 800;
+}
+.success-modal .info .text {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 400;
+}
+.success-modal .info .continue {
+    margin-top: 20px;
+    padding: 10px 30px;
+    border-radius: 50px;
+    border: none;
+    font-size: 13px;
+    color: white;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#585dc9+0,7db9e8+100,7db9e8+100 */
+    background: #28a745;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .success-modal {
+    height: 100%;
+    width: 100%;
+  }
+
+  .success-modal svg {
+    transform: scale(1.5);
+  }
+
+  .success-modal .info .title {
+    font-size: 600%;
+  }
+
+  .success-modal .info .text {
+    font-size: 500%;
+  }
+
+    .success-modal .info .continue {
+      font-size: 400%;
+    }
+}
