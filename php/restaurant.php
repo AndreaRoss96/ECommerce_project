@@ -14,8 +14,8 @@ $stmt->close();
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
   <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
@@ -25,8 +25,7 @@ $stmt->close();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="../html/jquery/getNav.js"></script>
   <script src="../html/jquery/getFooter.js"></script>
-  <link rel="stylesheet" href="../css/resturant.css">
-<!--  <link rel="stylesheet" href="../css/colors.css"> -->
+  <link rel="stylesheet" href="../css/restaurant.css">
   <title>Ristorante</title>
 </head>
 <body>
@@ -67,7 +66,7 @@ $stmt->close();
           $isActive = 1;
           $alreadyAdded = array();
           while ($row = $result->fetch_assoc()) {
-            
+
             $tagArray[] = $row;
             if(!in_array($row["nomeTag"], $alreadyAdded)) {
               $alreadyAdded[] = $row["nomeTag"];
@@ -127,7 +126,7 @@ $stmt->close();
                         </div>
                       </a>
                   </li>
-                
+
                 <?php
                 }
                   $conn->close();
@@ -141,6 +140,7 @@ $stmt->close();
       </div>
     </div>
   </div>
+  <a onclick="location.href = 'restaurantList.php';" class="btn btn-warning"><i class="fas fa-chevron-left"></i> Prendi qualcos'altro</a>
   <div id="footer"></div>
 </body>
 </html>
