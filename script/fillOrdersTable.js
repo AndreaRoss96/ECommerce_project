@@ -20,9 +20,9 @@ function getOrders(){
                     newEl += "<td class = 'idOrdine'>" + jsonObject.id + "</td>";
                     newEl += " <td>" + jsonObject.nome + ' x <span class="badge badge-info badge-pill">' + jsonObject.quantita + "</span>";
                     //newEl += "<td>" + jsonObject.nome +  + jsonObject.quantita ;
-                    finishEl = "</td>" + "<td>" + jsonObject.luogo + "</td>" + "<td>" + jsonObject.orarioConsegna + "</td>" + "<td>";
+                    finishEl = "</td>" + "<td>" + jsonObject.luogo + "</td>" + "<td>" + jsonObject.orarioConsegna + "</td>" + "<td>" + jsonObject.matricola + "</td>" + "<td class='clientMail'>" + jsonObject.email + "</td>" + "<td>";
                     if(jsonObject.inConsegna == 0){
-                        finishEl += "<button type='button'class='btn btn-warning fa fa-arrow-right' title='Evadi ordine'></button>"+"</td></tr>"; 
+                        finishEl += "<button type='button'class='btn btn-warning fa fa-arrow-right sendOrder' title='Evadi ordine'></button>"+"</td></tr>"; 
                     }
                     else{
                         finishEl+= "Evaso" + "</td></tr>";
@@ -52,9 +52,10 @@ function getOrders(){
 }
 $(document).ready(function(){    
     getOrders();
-    $(".btn-warning").off();
-    $(document).on("click",".btn-warning",function(){
+    $(".sendOrder").off();
+    $(document).on("click",".sendOrder",function(){
         var idOrder = $(this).parent().siblings(".idOrdine").text();
+        var clientMail = $(this).parent().siblings(".clientMail").text();
         var button = $(this);
         var buttonContent = button.html();
         if(confirm("Confermi l'evasione di questo ordine?")){
@@ -65,12 +66,13 @@ $(document).ready(function(){
                 data: {
                     "sendOrder" : true,
                     "idOrder" : idOrder,
+                    "clientMail" : clientMail
                 },
                 dataType: "text",
                 beforeSend: function(){
                     button.parent().append("<div id='preloader'>"+
-                                "<img src='../res/adminPanelPreloader.gif'><\img>"+
-                                " <\div>");
+                                "<img src='../res/adminPanelPreloader.gif'>"+
+                                " </div>");
                     button.remove();
                 },
                 success: function (response)
@@ -81,7 +83,7 @@ $(document).ready(function(){
             
                 error:function (xhr, ajaxOptions, thrownError)
             {
-                alert(thrownError);
+                //alert(thrownError);
         
             }
             });

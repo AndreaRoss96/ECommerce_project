@@ -69,6 +69,7 @@
                 $stmt->bind_param("is",$approvazione,$piva);
                 $stmt->execute();
                 sendMail($destinatario,$header,$txt);
+                sendNotice($conn,$destinatario,$txt);
             }
         }
        
