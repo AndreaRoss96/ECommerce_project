@@ -59,5 +59,17 @@ h2, h3 {
 
 .product-link:hover {
   text-decoration: none;
-  color: #808080;
+  color: black;
+}
+
+ul>.list-group-item:hover {
+  border-left: 2px solid ;
+  background-color: #f7f7f7;
+}
+
+.list-group-item.active {
+  background-color: #f7f7f7;
+  border-color: #fdf6e3;
+  border: 1px solid;
+  color: black;
 }

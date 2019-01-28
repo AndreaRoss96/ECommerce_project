@@ -26,6 +26,7 @@ $stmt->close();
   <script src="../html/jquery/getNav.js"></script>
   <script src="../html/jquery/getFooter.js"></script>
   <link rel="stylesheet" href="../css/resturant.css">
+<!--  <link rel="stylesheet" href="../css/colors.css"> -->
   <title>Ristorante</title>
 </head>
 <body>
@@ -39,7 +40,7 @@ $stmt->close();
         <?php
         $tmpAddress = str_replace(' ', '+', $indirizzoMaps);
         ?>
-        <a href="https://www.google.com/maps/place/<?php echo $tmpAddress?>/Cesena" target="_blank"><address>
+        <a href="https://www.google.com/maps/place/<?php echo $tmpAddress?>+Cesena" target="_blank"><address>
            <i class="fas fa-map-marker-alt"></i><?php echo " " . $indirizzoMaps; ?>
         </address></a>
            <i class="fas fa-phone"></i><?php echo " " . $telefono; ?>
@@ -64,8 +65,12 @@ $stmt->close();
           $query = "SELECT * FROM tag, tagportata WHERE tagportata.ristP_IVA = $p_iva AND tag.id = tagportata.idtag";
           $result = $conn->query($query);
           $isActive = 1;
+          $alreadyAdded = array();
           while ($row = $result->fetch_assoc()) {
-              $tagArray[] = $row;
+            
+            $tagArray[] = $row;
+            if(!in_array($row["nomeTag"], $alreadyAdded)) {
+              $alreadyAdded[] = $row["nomeTag"];
               $toPrint = "<a class=\"list-group-item list-group-item-action";
               if($isActive) {
                 $toPrint .= " active";
@@ -73,6 +78,7 @@ $stmt->close();
               }
               $toPrint .= "\" id=\"list-" . $row["nomeTag"] . "-list\" data-toggle=\"list\" href=\"#list-" . $row["nomeTag"] . "\" role=\"tab\">" . $row["nomeTag"] . "</a>";
               echo $toPrint;
+            }
           }
           $conn->close();
         ?>
@@ -121,7 +127,7 @@ $stmt->close();
                         </div>
                       </a>
                   </li>
-                </ul>
+                
                 <?php
                 }
                   $conn->close();
@@ -130,6 +136,7 @@ $stmt->close();
                 echo "</div>";
               }
         ?>
+        </ul>
       </div> <!-- div che chiude la tavola contenente unicamente gli alimenti -->
       </div>
     </div>

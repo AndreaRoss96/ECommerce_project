@@ -42,24 +42,37 @@ if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQ
             $sql = '';
             // get cart items
             $cartItems = $cart->contents();
+            $pivas = array();
             foreach($cartItems as $item){
-                $sql .= "INSERT INTO dettaglioordine (idOrdine, idPortata, quantita) VALUES ('".$orderID."', '".$item['id']."', '".$item['qty']."');";
+                $sql .= "INSERT INTO dettaglioordine (ristP_IVA,idOrdine, idPortata, quantita) VALUES ('".$item["p_iva"]."','".$orderID."', '".$item['id']."', '".$item['qty']."');";
+                $pivas[] = $item['p_iva'];
             }
             // insert order items into database
+            array_unique($pivas);
+            foreach($pivas as $p){
+                $query = "SELECT email from fornitori where P_IVA =".$p;
+                echo $query;
+                $result = $db->query($query);
+                echo mysqli_error($db);
+                $email=$result->fetch_assoc()['email'];
+                sendMail($email,"Nuovo ordine","Hai ricevuto un nuovo ordine");
+                sendNotice($db,$email,"Hai ricevuto un nuovo ordine");
+            }
+
             $insertOrderItems = $db->multi_query($sql);
 
             if($insertOrderItems){
                 $cart->destroy();
                 header("Location: ../html/orderSuccess.html");
             }else{
-                header("Location: ../html/homepage.html");
+                header("Location: ../html/index.html");
             }
         }else{
-            header("Location: ../html/homepage.html");
+            header("Location: ../html/index.html");
         }
     }else{
-        header("Location: ../html/homepage.html");
+        header("Location: ../html/index.html");
     }
 }else{
-    header("Location: ../html/homepage.html");
+    header("Location: ../html/index.html");
 }

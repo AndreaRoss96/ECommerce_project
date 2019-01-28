@@ -119,7 +119,7 @@ $(document).ready(function(){
             {   $("#preloader").before().html(buttonContent);
                 $("#preloader").remove();
 
-                alert("Modifica eseguita correttamente");
+                //alert("Modifica eseguita correttamente");
             },
            
             error:function (xhr, ajaxOptions, thrownError)
