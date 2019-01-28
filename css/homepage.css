@@ -1,12 +1,12 @@
 
-@font-face {
+/*@font-face {
     font-family: "Atmospherica";
     src: url("../res/Atmospherica Personal Use.ttf");
-  }
+  }*/
   
   h1, h2 {
     text-align: center;
-    font-family: Atmospherica;
+    /*font-family: Atmospherica;*/
   }
   
   .titleParagraph, .subtitleParagraph{
@@ -75,6 +75,7 @@
   }
   /* Button effect end */
   .buttonContainer {
+    margin-bottom: 20px;
     width: 100%;
     padding: auto;
   }
