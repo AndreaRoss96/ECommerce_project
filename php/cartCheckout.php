@@ -11,7 +11,7 @@ $cart = new Cart;
 
 // redirect to home if cart is empty
 if($cart->total_items() <= 0){
-    header("Location: ../html/homepage.html");
+    header("Location: ../html/index.html");
 }
 
 // set customer ID in session

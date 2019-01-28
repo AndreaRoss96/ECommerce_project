@@ -52,8 +52,8 @@
 		}
 		if ($tot > 0) {
 			$query = 'SELECT * FROM fornitori WHERE P_IVA = "' . $arraySupplier[0] . '"';
-			for ($i=1; $i < $tot-1; $i++) {
-				$query .= ' AND P_IVA = "' . $arraySupplier[$i] . '"';
+			for ($i=1; $i < $tot; $i++) {
+				$query .= ' OR P_IVA = "' . $arraySupplier[$i] . '"';
 			}
 			$result = $conn->query($query);
 		} else {

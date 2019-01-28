@@ -109,7 +109,7 @@ $(document).ready(function(){
               var logoutButton = "<form action='../php/logout.php'>"
                                 +"<button type='submit' class='btn btn-danger mt-2'>Logout</button>"
                                 +" </form>";
-              var changePasswordButton ="<form action='passwordChange.html'>"
+              var changePasswordButton ="<form action='../html/passwordChange.html'>"
                                         +"<button type='submit' class='btn btn-warning mt-2'>Cambia password</button>"
                                         +" </form>";
               if(response.Tipo === "Cliente"){

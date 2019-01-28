@@ -67,12 +67,12 @@ button {
     cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
+/*@media only screen and (max-width: 600px) {*/
   .success-modal {
     height: 100%;
     width: 100%;
   }
-
+@media only screen and (max-width: 600px) {
   .success-modal svg {
     transform: scale(1.5);
   }
@@ -88,4 +88,5 @@ button {
     .success-modal .info .continue {
       font-size: 400%;
     }
-}
+
+

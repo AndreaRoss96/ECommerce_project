@@ -27,6 +27,7 @@ if(isset($_POST['email'],$_POST['p1'],$_POST['p2'])){
         $stmt->bind_param("sss",$nuovaPassword,$random_salt,$email);
         $stmt->execute(); // esegue la query appena creata.
         $_SESSION['passwordChanged'] = true;
+        sendNotice($conn,$email,"La password associata all' account ".$email." e' stata modificata con successo");
         sendMail($email,"Notifica cambio password","La password associata all' account ".$email." e' stata modificata con successo");
      }
      header('Location: ../html/userSupplierLogin.html');
