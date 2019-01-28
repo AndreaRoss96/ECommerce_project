@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/colors.css">
   </head>
   <body>
     <div id="nav"></div>
@@ -16,41 +17,41 @@
 
         <p class="text-center h1 mb-4">Registrazione fornitore</p>
         <p class="text-center h2 mb-4">Compila i seguenti campi</p>
-          
+
         <label for="defaultRegisterFormSupplierName">Nome attività</label>
         <input type="text" name="nomeAttivita" id="defaultRegisterFormSupplierName" class="form-control mb-4" placeholder="Da Mario" required>
-      
+
         <label for="defaultRegisterFormPIVA">Partita IVA</label>
-        <input type="tel" name="P_IVA" id="defaultRegisterFormPIVA" class="form-control mb-4" pattern="[0-9]{11}" placeholder="11 cifre" required> 
+        <input type="tel" name="P_IVA" id="defaultRegisterFormPIVA" class="form-control mb-4" pattern="[0-9]{11}" placeholder="11 cifre" required>
 
         <label for="defaultRegisterFormRepresentativeFirstName">Nome Referente</label>
         <input type="text" name="nomeReferente" id="defaultRegisterFormRepresentativeFirstName" class="form-control mb-4" placeholder="Mario" required>
-     
+
        <label for="defaultRegisterFormRepresentativeLastName">Cognome Referente</label>
-       <input type="text" name="cognomeReferente" id="defaultRegisterFormRepresentativeLastName" class="form-control mb-4" placeholder="Rossi" required> 
+       <input type="text" name="cognomeReferente" id="defaultRegisterFormRepresentativeLastName" class="form-control mb-4" placeholder="Rossi" required>
 
-       <label for="defaultRegisterPhonePassword">Contatto telefonico</label> 
-       <input type="tel" name="telefono" id="defaultRegisterPhonePassword"  class="form-control mb-4" required> 
-		
+       <label for="defaultRegisterPhonePassword">Contatto telefonico</label>
+       <input type="tel" name="telefono" id="defaultRegisterPhonePassword"  class="form-control mb-4" required>
+
 	   <label for="defaultRegisterFormAddress">Indirizzo</label>
-       <input type="text" name="indirizzo" id="defaultRegisterFormAddress" class="form-control mb-4" placeholder="Via Mario Rossi, 1" required> 
-	   
-	   <label for="defaultRegisterFormOpeningTime">Orario apertura</label> 
-	   <input type="time" name="orarioApertura" id="defaultRegisterFormOpeningTime" class="form-control mb-4" required>
-	   
-	   <label for="defaultRegisterFormClosingTime">Orario chiusura</label> 
-	   <input type="time" name="orarioChiusura" id="defaultRegisterFormClosingTime" class="form-control mb-4" required>
-	   
-	   <label for="defaultRegisterFormDescription">Descrizione attività</label> 
-     <textarea name="descrizioneAttivita" id="defaultRegisterFormDescription" rows="2" cols="25"   class="form-control mb-4" required></textarea> 
+       <input type="text" name="indirizzo" id="defaultRegisterFormAddress" class="form-control mb-4" placeholder="Via Mario Rossi, 1" required>
 
-	   <label for="defaultRegisterFormEmail">E-mail</label>      
+	   <label for="defaultRegisterFormOpeningTime">Orario apertura</label>
+	   <input type="time" name="orarioApertura" id="defaultRegisterFormOpeningTime" class="form-control mb-4" required>
+
+	   <label for="defaultRegisterFormClosingTime">Orario chiusura</label>
+	   <input type="time" name="orarioChiusura" id="defaultRegisterFormClosingTime" class="form-control mb-4" required>
+
+	   <label for="defaultRegisterFormDescription">Descrizione attività</label>
+     <textarea name="descrizioneAttivita" id="defaultRegisterFormDescription" rows="2" cols="25"   class="form-control mb-4" required></textarea>
+
+	   <label for="defaultRegisterFormEmail">E-mail</label>
        <input type="email" name="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="mario.rossi@mail.com" required>
 
-     <label for="defaultRegisterFormPassword">Password</label> 
+     <label for="defaultRegisterFormPassword">Password</label>
        <input type="password" name="password" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="*******" required>
-        
-     <label for="defaultRegisterFormPasswordConfirm">Conferma password</label> 
+
+     <label for="defaultRegisterFormPasswordConfirm">Conferma password</label>
      <input type="password" name="confermaPassword" id="defaultRegisterFormPasswordConfirm" class="form-control mb-4" placeholder="*******" required>
        <div class="row justify-content-end mb-5">
         <p class="mr-4 mb-4">Cliccando
@@ -59,16 +60,16 @@
        </p>
         <button class="btn btn-success mb-4" type="submit" id="registerSupplier" name="register_supplier">Conferma dati</button>
       </div>
-      
 
-    </form> 
-  
+
+    </form>
+
     <div id="footer"></div>
-   
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="../script/checkSupplierRegistrationData.js"></script>
     <script src="../script/showRegistrationErrors.js"></script>
