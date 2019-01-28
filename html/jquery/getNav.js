@@ -31,7 +31,23 @@ function uploadSupplierImage(file){
     });
   }
 }
-
+function getUnreadMessagesCount(){
+  jQuery.ajax({
+    type: "POST",
+    url: "../php/getUnreadMessagesCount.php",
+    dataType: "json",
+    success: function (response)
+    {        
+      //alert(response);
+      $("#noticesCount").text(response.numeroMessaggiNonLetti);
+      //alert(response.numeroMessaggiNonLetti);
+     // alert(response.numeroMessaggiNonLetti);
+    },
+    complete: function(){
+      setTimeout(getUnreadMessagesCount,2000);
+    }
+  });
+}
 function getSupplierImage(img){
     jQuery.ajax({
       type: "POST",
@@ -79,6 +95,7 @@ $(document).ready(function(){
               $("nav").after(userInfoCollapse);
               var button = $("#userButton");
               $("#userButton").empty().append("<i class='fa fa-user' title='Login'></i> "+"<div class='icontitle' style='display:inline-block'>"+response.Nome+" "+response.Cognome)+"</div>";
+              $("#userButton").after("<a href='../html/notices.html'><span id='noticesCount' class='badge badge-primary badge-pill'>0</span></a>");
               button.removeAttr("href");
               button.attr("data-toggle","collapse")
               button.attr("href","#userInfoCollapse");
@@ -119,6 +136,7 @@ $(document).ready(function(){
                 $("#userInfo > p").last().after(changePasswordButton);
                 $("#userInfo > p").last().after(logoutButton);
               }
+              getUnreadMessagesCount();             
         },
           error:function (xhr, ajaxOptions, thrownError)
         {

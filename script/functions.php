@@ -3,7 +3,14 @@ include('types.php');
 function sendMail($to,$header,$message){
   mail($to,"",$message,$header);
 }
+function sendNotice($conn,$mail,$txt){
+  $query = "INSERT INTO notifiche (email,testo) VALUES (?,?)";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("ss",$mail,$txt);
+  $stmt->execute();
+  $stmt->close();
 
+}
 function unsetSessionVariable ($sessionVariableName) {
    unset($GLOBALS['_SESSION'][$sessionVariableName]);
 }

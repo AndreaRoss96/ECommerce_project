@@ -33,10 +33,10 @@ function getSuppliers(){
                     newEl = newEl+val+"</td>";
                 });
                 if(statoApprovazione == 0){
-                    newEl = newEl+ "<td>"+"<button type='button'class='btn btn-success fa fa-check' title='Approva'></button>"+"</td>"; 
+                    newEl = newEl+ "<td>"+"<button type='button'class='btn btn-success fa fa-check approva' title='Approva'></button>"+"</td>"; 
                 }
                 else{
-                    newEl = newEl+"<td>"+"<button type='button'class='btn btn-danger fa fa-remove' title='Disapprova'></button>"+"</td>";
+                    newEl = newEl+"<td>"+"<button type='button'class='btn btn-danger fa fa-remove disapprova' title='Disapprova'></button>"+"</td>";
                 }
                 newEl= newEl+"<td>"+"<button type='button'class='btn btn-dark fa fa-trash' title='Elimina'></button>"+"</td>";
                 newEl= newEl+"</tr>";
@@ -77,8 +77,8 @@ $(document).ready(function(){
                 dataType: "text",
                 beforeSend: function(){
                     button.parent().append("<div id='preloader'>"+
-                                "<img src='../res/adminPanelPreloader.gif'><\img>"+
-                                " <\div>");
+                                "<img src='../res/adminPanelPreloader.gif'>"+
+                                " </div>");
                     button.remove();
                 },
                 success: function (response)
@@ -89,14 +89,14 @@ $(document).ready(function(){
             
                 error:function (xhr, ajaxOptions, thrownError)
             {
-                alert(thrownError);
+               // alert(thrownError);
         
             }
             });
         }
     });
 
-    $(document).on("click",".btn-danger,.btn-success",function(){
+    $(document).on("click",".disapprova,.approva",function(){
         var button = $(this);
         var buttonContent = button.html();
         var piva = $(this).parent().siblings(".piva").text();
@@ -119,12 +119,12 @@ $(document).ready(function(){
             {   $("#preloader").before().html(buttonContent);
                 $("#preloader").remove();
 
-                alert("Modifica eseguita corretamente");
+                alert("Modifica eseguita correttamente");
             },
            
             error:function (xhr, ajaxOptions, thrownError)
            {
-              alert(thrownError);
+             //alert(thrownError);
     
            }
         });

@@ -37,7 +37,7 @@ $(document).ready(function(){
 		else
 		{
             registrationFormHash();
-            $(this).parent().submit();
+            $(this).parent().parent().submit();
         }
     });
 });
