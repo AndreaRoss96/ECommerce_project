@@ -18,78 +18,25 @@ if($cart->total_items() <= 0){
 // set customer ID in session
 $_SESSION['sessCustomerID'] = 1;
 
-// get customer details by session customer ID
-// $query = $db->query("SELECT * FROM clienti WHERE id = ".$_SESSION['sessCustomerID']);
-// $custRow = $query->fetch_assoc();
+$query = 'SELECT * FROM luogoconsegna WHERE id = ' . $_POST['location'];
+$result = $conn->query($query);
+$row = $result->fetch_assoc();
+$location = $row["luogo"];
+$idLocation = $row["id"];
+$time = $_POST['time'];
 ?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <title>Conferma carrello</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
-    <style>
-    .container{width: 100%;padding: 50px;}
-    .table{width: 65%;float: left;}
-    .shipAddr{width: 30%;float: left;margin-left: 30px;}
-    .footBtn{width: 95%; padding: auto;}
-    .orderBtn {float: right;}
-    .table thead {
-      font-size: 17px;
-      font-family: bree serif;
-    }
-    .table tbody {
-      font-size: 15px;
-      font-family: roboto;
-    }
-    .table tfoot{
-      font-size: 17px;
-      font-family: bree serif;
-    }
-    p {
-      font-family: Arial;
-      font-size: 13px;
-    }
-    .example_c {
-color: #494949 !important;
-text-transform: uppercase;
-background: #ffffff;
-padding: 20px;
-border: 4px solid #494949 !important;
-border-radius: 6px;
-display: inline-block;
-}
-
-.example_c:hover {
-color: #ffffff !important;
-background: #f6b93b;
-border-color: #f6b93b !important;
-transition: all 0.4s ease 0s;
-}
-
-.btn-danger {
-color: #fff !important;
-text-transform: uppercase;
-background: #ed3330;
-padding: 20px;
-border-radius: 5px;
-display: inline-block;
-border: none;
-}
-
-.btn-danger:hover {
-background: #434343;
-letter-spacing: 1px;
--webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
--moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
-transition: all 0.4s ease 0s;
-}
-    </style>
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/cartCheckout.css">
 </head>
 <body>
 <div id="nav"></div>
@@ -123,10 +70,10 @@ transition: all 0.4s ease 0s;
     </tbody>
     <tfoot>
         <tr>
-            <td> Presso:<br><?php echo $_POST['location']?></td>
-            <td> Alle:<br><?php echo $_POST['time']?></td>
+            <td> Presso:<br><?php echo $location?></td>
+            <td> Alle:<br><?php echo $time?></td>
             <?php if($cart->total_items() > 0){ ?>
-            <td class="text-center"><strong>Totale <?php echo $cart->total().' €'; ?></strong> <br> <p class:"spedizione">+ costo spedizione (0,50€)</p></td>
+              <td class="text-center"><strong>Totale <?php echo $cart->total().' €'; ?></strong> <br> <p class:"spedizione">+ costo spedizione (0,50€)</p></td>
             <?php } ?>
         </tr>
     </tfoot>
@@ -139,8 +86,7 @@ transition: all 0.4s ease 0s;
     </div>
     <div class="footBtn">
         <button type="button" class="btn btn-danger" onclick="history.back()">Annulla</button>
-        <!-- <a href="cartAction.php?action=placeOrder" class="btn btn-success orderBtn">Prosegui <i class="glyphicon glyphicon-menu-right"></i></a> -->
-        <div class="button_cont" align="center"><a class="example_c" href="cartAction.php?action=placeOrder&" rel="nofollow noopener">Prosegui</a></div>
+        <div class="button_cont" align="center"><a class="example_c" href="cartAction.php?action=placeOrder&deliveryTime=<?php echo $time; ?>&location=<?php echo $idLocation; ?>" rel="nofollow noopener">Prosegui</a></div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>

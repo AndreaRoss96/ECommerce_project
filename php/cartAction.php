@@ -35,11 +35,8 @@ if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQ
     }elseif($_REQUEST['action'] == 'removeCartItem' && !empty($_REQUEST['id'])){
         $deleteItem = $cart->remove($_REQUEST['id']);
         header("Location: viewCart.php");
-    }elseif($_REQUEST['action'] == 'placeOrder' && $cart->total_items() > 0 && !empty($_SESSION['badgeNumber']) && !empty($_REQUEST['deliveryTime'])){
-        // insert order details into database
-    //    $insertOrder = $db->query("INSERT INTO orders (customer_id, total_price, created, modified) VALUES ('".$_SESSION['sessCustomerID']."', '".$cart->total()."', '".date("Y-m-d H:i:s")."', '".date("Y-m-d H:i:s")."')");
-        $insertOrder = $db->query("INSERT INTO ordine (matricola, costoConsegna, importoTotale, orarioConsegna) VALUES ('".$_SESSIONI['badgeNumber']."', 0.50, '".$cart->total()."', '".$_REQUEST['deliveryTime']."')");
-                          //la query sarà "INSERT INTO ordine (matricola, costoConsegna, importoTotale) VALUES ('".$_SESSION['sessCustomerID'].", '"1"', '".$cart->total()"')"
+    }elseif($_REQUEST['action'] == 'placeOrder' && $cart->total_items() > 0 && !empty($_SESSION['badgeNumber']) && !empty($_REQUEST['deliveryTime']) && !empty($_REQUEST['location'])){
+        $insertOrder = $db->query("INSERT INTO ordine (matricola, costoConsegna, importoTotale, orarioConsegna, idluogoconsegna) VALUES ('".$_SESSION['badgeNumber']."', 0.50, '".$cart->total()."', '".$_REQUEST['deliveryTime']."', '".$_REQUEST['location']."')");
         if($insertOrder){
             $orderID = $db->insert_id; //insert_id = ritorna l'id autogenerato dell'utlima query
             $sql = '';
@@ -55,14 +52,14 @@ if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQ
                 $cart->destroy();
                 header("Location: orderSuccess.php?id=$orderID");
             }else{
-                header("Location: checkout.php");
+                header("Location: ../html/homepage.html");
             }
         }else{
-            header("Location: checkout.php");
+            header("Location: ../html/homepage.html");
         }
     }else{
-        header("Location: resturant.php?errore=67");
+        header("Location: ../html/homepage.html");
     }
 }else{
-    header("Location: resturant.php?errore=70");
+    header("Location: ../html/homepage.html");
 }
