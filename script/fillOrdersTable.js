@@ -52,8 +52,8 @@ function getOrders(){
 }
 $(document).ready(function(){    
     getOrders();
-    $(".btn").off();
-    $(document).on("click",".btn",function(){
+    $(".btn-warning").off();
+    $(document).on("click",".btn-warning",function(){
         var idOrder = $(this).parent().siblings(".idOrdine").text();
         var button = $(this);
         var buttonContent = button.html();

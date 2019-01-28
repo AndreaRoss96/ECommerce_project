@@ -58,8 +58,8 @@ function getSupplierImage(img){
 
 $(document).ready(function(){
         $("#nav").load("../html/jquery/nav.html",function(){
-        $("#userButton").empty().append("<i class='fa fa-user' title='Login'></i> <div class='icontitle'>Login</div>");
-        $("#cart").append("<div class='icontitle'>Vai al carrello</div><i class='fa fa-shopping-cart' title='Carrello'></i>");
+        $("#userButton").empty().append("<i class='fa fa-user' title='Login'></i> <div class='icontitle' style='display:inline-block'>Login</div>");
+        $("#cart").append("<div class='icontitle' style='display:inline-block'>Vai al carrello</div><i class='fa fa-shopping-cart' title='Carrello'></i>");
         $("#cart").hide();
       });
         jQuery.ajax({
@@ -69,7 +69,7 @@ $(document).ready(function(){
           success: function (response)
           {
             var userInfoCollapse = "<div class='collapse' id='userInfoCollapse'>"
-                                    +"<div id='userInfo' class='card card-body'>";
+                                    +"<div id='userInfo' class='card card-body' style='background-color : #f1f3f4'>";
 
             $.each(response,function(key,val){
                 userInfoCollapse = userInfoCollapse + "<p>" + key + " : " + val + "</p>";
@@ -78,7 +78,7 @@ $(document).ready(function(){
               userInfoCollapse = userInfoCollapse +"</div>" + "</div>";
               $("nav").after(userInfoCollapse);
               var button = $("#userButton");
-              $("#userButton").empty().append("<i class='fa fa-user' title='Login'></i> "+"<div class='icontitle'>"+response.Nome+" "+response.Cognome)+"</div>";
+              $("#userButton").empty().append("<i class='fa fa-user' title='Login'></i> "+"<div class='icontitle' style='display:inline-block'>"+response.Nome+" "+response.Cognome)+"</div>";
               button.removeAttr("href");
               button.attr("data-toggle","collapse")
               button.attr("href","#userInfoCollapse");
@@ -90,10 +90,10 @@ $(document).ready(function(){
               button.attr("aria-controls","userInfoCollapse");
 
               var logoutButton = "<form action='../php/logout.php'>"
-                                +"<button type='submit' class='btn btn-info mt-2'>Logout</button>"
+                                +"<button type='submit' class='btn btn-danger mt-2'>Logout</button>"
                                 +" </form>";
               var changePasswordButton ="<form action='passwordChange.html'>"
-                                        +"<button type='submit' class='btn btn-info mt-2'>Cambia password</button>"
+                                        +"<button type='submit' class='btn btn-warning mt-2'>Cambia password</button>"
                                         +" </form>";
               if(response.Tipo === "Cliente"){
                 $("#cart").show();
@@ -101,7 +101,7 @@ $(document).ready(function(){
               if(response.Tipo === "Fornitore"){
                  $("#userInfo > p").last().after("<p>Immagine:</p>"+imageDiv);
                  getSupplierImage("#image");
-                 var changeImage = "<form action='#'><button type='submit' id='changeImage' class='btn btn-info mt-2'>Cambia immagine profilo</button></form>";
+                 var changeImage = "<form action='#'><button type='submit' id='changeImage' class='btn btn-secondary mt-2'>Cambia immagine profilo</button></form>";
                  $("#userInfo > div").last().after(changeImage);
                  var email = response.Email;
                  var fileChooser = "<input type='file' id='fileChooser' accept='image/jpeg' style='display: none' />"
@@ -119,16 +119,7 @@ $(document).ready(function(){
                 $("#userInfo > p").last().after(changePasswordButton);
                 $("#userInfo > p").last().after(logoutButton);
               }
-
-              var valore = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
-              if(valore){
-                alert("è device");
-                $(".icontitle").hide();
-              }else{
-                alert("non è device");
-              }
         },
-
           error:function (xhr, ajaxOptions, thrownError)
         {
           var button = $("#userButton");
@@ -138,6 +129,12 @@ $(document).ready(function(){
           button.removeAttr("role","button");
           button.removeAttr("aria-expanded","false");
           button.removeAttr("aria-controls","userInfoCollapse");
+        },
+        complete : function(){
+          var valore = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+          if(valore){
+            $(".icontitle").hide();
+          }
         }
       });
 
