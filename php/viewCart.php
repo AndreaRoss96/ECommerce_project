@@ -18,6 +18,7 @@ if(!login_check($conn)){
 <head>
     <title>Carrello</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
@@ -99,6 +100,15 @@ if(!login_check($conn)){
     .btn-warning:hover {
       opacity: 0.6;
     }
+
+    @media only screen and (max-width: 600px) {
+      .container * {
+        font-size: 70%;
+      }
+      .form-control { /*Comando relativo alla quantità*/
+        font-size: 10px;
+      }
+    }
     </style>
     <script>
     function updateCartItem(obj,id){
@@ -134,7 +144,7 @@ if(!login_check($conn)){
             //prende gli elementi del carrello della sessione
             $cartItems = $cart->contents();
 
-            $selectedResturant = array();
+            $selectedrestaurant = array();
 
             foreach($cartItems as $item){
         ?>
@@ -148,7 +158,7 @@ if(!login_check($conn)){
             </td>
         </tr>
         <?php
-              array_push($selectedResturant, $item["p_iva"]);
+              array_push($selectedrestaurant, $item["p_iva"]);
             }
       }else{ ?>
         <tr><td colspan="5"><p>Non hai ancora selezionato niente!</p></td></tr>
@@ -185,7 +195,7 @@ if(!login_check($conn)){
               */
                 $maxApertura = "00:00";
                 $minChiusura = "23:59";
-                foreach ($selectedResturant as $rest_p_iva) {
+                foreach ($selectedrestaurant as $rest_p_iva) {
                   $query = 'SELECT orarioApertura, orarioChiusura FROM fornitori WHERE P_IVA=' . $rest_p_iva;
                   $result = $conn->query($query);
                   $row = $result->fetch_assoc();

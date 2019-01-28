@@ -67,7 +67,7 @@
 			else{
 				$image = '../res/noProfileImage.jpg';
 			}
-			$str = '<div id="restaurantCard" class="col-sm mb-2"> <div class="card" style="width: 18rem;"> <img class="card-img-top" src='.$image.' alt="Immagine ristorante"> <div class="card-body"> <h5 class="card-title">' . $row["nomeRistorante"] . '</h5> <p class="card-text">' . $row["descrizione"] . '</p> <a href="resturant.php?p_iva=' . $row["P_IVA"] . '" class="btn btn-primary">Visita</a> </div> </div> </div>';
+			$str = '<div id="restaurantCard" class="col-sm mb-2"> <div class="card" style="width: 18rem;"> <img class="card-img-top" src='.$image.' alt="Immagine ristorante"> <div class="card-body"> <h5 class="card-title">' . $row["nomeRistorante"] . '</h5> <p class="card-text">' . $row["descrizione"] . '</p> <a href="restaurant.php?p_iva=' . $row["P_IVA"] . '" class="btn btn-primary">Visita</a> </div> </div> </div>';
 			if ($i % 2 == 0 && $i != 0) {
 				$str = '</div> <div class="row"> <div class="col-sm"></div>' . $str;
 			}

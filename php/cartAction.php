@@ -11,15 +11,15 @@ $cart = new Cart;
 if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
 if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQUEST['p_iva']) /*&& !empty($_REQUEST['location']) && !empty($_REQUEST['time'])*/ ){
         $productID = $_REQUEST['id'];
-        $resturantPIVA = $_REQUEST['p_iva'];
-        $query = $db->query("SELECT * FROM portata WHERE id = " . $productID . " AND ristP_IVA = " .$resturantPIVA); /** aggiungere anche l'id del ristorante */
+        $restaurantPIVA = $_REQUEST['p_iva'];
+        $query = $db->query("SELECT * FROM portata WHERE id = " . $productID . " AND ristP_IVA = " .$restaurantPIVA); /** aggiungere anche l'id del ristorante */
         $row = $query->fetch_assoc();
         $itemData = array(
             'id' => $row['id'],
             'name' => $row['nome'],
             'price' => $row['prezzo'],
             'qty' => 1,
-            'p_iva' => $resturantPIVA
+            'p_iva' => $restaurantPIVA
         );
 
         $insertItem = $cart->insert($itemData);
