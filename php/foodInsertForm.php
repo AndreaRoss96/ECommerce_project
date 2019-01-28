@@ -2,6 +2,9 @@
 	include('../script/functions.php');
 	include('../php/functionsGalde.php');
 	secure_session_start();
+	if ($_SESSION['type'] !== SUPPLIER) {
+		header('location: restaurantList.php');
+	}
 ?>
 <html>
   <head>
