@@ -47,16 +47,19 @@ function supplierLogin($email,$password,$conn){//da sistemare
 
         $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
 
+        header('Location: ../html/supplierOperations.html');
+
       }
       else{
         $_SESSION['approvationError'] = true;
+        header('Location: ../html/userSupplierLogin.html');
        // echo "still not approved";
       }
     }else {
       $_SESSION['loginError'] = true;
+      header('Location: ../html/userSupplierLogin.html');
       //echo "wrong username/password combination2";
     } 
-    header('Location: ../html/userSupplierLogin.html');
     exit;
 }
 function clientLogin($email,$password,$conn){
@@ -82,11 +85,13 @@ function clientLogin($email,$password,$conn){
 
       $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
 
+      header('Location: ../php/restaurantList.php');
+
     }else {
       //echo "wrong username/password combination";
       $_SESSION['loginError'] = true;
+      header('Location: ../html/userSupplierLogin.html');
     }
-    header('Location: ../html/userSupplierLogin.html');
     exit; 
 }
 function adminLogin($email,$password,$conn){

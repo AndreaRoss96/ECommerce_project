@@ -8,7 +8,7 @@
 ?>
 <html>
   <head>
-    <title>Inserimento pietanze</title>
+    <title>Gestione pietanze</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../css/navbar.css">
 	<link rel="stylesheet" href="../css/listgroup.css">
+	<link rel="stylesheet" href="../css/colors.css">
 	<!--<link rel="stylesheet" href="../css/table.css">-->
   </head>
   <body>
