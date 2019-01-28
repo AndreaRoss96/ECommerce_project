@@ -26,6 +26,7 @@ $stmt->close();
   <script src="../html/jquery/getNav.js"></script>
   <script src="../html/jquery/getFooter.js"></script>
   <link rel="stylesheet" href="../css/resturant.css">
+  <title>Ristorante</title>
 </head>
 <body>
   <div id="nav"> </div>
@@ -70,7 +71,7 @@ $stmt->close();
                 $toPrint .= " active";
                 $isActive = 0;
               }
-              $toPrint .= "\" id=\"list-" . $row["nomeTag"] . "-list\" data-toggle=\"list\" href=\"#list-" . $row["nomeTag"] . "\" role=\"tab\" aria-controls=\"" . $row["nomeTag"] . "\">" . $row["nomeTag"] . "</a>";
+              $toPrint .= "\" id=\"list-" . $row["nomeTag"] . "-list\" data-toggle=\"list\" href=\"#list-" . $row["nomeTag"] . "\" role=\"tab\">" . $row["nomeTag"] . "</a>";
               echo $toPrint;
           }
           $conn->close();
@@ -120,6 +121,7 @@ $stmt->close();
                         </div>
                       </a>
                   </li>
+                </ul>
                 <?php
                 }
                   $conn->close();
