@@ -73,3 +73,12 @@ ul>.list-group-item:hover {
   border: 1px solid;
   color: black;
 }
+
+.btn, .btn-warning {
+  margin: 30px 15px;
+   opacity: 1;
+   transition: 0.3s;
+ }
+ .btn-warning:hover {
+   opacity: 0.6;
+ }
