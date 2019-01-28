@@ -6,7 +6,6 @@ include 'Cart.php';
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-//secure_session_start();
 
 $cart = new Cart;
 
@@ -86,8 +85,9 @@ $time = $_POST['time'];
     </div>
     <div class="footBtn">
         <button type="button" class="btn btn-danger" onclick="history.back()">Annulla</button>
-        <div class="button_cont" align="center"><a class="example_c" href="cartAction.php?action=placeOrder&deliveryTime=<?php echo $time; ?>&location=<?php echo $idLocation; ?>" rel="nofollow noopener">Prosegui</a></div>
+        <a class="link-action" href="cartAction.php?action=placeOrder&deliveryTime=<?php echo $time; ?>&location=<?php echo $idLocation; ?>" rel="nofollow noopener"><button type="button" class="button_cont btn btn-success" align="center">Prosegui</button></a>
     </div>
+
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

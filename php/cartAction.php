@@ -50,7 +50,7 @@ if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQ
 
             if($insertOrderItems){
                 $cart->destroy();
-                header("Location: orderSuccess.php?id=$orderID");
+                header("Location: ../html/orderSuccess.html");
             }else{
                 header("Location: ../html/homepage.html");
             }
