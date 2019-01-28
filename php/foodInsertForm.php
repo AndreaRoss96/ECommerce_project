@@ -6,7 +6,8 @@
 		header('location: restaurantList.php');
 	}
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="it-IT">
   <head>
     <title>Gestione pietanze</title>
     <meta charset="utf-8">
@@ -98,10 +99,10 @@
 					<thead>
 						<tr id="headerRow">
 						<th scope="col-sm">#</th>
-						<th scope="col-sm">Food Name</th>
-						<th scope="col-sm">Ingredients Food</th>
-						<th scope="col-sm">Tag Food</th>
-						<th scope="col-sm">Price Food</th>
+						<th scope="col-sm">Nome portata</th>
+						<th scope="col-sm">Ingredienti</th>
+						<th scope="col-sm">Tag</th>
+						<th scope="col-sm">Prezzo</th>
 						</tr>
 					</thead>
 					<tbody>
