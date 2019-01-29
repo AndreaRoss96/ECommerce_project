@@ -37,6 +37,7 @@ $time = $_POST['time'];
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Roboto" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/cartCheckout.css">
+    <link rel="stylesheet" href="../css/colors.css">
 </head>
 <body>
 <div id="nav"></div>
