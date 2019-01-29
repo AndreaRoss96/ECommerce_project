@@ -48,7 +48,7 @@ if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id']) && !empty($_REQ
                 $pivas[] = $item['p_iva'];
             }
             // insert order items into database
-            array_unique($pivas);
+            $pivas = array_unique($pivas);
             foreach($pivas as $p){
                 $query = "SELECT email from fornitori where P_IVA =".$p;
                 echo $query;

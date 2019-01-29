@@ -31,7 +31,13 @@ $stmt->close();
 <body>
   <div id="nav"> </div>
   <div class="card mb-3">
-    <img class="card-img-top" src="../profileImages/<?php echo $email; ?>.jpg" alt="Progifle image">
+  <?php
+  if(file_exists("../profileImages/". $email.".jpg")) { ?>
+    <img class="card-img-top" src="../profileImages/<?php echo $email; ?>.jpg" alt="Profile image">
+  <?php } else { ?>
+  <img class="card-img-top" src="../res/noProfileImage.jpg" alt="Profile image">
+  <?php } ?>
+
     <div class="card-body">
       <h5 class="card-title"><?php echo $nomeRistorante; ?></h5>
       <p class="card-text"><?php echo $descrizione; ?></p>
