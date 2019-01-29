@@ -18,7 +18,6 @@
 	<link rel="stylesheet" href="../css/navbar.css">
 	<link rel="stylesheet" href="../css/listgroup.css">
 	<link rel="stylesheet" href="../css/colors.css">
-	<!--<link rel="stylesheet" href="../css/table.css">-->
   </head>
   <body>
   <div id="nav"></div>
@@ -32,7 +31,7 @@
 			<div class="col-sm">
 					<form action="../php/foodManager.php" method="post" class="border border-light p-5">
 						<div class="row">
-							<div class="col col-xs-4">  
+							<div class="col col-xs-4">
 								<label for="defaultFoodName">Nome pietanza</label>
 								<input type="text" name="nomePietanza" id="defaultFoodName" class="form-control mb-4" placeholder="Bucatini all'amatriciana" required>
 								<input type="text" name="nomePietanzaVecchio" id="defaultFoodOldName" class="form-control mb-4" hidden>
@@ -69,7 +68,7 @@
 						</div>
 						<div class="row">
 							<div class="col col-xs-4">
-								<label for="defaultPriceFood">Prezzo</label> 
+								<label for="defaultPriceFood">Prezzo</label>
 								<input type="number" name="prezzo" id="defaultPriceFood" class="form-control mb-4" required>
 						</div>
 					</div>
@@ -77,12 +76,12 @@
 					<div class="row">
 							<div class="col col-xs-4">
 								<button class="btn btn-info my-4 btn-block bg-success" name="aggiungi" type="submit">
-									<i class="fa fa-plus-circle" > Aggiungi</i> 
+									<i class="fa fa-plus-circle" > Aggiungi</i>
 								</button>
 							</div>
 							<div class="col col-xs-4">
 								<button class="btn btn-info my-4 btn-block" name="modifica" type="submit">
-									<i class="fa fa-pencil-square" > Modifica</i> 
+									<i class="fa fa-pencil-square" > Modifica</i>
 								</button>
 							</div>
 							<div class="col col-xs-4">
@@ -116,9 +115,9 @@
     </div>
     <div id="footer"></div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
 	 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
@@ -131,6 +130,6 @@
 	<script src="../script/listgroup.js"></script>
     <script src="../html/jquery/getNav.js"></script>
 	<script src="../script/table.js"></script>
-	
+
   </body>
 </html>

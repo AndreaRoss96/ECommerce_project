@@ -140,7 +140,7 @@ $stmt->close();
       </div>
     </div>
   </div>
-  <a onclick="location.href = 'restaurantList.php';" class="btn btn-warning"><i class="fas fa-chevron-left"></i> Prendi qualcos'altro</a>
+  <a onclick="location.href = 'restaurantList.php';" class="btn btn-warning"><i class="fas fa-chevron-left"></i> Lista dei ristoranti</a>
   <div id="footer"></div>
 </body>
 </html>
