@@ -9,7 +9,7 @@
 	if(login_check($conn) and ($_SESSION['type']==SUPPLIER)){
         if(isset($_POST["getOrders"])){
             $pIva = $_SESSION['P_IVA'];
-            $query ='SELECT c.matricola,c.email,o.id,p.nome,dop.quantita,lc.luogo,o.orarioConsegna,dop.inConsegna FROM ordine o, dettaglioordine dop, luogoconsegna lc, portata p, clienti c WHERE c.matricola=o.matricola AND o.id = dop.idOrdine AND lc.id = o.idLuogoConsegna AND p.id = dop.idPortata AND p.ristP_IVA = dop.ristP_IVA AND dop.ristP_IVA =' . $pIva;
+            $query ='SELECT c.matricola,c.email,o.id,p.nome,dop.quantita,lc.luogo,o.orarioConsegna,dop.inConsegna FROM ordine o, dettaglioordine dop, luogoconsegna lc, portata p, clienti c WHERE c.matricola=o.matricola AND o.id = dop.idOrdine AND lc.id = o.idLuogoConsegna AND p.id = dop.idPortata AND p.ristP_IVA = dop.ristP_IVA AND dop.ristP_IVA =' . $pIva." order by o.id";
             if($result = $conn->query($query))
             {
                 if ($result->num_rows > 0) {

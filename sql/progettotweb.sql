@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 28, 2019 alle 22:37
+-- Creato il: Gen 29, 2019 alle 22:14
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.3.0
 
@@ -65,7 +65,7 @@ CREATE TABLE `clienti` (
 
 INSERT INTO `clienti` (`nome`, `cognome`, `email`, `password`, `salt`, `matricola`, `telefono`) VALUES
 ('Federico', 'Galdenzi', 'federicogal97@gmail.com', '23eb3badac1bd9d345091e14a5268367cf148f01f87de7df6f1ab0536d1fd3e30f94c9899152a1bad7cad53d4a8a148c96e35caf8e9c3ad35a1a56e9f160e5fe', 'b183df2ee1f51d35c800fa43b4635fe740552522b321ea3457af2d92356ae75ce35b11dc5117e80bca418c084062c1da2b92cabf997964c0600cb2bdb2e91f3e', '1234543', '3459872354'),
-('Mario', 'Rossi', 'mario@rossi.it', '88b38e629087df690eb39266742e3b4449f840b8a5672a512389407375d280d373cfe4728337b8ff0166967e2670b1e20bd52642c973a4c2701c869aaae36e58', '12cce5d357f7cc16c688d658e9ed8919580952ecd907c08a7abcc8aef389bf6af2c9a1d4efd13f231e42a6488c003bdc5363759fc13743638df22c3d5269fb5f', '792482', '333');
+('Mario', 'Rossi', 'mario@rossi.it', '30bd5e8f3b56b362dadc8c5c2443251b57f6fca70f241ffa00b3c07950ff9eb962e7df5ec1984fba8df412b121bd7c622cae834821113e77f5178deaa019dc9a', 'bdb1603d19d0479a3c86a6a91cf4c0026213029c58007c18f7135e51014639818553f6c92187188fc83bd146bf4b865d3d465d050a24cbdedee13f3ab73956ec', '792482', '333');
 
 -- --------------------------------------------------------
 
@@ -87,9 +87,22 @@ CREATE TABLE `dettaglioordine` (
 
 INSERT INTO `dettaglioordine` (`idPortata`, `ristP_IVA`, `idOrdine`, `quantita`, `inConsegna`) VALUES
 (1, '12321232123', 26, 5, 1),
+(1, '12321232123', 29, 2, 1),
+(2, '12321232123', 31, 1, 1),
 (3, '12321232123', 25, 20, 1),
+(3, '12321232123', 29, 10, 1),
 (4, '09876543212', 25, 10, 1),
-(4, '09876543212', 26, 2, 1);
+(4, '09876543212', 26, 2, 1),
+(4, '09876543212', 27, 1, 1),
+(8, '12321232123', 31, 1, 1),
+(9, '12321232123', 28, 1, 1),
+(9, '12321232123', 32, 1, 1),
+(13, '0417230404', 28, 1, 1),
+(13, '0417230404', 30, 30, 1),
+(14, '0417230404', 31, 1, 1),
+(15, '0417230404', 28, 1, 1),
+(15, '0417230404', 30, 2, 1),
+(15, '0417230404', 32, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -118,11 +131,10 @@ CREATE TABLE `fornitori` (
 --
 
 INSERT INTO `fornitori` (`P_IVA`, `nomeRistorante`, `nomeReferente`, `cognomeReferente`, `descrizione`, `telefono`, `indirizzoMaps`, `email`, `password`, `salt`, `orarioApertura`, `orarioChiusura`, `approvazioneAmministratore`) VALUES
-('09876543212', 'Da Maio', 'Maio', 'Dario', 'Deliziosi pasti', '3771553260', 'Via XXV Aprile 326', 'damaio@mail.it', '3c24e918b9c2e1ff304627a48ea68b4b1e2a22ed940bb76e03f11f1eaf2c5261c503af1e257aab34be7ccdbfb81f3a1db572e55d92c88669ddd934b315097fb7', '61e9bd414d6936510d86eca016b65effeea6b5c3775357dc5837ba4ac2946f94d70c351102b6edadabe8e04624fc2557aa5abb586f8fd44569d9ff490d2d8a6e', '09:00', '19:00', 1),
-('12321232123', 'Da Jacopo', 'Jacopo', 'Corina', 'ciao', '34343', 'Via Via 1', 'jacopocorina@live.it', '22a82edd6a62910c48dec286e853d30ac2d37eb49dbd98ba2d35a64797190a80e9c18c98d6f5d921a7aa44a2d48e1a47b78aacf46fd33ad8e0ac446fb3a922d8', '185be0fdd84925a962d25b274fd85ed45911979b9631e014fe35fbf2f871c632ae03f28a77f13271b415709c141c7d876e3b840baaa25d7872443ea27059c083', '10:00', '12:00', 1),
-('12341234123', 'prova', 'j', 'j', 'jj', '9', 'j', 'j@live.it', 'b9ab43eda2b7b0253f248adee4e693eaf7b9da7ba82bdc3bf8277cea89d1fb122a2ba555e209257a42a9b75a26b3453ce88c410fb7d647a16bd6d575f180e616', '3e7c0561cc15bff3c9cf9c7cafea0f8b47d8623bcbf9e1c7bd00bcc1d2b5d7ed6598be25b03cdc88183b64f156f1803735e04b45fd5f4e5e2c2e07546fb0b6cc', '09:09', '09:09', 1),
-('12345678901', 'Piadineria da Jonny', 'Jonny', 'Stecchino', 'piade', '3333333333', 'Via rossi 45', 'prova@prova.it', '45a12a3c836df32279ea08b23f6db15408067fbb55b717a96c5955d83dfe7cf343bcdd4c462672380451594527156942d430f65acbe9dc670a3459a02eb9b857', '68a5070ed6d43b83f4d3c2ef8172668a95f2b65c57dc27a9ce6bd4db769a9a3577d789aeb43bf1874fb9b10ccd1f1a1903146f691847b215d8508f8183c35d3a', '10:00', '12:00', 1),
-('9', '9', '9', '9', '9', '9', '9', 'jajaaj@gmail.com', 'c1d57e848c0bacf645aa96a1fe4a8a2b7c723761396a86c1aa5c03f4b02ebb3ffd79af80fd22ef0f0c14425aba1a2a2094411cf189542ecfc0cf0257f6b0f288', '2c5c551f6d868bd4b169b0168dde7091a016948bb815560422a574120add7296232c94d4fc2407bc9cc98dff6b0fdb23f88e23a58259387907169d8862e298e9', '09:09', '09:09', 0);
+('0417230404', 'Lo sfizio', 'Mauro', 'Mastichelli', 'Una lievitazione con pasta madre, rende il nostro impasto leggero e digeribile!\r\nUsiamo farine bio a km 0 da semi antichi non modificabili OGM\r\nOgni 10 pizze acquistate 1 Ã¨ in OMAGGIO*!\r\n(*dal valore massimo di 4â‚¬)', '3477425440', 'Piazza dei Partigiani 4', 'pizzerialosfizio@mail.it', 'f5ab1f90be1c0cc62f8a3dcbe5b8b9477e2e0ed1c426a0dcbb1fd69d369a9efdbb923ce987f239a465f1fad25bf2c9c1b335d6b6bbd44015106aaed99e07d73e', '2d792f921bd8bd9cd6b274e00854731fa5be19792273bf22a85ce07a11d9af23fbbe3cb00c969d2a154e958eabb96cdee64081bb25583df0ea0eda71ad861be3', '07:00', '22:00', 1),
+('09876543212', 'Vegan house', 'Giacomi', 'Bianchi', 'Deliziosi pasti', '3771553260', 'Via XXV Aprile 326', 'veganhouse@mail.it', '5447babbe53dfd8415db3e28c506da862d58b01f04791cfeaed6ea73369267dc4a0c352282942b7e12b00f25c608baa713e7954b42263c0a0b1f144751c6057d', '8f7977a4fc1d491b065d3cb9c853354265ce7cbe352fff95a465f94cf1661a8e5ed1829baf99feaf7fe633dcfb48d833c11ad9c34f57dc816ae29052604c3cf2', '09:00', '19:00', 1),
+('12321232123', 'Da Jacopo', 'Jacopo', 'Corina', 'Solo prodotti locali', '34343', 'Via Verdi 1', 'jacopocorina@live.it', '2ee5204cd1dfd242267e07354828c689059a47a8451750eb4b48fcfa27d145b00eb87cb3aea20cce34af537c07edd9ad2bbc773f8e667dbe2efe473e75501424', '72955b3b98a442a78f989b9db9bd7ea012575f6be88a16972f2d31ce37a5f8c33876450614badb2a04708889de05444b5c5d9d97c6ea2f499fc37c062e17c2fc', '10:00', '12:00', 1),
+('12345678901', 'Piadineria da Jonny', 'Jonny', 'Stecchino', 'piade', '3333333333', 'Via rossi 45', 'prova@prova.it', '45a12a3c836df32279ea08b23f6db15408067fbb55b717a96c5955d83dfe7cf343bcdd4c462672380451594527156942d430f65acbe9dc670a3459a02eb9b857', '68a5070ed6d43b83f4d3c2ef8172668a95f2b65c57dc27a9ce6bd4db769a9a3577d789aeb43bf1874fb9b10ccd1f1a1903146f691847b215d8508f8183c35d3a', '10:00', '12:00', 1);
 
 -- --------------------------------------------------------
 
@@ -186,9 +198,35 @@ INSERT INTO `notifiche` (`id`, `email`, `testo`, `letto`, `timestamp`) VALUES
 (26, 'federicogal97@gmail.com', 'La password associata all\' account federicogal97@gmail.com e\' stata modificata con successo', 1, '2019-01-28 21:27:29'),
 (27, 'jacopocorina@live.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-28 21:29:19'),
 (28, 'damaio@mail.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-28 21:29:25'),
-(29, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Maio e\' pronto ed e\' in consegna', 0, '2019-01-28 21:31:20'),
-(30, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Jacopo e\' pronto ed e\' in consegna', 0, '2019-01-28 21:32:10'),
-(31, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Jacopo e\' pronto ed e\' in consegna', 0, '2019-01-28 21:32:13');
+(29, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Maio e\' pronto ed e\' in consegna', 1, '2019-01-28 21:31:20'),
+(30, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Jacopo e\' pronto ed e\' in consegna', 1, '2019-01-28 21:32:10'),
+(31, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Jacopo e\' pronto ed e\' in consegna', 1, '2019-01-28 21:32:13'),
+(32, 'damaio@mail.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-28 22:06:28'),
+(33, 'mario@rossi.it', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Maio e\' pronto ed e\' in consegna', 1, '2019-01-28 22:24:52'),
+(34, 'mario@rossi.it', 'La password associata all\' account mario@rossi.it e\' stata modificata con successo', 1, '2019-01-29 07:43:36'),
+(35, 'jacopocorina@live.it', 'La password associata all\' account jacopocorina@live.it e\' stata modificata con successo', 1, '2019-01-29 07:45:56'),
+(36, 'veganhouse@mail.it', 'La password associata all\' account veganhouse@mail.it e\' stata modificata con successo', 1, '2019-01-29 09:09:46'),
+(37, 'amministratoreprogettotweb@gmail.com', 'Un nuovo fornitore (info@pizzerialosfizio.it) si e\' registrato e dovra\' essere approvato', 0, '2019-01-29 09:22:45'),
+(38, 'info@pizzerialosfizio.it', 'L\' account registrato con la seguente e-mail:info@pizzerialosfizio.it e\' stato approvato.\r\nOra puoi effettuare il login', 1, '2019-01-29 09:24:37'),
+(39, 'jacopocorina@live.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 10:46:12'),
+(40, 'info@pizzerialosfizio.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 10:46:16'),
+(41, 'info@pizzerialosfizio.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 10:46:24'),
+(42, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Lo sfizio e\' pronto ed e\' in consegna', 1, '2019-01-29 10:50:28'),
+(43, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Jacopo e\' pronto ed e\' in consegna', 1, '2019-01-29 10:51:02'),
+(44, 'jacopocorina@live.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 10:52:44'),
+(45, 'jacopocorina@live.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 10:52:50'),
+(46, 'pizzerialosfizio@mail.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 10:57:56'),
+(47, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Lo sfizio e\' pronto ed e\' in consegna', 1, '2019-01-29 10:58:45'),
+(48, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Jacopo e\' pronto ed e\' in consegna', 1, '2019-01-29 12:09:06'),
+(49, 'pizzerialosfizio@mail.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 12:12:26'),
+(50, 'jacopocorina@live.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 12:12:40'),
+(51, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Lo sfizio e\' pronto ed e\' in consegna', 0, '2019-01-29 12:13:47'),
+(52, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Jacopo e\' pronto ed e\' in consegna', 0, '2019-01-29 12:19:48'),
+(53, 'jacopocorina@live.it', 'Hai ricevuto un nuovo ordine', 1, '2019-01-29 13:53:40'),
+(54, 'pizzerialosfizio@mail.it', 'Hai ricevuto un nuovo ordine', 0, '2019-01-29 13:53:44'),
+(55, 'federicogal97@gmail.com', 'Gentile cliente, la avvisiamo che il suo ordine presso Da Jacopo e\' pronto ed e\' in consegna', 0, '2019-01-29 13:55:30'),
+(56, 'jacopocorina@live.it', 'L\' account registrato con la seguente e-mail:jacopocorina@live.it e\' stato temporaneamente disabilitato\r\nRiceverÃ  ulteriori informazioni al piÃ¹ presto.', 0, '2019-01-29 13:59:20'),
+(57, 'jacopocorina@live.it', 'L\' account registrato con la seguente e-mail:jacopocorina@live.it e\' stato approvato.\r\nOra puoi effettuare il login', 0, '2019-01-29 14:00:06');
 
 -- --------------------------------------------------------
 
@@ -201,7 +239,7 @@ CREATE TABLE `ordine` (
   `importoTotale` int(11) NOT NULL,
   `costoConsegna` int(11) NOT NULL,
   `matricola` varchar(10) COLLATE utf8_bin NOT NULL,
-  `orarioConsegna` varchar(5) COLLATE utf8_bin NOT NULL,
+  `orarioConsegna` varchar(20) COLLATE utf8_bin NOT NULL,
   `idLuogoConsegna` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -211,7 +249,13 @@ CREATE TABLE `ordine` (
 
 INSERT INTO `ordine` (`id`, `importoTotale`, `costoConsegna`, `matricola`, `orarioConsegna`, `idLuogoConsegna`) VALUES
 (25, 230, 1, '1234543', '10:00', 1),
-(26, 64, 1, '1234543', '10:00', 1);
+(26, 64, 1, '1234543', '10:00', 1),
+(27, 7, 1, '792482', '09:00', 1),
+(28, 16, 1, '1234543', '11:10 - 11:20', 2),
+(29, 100, 1, '1234543', '10:00 - 10:10', 1),
+(30, 104, 1, '1234543', '07:00 - 07:10', 1),
+(31, 35, 1, '1234543', '11:20 - 11:30', 1),
+(32, 13, 1, '1234543', '11:10 - 11:20', 1);
 
 -- --------------------------------------------------------
 
@@ -233,9 +277,20 @@ CREATE TABLE `portata` (
 
 INSERT INTO `portata` (`id`, `ristP_IVA`, `nome`, `descrizione`, `prezzo`) VALUES
 (1, '12321232123', 'pasta al sugo', 'pasta, sugo di carne bovina', 10),
-(2, '12321232123', 'sella \'al rosto\'', 'na sella de cavallo \'al rosto\'', 20),
+(2, '12321232123', 'Arrostino', 'Arrostino di maiale', 20),
 (3, '12321232123', 'bucatini', 'bucatini ,sugo', 8),
-(4, '09876543212', 'Piada con salsiccia', 'piada, salsiccia', 7);
+(4, '09876543212', 'Piada con salsiccia', 'piada, salsiccia', 7),
+(5, '12321232123', 'Spaghetti alla carbonara', 'Spaghetti, Guanciale, Tuorli, Pecorino romano, Sale e pepe nero.', 7),
+(6, '12321232123', 'Spaghetti all\'Amatriciana', 'Spaghetti, Pomodori pelati, Guanciale, Pecorino romano, Sale, Olio extravergine d\'oliva, Peperoncino fresco, Vino bianco. ', 8),
+(7, '12321232123', 'Cosce di pollo al forno', 'Cosce di pollo, Patate, Sale, Pepe, Olio extravergine d\'oliva, Rosmarino, Timo, Paprika piccante', 10),
+(8, '12321232123', 'Salmone al forno', 'Tranci di salmone, Patate, Scorza di limone, Succo di limone, Vino bianco, Olio extravergine d\'oliva, Prezzemolo, Sale, Pepe.', 9),
+(9, '12321232123', 'Castagnole', 'Burro, Farina 00, Uova, Zucchero, Scorza di limone, Liquore all\'anice, Sale, Lievito in polvere, Baccello di vaniglia', 6),
+(10, '09876543212', 'Torta al cioccolato', 'latte di soia, olio di oliva, zucchero, cacao, farina, bicarbonato, vaniglia, uvetta, noci', 6),
+(11, '09876543212', 'Burger di ceci e verdure', 'Ceci, Cipolla, Ravanelli, Sedano, Carota, Capperi, Senape, Prezzemolo, Olio extravergine di oliva', 6),
+(12, '09876543212', 'Estasi verde', 'Piadina, bieta costa, cipolla bianca, olio extravergine di oliva, aglio, pepe nero, salvia, rosmarino, peperoncino in polvere.', 7),
+(13, '0417230404', 'Marinara', 'Pomodoro, aglio, olio, prezzemolo', 3),
+(14, '0417230404', '4 stagioni', 'Pomodoro, mozzarella, funghi trifolati in casa', 6),
+(15, '0417230404', 'Fantasia verdure (vegan)', 'pomodoro, radicchio, funghi freschi, pomodorini, rucola', 7);
 
 -- --------------------------------------------------------
 
@@ -260,7 +315,8 @@ INSERT INTO `tag` (`nomeTag`, `id`) VALUES
 ('Dessert', 7),
 ('Carne', 8),
 ('Pesce', 9),
-('Vegano', 10);
+('Vegano', 10),
+('Pizza', 11);
 
 -- --------------------------------------------------------
 
@@ -285,7 +341,27 @@ INSERT INTO `tagportata` (`idPortata`, `ristP_IVA`, `idTag`) VALUES
 (3, '12321232123', 3),
 (4, '09876543212', 5),
 (4, '09876543212', 6),
-(4, '09876543212', 8);
+(4, '09876543212', 8),
+(5, '12321232123', 4),
+(5, '12321232123', 8),
+(6, '12321232123', 4),
+(6, '12321232123', 8),
+(7, '12321232123', 5),
+(7, '12321232123', 8),
+(8, '12321232123', 5),
+(8, '12321232123', 9),
+(9, '12321232123', 7),
+(10, '09876543212', 7),
+(10, '09876543212', 10),
+(11, '09876543212', 5),
+(11, '09876543212', 6),
+(11, '09876543212', 10),
+(12, '09876543212', 5),
+(12, '09876543212', 10),
+(13, '0417230404', 11),
+(14, '0417230404', 11),
+(15, '0417230404', 10),
+(15, '0417230404', 11);
 
 --
 -- Indici per le tabelle scaricate
@@ -359,25 +435,25 @@ ALTER TABLE `luogoconsegna`
 -- AUTO_INCREMENT per la tabella `notifiche`
 --
 ALTER TABLE `notifiche`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT per la tabella `ordine`
 --
 ALTER TABLE `ordine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT per la tabella `portata`
 --
 ALTER TABLE `portata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT per la tabella `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

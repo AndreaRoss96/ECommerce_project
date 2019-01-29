@@ -1,11 +1,9 @@
 cliente:
-
-mario@rossi.it pass:mariorossi
-
+federicogal97@gmail.com pass:ciao
+mario@rossi.it pass:ciao
 fornitore:
-
-jacopocorina@live.it pass:jacopocorina
-
+pizzerialosfizio@mail.it pass:ciao
+jacopocorina@live.it pass:ciao
 amministratore:
 
 amministratoreprogettotweb@gmail.com pass: admin1234!
