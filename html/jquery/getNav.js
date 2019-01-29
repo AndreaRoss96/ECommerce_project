@@ -112,7 +112,12 @@ $(document).ready(function(){
               var changePasswordButton ="<form action='../html/passwordChange.html'>"
                                         +"<button type='submit' class='btn btn-warning mt-2'>Cambia password</button>"
                                         +" </form>";
+              
               if(response.Tipo === "Cliente"){
+                $("#cart").show();
+              }
+              else if(response.Tipo === "Fornitore"){
+                $("#cart").empty().removeAttr("href").attr("href","../html/SupplierOperations.html").append("<div class='icontitle' style='display:inline-block'>Strumenti</div> <i class='fa fa-cog' title='Strumenti'></i>")
                 $("#cart").show();
               }
               if(response.Tipo === "Fornitore"){
