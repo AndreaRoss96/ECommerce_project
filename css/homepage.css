@@ -31,7 +31,7 @@
     background-size: cover;
   }
   /* Button effect */
-  .btn {
+  .button {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -44,19 +44,19 @@
     cursor: pointer;
   }
   
-  .joinBtn:hover{
+  .joinbutton:hover{
     color: black;
     background-color: #3e8e41;
   }
   
-  .btn span {
+  .button span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
   }
   
-  .btn span:after {
+  .button span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -65,12 +65,12 @@
     transition: 0.5s;
   }
   
-  .btn:hover span:after {
+  .button:hover span:after {
     opacity: 1;
     right: 0;
   }
   
-  .btn:hover span {
+  .button:hover span {
     padding-right: 25px;
   }
   /* Button effect end */
@@ -87,7 +87,7 @@
     border-radius: 5px;
   }
   
-  p {
+  .buttonContainer>p {
     text-align: center;
   }
   
