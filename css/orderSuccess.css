@@ -85,8 +85,7 @@ button {
     font-size: 500%;
   }
 
-    .success-modal .info .continue {
-      font-size: 400%;
-    }
-
-
+  .success-modal .info .continue {
+    font-size: 400%;
+  }
+}
